@@ -26,13 +26,13 @@ world.events.tick.subscribe((event)=>{
 })
 
 interface ScoreBaseTickCache {
-    Get : ScoreboardObjective[],
+    GetObject : ScoreboardObjective[],
     GetAllObj : ScoreboardObjective[],
     GetWithSign : (Object | number)[]
 }
 
 const ScoreBaseTickCache = {
-    Get : ScoreBaseTickCacheGet,
+    GetObject : ScoreBaseTickCacheGet,
     GetAllObj : ScoreBaseTickCacheGetAllObj,
     GetWithSign : ScoreBaseTickCacheGetWithSign
 }

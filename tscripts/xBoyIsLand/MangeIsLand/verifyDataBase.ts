@@ -1,22 +1,33 @@
 import   ScoreBase      from "../../lib/xboyTools/scoreBase/rw";
 import   ScoreBaseTickCache      from "../../lib/xboyTools/scoreBase/heart";
+import config from "../config";
 
 let ScoreBaseSnapshot = ScoreBaseTickCache.GetAllObj();
 
 // @ts-ignore
-const checkScoreObjectExist = (ScoreObjectName : string) : boolean => {
-    let _a = 0;
-    ScoreBaseSnapshot.forEach((ScoreObject)=>{if(ScoreObjectName === ScoreObject.id)_a++;});
-    return Boolean(_a)
+const checkScoreObjectExist = (ScoreObjectName : string) : boolean =>  !!Array.from(ScoreBaseSnapshot).find((ScoreObject)=>{if(ScoreObjectName === ScoreObject.id)return 1;});
+
+const verif = function(){
+    ScoreBaseSnapshot = ScoreBaseTickCache.GetAllObj();
+    ["##xSkyLands##","##xSkyPlayers##","##xSkyConfigs##","##xSkyLevels##"].forEach((_)=>{
+        checkScoreObjectExist(_) 
+        ? console.error(_,"存在")
+        : (ScoreBase.NewObjectAsync('"'+_+'"', '"'+_+'"',"dummy"),console.error(_,"不存在但已创建"));
+    })
+// @ts-ignore
+    ["##xSkyLands##" ,"##xSkyPlayers##"].forEach((_:string)=>ScoreBase.GetPartic(ScoreBaseTickCache.GetObject(_)).forEach((__) => {
+        checkScoreObjectExist(__.displayName) 
+        ? console.error(_,  "数据存在==>",__.displayName)
+        : console.error(_,"数据不存在==>",__.displayName);
+    }))
+    ScoreBase.AssPartic("##xSkyLands##currentUID",ScoreBase.GetObject("##xSkyConfigs##"))
+    ? console.error(  "数据存在==>","##xSkyLands##currentUID")
+    : (ScoreBase.AddPointsAsync('"'+"##xSkyLands##currentUID"+'"','"'+"##xSkyLands##currentUID"+'"',"0"),console.error("数据不存在但已创建==>","##xSkyLands##currentUID"));
+
+
+    (ScoreBase.GetPoints("##xSkyConfigs##","##xSkyLands##currentUID") < (config.HoldRadius*2+1)**2)
+    ? ScoreBase.SetPointsAsync('"'+"##xSkyLands##currentUID"+'"','"'+"##xSkyLands##currentUID"+'"',((config.HoldRadius*2+1)**2).toFixed(0))
+    : 0;
 }
 
-let a = function(){
-["##xSkyLands##","##xSkyPlayers##","##xSkyConfigs##","##xSkyLevels##"].forEach((_)=>{
-    checkScoreObjectExist(_) 
-    ? console.error(_,"存在")
-    : (ScoreBase.NewObjectAsync('"'+_+'"', '"'+_+'"',"dummy"),console.error(_,"不存在但已创建"))
-})
-
-}
-
-export default a;
+export default verif;
