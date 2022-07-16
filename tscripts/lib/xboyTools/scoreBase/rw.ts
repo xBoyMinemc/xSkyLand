@@ -18,7 +18,7 @@ const GetScoreBoard    : Scoreboard = world.scoreboard;
 const GetScoreObject    = (...args: string[]) : ScoreboardObjective|ScoreboardObjective[] =>{return  args.length ? GetScoreBoard.getObjective(args[0])    : GetScoreBoard.getObjectives()};
 const GetScorePartic    = (...args: { getParticipants: () => ScoreboardIdentity[]; }[]) =>{return  args.length ? args[0].getParticipants() : GetScoreBoard.getParticipants()};
 // @ts-ignore
-const GetScorePoints    = (object : ScoreboardObjective|string,partic: string) => {return  Array.from(((typeof object == "string" ) ? GetScoreObject(object) : object).getScores()).find((_)=>_.participant.displayName == partic).score}
+const GetScorePoints    = (object : ScoreboardObjective|string,partic: string) : number => {return  Array.from(((typeof object == "string" ) ? GetScoreObject(object) : object).getScores()).find((_)=>_.participant.displayName == partic).score}
 
 
 // @ts-ignore

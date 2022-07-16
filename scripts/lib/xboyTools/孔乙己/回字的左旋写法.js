@@ -43,8 +43,8 @@ const kyj = {
 };
 let x = -9, y = -9;
 // export default kyj;
-for (let x = -9; x <= 9; x++)
-    for (let y = -9; y <= 9; y++)
-        // console.log(x,y,pos2index([x,y]))
-        if (!([x, y].toString() == index2pos(kyj.pos2index([x, y])).toString()))
-            console.log(x, y, kyj.pos2index([x, y]), index2pos(kyj.pos2index([x, y])), [x, y].toString() == index2pos(kyj.pos2index([x, y])).toString());
+// for(let x = -9;x<=9;x++)
+// for(let y = -9;y<=9;y++)
+// console.log(x,y,pos2index([x,y]))
+// if (!([x,y].toString()==index2pos(kyj.pos2index([x,y])).toString()))
+// console.log(x,y,kyj.pos2index([x,y]),index2pos(kyj.pos2index([x,y])),[x,y].toString()==index2pos(kyj.pos2index([x,y])).toString())

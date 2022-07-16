@@ -13,20 +13,21 @@ const verif = function(){
         checkScoreObjectExist(_) 
         ? console.error(_,"存在")
         : (ScoreBase.NewObjectAsync('"'+_+'"', '"'+_+'"',"dummy"),console.error(_,"不存在但已创建"));
-    })
-// @ts-ignore
-    ["##xSkyLands##" ,"##xSkyPlayers##"].forEach((_:string)=>ScoreBase.GetPartic(ScoreBaseTickCache.GetObject(_)).forEach((__) => {
-        checkScoreObjectExist(__.displayName) 
-        ? console.error(_,  "数据存在==>",__.displayName)
-        : console.error(_,"数据不存在==>",__.displayName);
-    }))
-    ScoreBase.AssPartic("##xSkyLands##currentUID",ScoreBase.GetObject("##xSkyConfigs##"))
+    });
+    
+    // ["##xSkyLands##" ,"##xSkyPlayers##"].forEach((_:string)=>ScoreBase.GetPartic(ScoreBaseTickCache.GetObject(_)).forEach((__) => {
+    //     checkScoreObjectExist(__.displayName) 
+    //     ? console.error(_,  "数据存在==>",__.displayName)
+    //     : console.error(_,"数据不存在==>",__.displayName);
+    // }));
+    
+    !!ScoreBase.AssPartic("##xSkyLands##currentUID",ScoreBase.GetObject("##xSkyConfigs##"))
     ? console.error(  "数据存在==>","##xSkyLands##currentUID")
-    : (ScoreBase.AddPointsAsync('"'+"##xSkyLands##currentUID"+'"','"'+"##xSkyLands##currentUID"+'"',"0"),console.error("数据不存在但已创建==>","##xSkyLands##currentUID"));
+    : (ScoreBase.AddPointsAsync('"'+"##xSkyLands##currentUID"+'"','"'+"##xSkyConfigs##"+'"',"0"),console.error("数据不存在但已创建==>","##xSkyLands##currentUID"));
 
 
     (ScoreBase.GetPoints("##xSkyConfigs##","##xSkyLands##currentUID") < (config.HoldRadius*2+1)**2)
-    ? ScoreBase.SetPointsAsync('"'+"##xSkyLands##currentUID"+'"','"'+"##xSkyLands##currentUID"+'"',((config.HoldRadius*2+1)**2).toFixed(0))
+    ? ScoreBase.SetPointsAsync('"'+"##xSkyLands##currentUID"+'"','"'+"##xSkyConfigs##"+'"',((config.HoldRadius*2+1)**2).toFixed(0))
     : 0;
 }
 

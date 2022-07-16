@@ -16,7 +16,7 @@ world.events.tick.subscribe((event) => {
     ScoreBaseTickCacheControlSet(event);
 });
 const ScoreBaseTickCache = {
-    Get: ScoreBaseTickCacheGet,
+    GetObject: ScoreBaseTickCacheGet,
     GetAllObj: ScoreBaseTickCacheGetAllObj,
     GetWithSign: ScoreBaseTickCacheGetWithSign
 };
