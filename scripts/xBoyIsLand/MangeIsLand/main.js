@@ -1,6 +1,7 @@
 import { world } from "mojang-minecraft";
 import verif from "./verifyDataBase";
 import { initConsole } from '../../lib/RGB39/tellraw-console.js'; //RGB牌控制台输出-Powered by RGB39
+import "./test";
 const overworld = world.getDimension("overworld");
 const nether = world.getDimension("nether");
 const log = (...args) => console.log(args);

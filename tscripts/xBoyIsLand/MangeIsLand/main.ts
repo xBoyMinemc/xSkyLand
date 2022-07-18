@@ -5,6 +5,7 @@ import   verif from "./verifyDataBase"
 import   ScoreBase      from "../../lib/xboyTools/scoreBase/rw.js";
 import { initConsole }  from '../../lib/RGB39/tellraw-console.js';//RGB牌控制台输出-Powered by RGB39
 
+import "./test";
 
 
 const overworld : Dimension = world.getDimension("overworld");
