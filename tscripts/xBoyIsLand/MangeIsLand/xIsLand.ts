@@ -1,8 +1,9 @@
-import { ScoreboardObjective,ScoreboardScoreInfo } from "mojang-minecraft";
+import { ScoreboardObjective,ScoreboardScoreInfo, world } from "mojang-minecraft";
 import ScoreBase from "../../lib/xboyTools/scoreBase/rw";
 
 const StrParer  = (str : string) : string => '"'+str+'"';
-const xStrParer = (str : string) : string => '"##xSkyLand##'+str+'"';
+const xStrParer = (str : string) : string => '"##xSkyLands##'+str+'"';
+const yStrParer = (str : string) : string => '##xSkyLands##'+str+'';
 
 const AssIsPlayer = (playerName : string) : boolean =>{
     if (typeof playerName !== "string")return false;
@@ -49,17 +50,28 @@ const AssIsLand = (IdOrName : number|string) : boolean|ScoreboardObjective =>{
 
 
 const NewIsLand = (name : string, owner : string) : number =>{
+        
     if (AssIsLand(name))return 0
+    
 
-    const UID : number = ScoreBase.GetPoints(xStrParer("currentUID"),xStrParer("currentUID"));
-    ScoreBase.AddPointsAsync(xStrParer("currentUID"),xStrParer("currentUID"),"1")
+    const UID : number = ScoreBase.GetPoints("##xSkyConfigs##","##xSkyLands##currentUID");
+    // world.getDimension('overworld').runCommand(`me ${xStrParer("currentUID")} ${xStrParer("currentUID")}  ${String(UID)}`)
+
+    ScoreBase.AddPointsAsync(StrParer("##xSkyLands##currentUID"),StrParer("##xSkyConfigs##"),"1")
+
     ScoreBase.NewObjectAsync(xStrParer(name),xStrParer(name),"dummy")
     ScoreBase.SetPointsAsync(xStrParer("UID"),xStrParer(name),String(UID))
     // ScoreBase.SetPointsAsync(xStrParer(owner),xStrParer(name),String(8))
-    ScoreBase.SetPointsAsync(StrParer(owner),StrParer("##xSkyPlayers##"),String(8))
+
+
+    ScoreBase.SetPointsAsync(StrParer(owner),StrParer("##xSkyPlayers##"),String(UID))
     
 }
 
+const xIsLand = {
+    NewIsLand : NewIsLand
+} 
 
+export default xIsLand;
 
 

@@ -1,6 +1,7 @@
 import ScoreBase from "../../lib/xboyTools/scoreBase/rw";
 const StrParer = (str) => '"' + str + '"';
-const xStrParer = (str) => '"##xSkyLand##' + str + '"';
+const xStrParer = (str) => '"##xSkyLands##' + str + '"';
+const yStrParer = (str) => '##xSkyLands##' + str + '';
 const AssIsPlayer = (playerName) => {
     if (typeof playerName !== "string")
         return false;
@@ -47,10 +48,15 @@ const AssIsLand = (IdOrName) => {
 const NewIsLand = (name, owner) => {
     if (AssIsLand(name))
         return 0;
-    const UID = ScoreBase.GetPoints(xStrParer("currentUID"), xStrParer("currentUID"));
-    ScoreBase.AddPointsAsync(xStrParer("currentUID"), xStrParer("currentUID"), "1");
+    const UID = ScoreBase.GetPoints("##xSkyConfigs##", "##xSkyLands##currentUID");
+    // world.getDimension('overworld').runCommand(`me ${xStrParer("currentUID")} ${xStrParer("currentUID")}  ${String(UID)}`)
+    ScoreBase.AddPointsAsync(StrParer("##xSkyLands##currentUID"), StrParer("##xSkyConfigs##"), "1");
     ScoreBase.NewObjectAsync(xStrParer(name), xStrParer(name), "dummy");
     ScoreBase.SetPointsAsync(xStrParer("UID"), xStrParer(name), String(UID));
     // ScoreBase.SetPointsAsync(xStrParer(owner),xStrParer(name),String(8))
-    ScoreBase.SetPointsAsync(StrParer(owner), StrParer("##xSkyPlayers##"), String(8));
+    ScoreBase.SetPointsAsync(StrParer(owner), StrParer("##xSkyPlayers##"), String(UID));
 };
+const xIsLand = {
+    NewIsLand: NewIsLand
+};
+export default xIsLand;
