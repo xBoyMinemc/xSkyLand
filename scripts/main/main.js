@@ -1,5 +1,6 @@
 import { world } from "mojang-minecraft";
 import "../xBoyIsLand/MangeIsLand/main.js";
+import "../xBoyIsLand/DefendIsLand/main";
 // import "../test/test.js";
 const overworld = world.getDimension("overworld");
 world.events.beforeChat.subscribe((event) => {
