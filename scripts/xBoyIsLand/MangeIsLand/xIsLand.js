@@ -16,15 +16,16 @@ const AssIsPlayer = (playerName) => {
     return true;
 };
 const GetIsPlayerScore = (playerName) => {
-    if (typeof playerName !== "string")
+    // console.log("typrof playerName",typeof playerName !== typeof "string")
+    if (typeof playerName !== typeof "string")
         return -3;
     const xIsLandObject = ScoreBase.AssObject("##xSkyPlayers##");
     // console.log(xIsLandObject)
     if (!xIsLandObject)
-        return -3;
+        return -4;
     const player = Array.from(xIsLandObject.getScores()).find((_) => _.participant.displayName == playerName);
     if (!player)
-        return -3;
+        return -5;
     return player.score;
 };
 const GetIsPlayerInIsLandScore = (playerName, UID) => {
@@ -45,26 +46,26 @@ const SetIsPlayerScore = (playerName, score) => {
     ScoreBase.SetPointsAsync(playerName, StrParer("##xSkyPlayers##"), String(score));
     return true;
 };
-const AssIsLand = (IdOrName) => {
-    if (typeof IdOrName == "number" || /^[1-9]/.test(IdOrName)) {
-        // IdOrName = Number(IdOrName)
-        // // @ts-ignore
-        // const xIsLand : ScoreboardScoreInfo  = Array.from(ScoreBase.GetObject("##xSkyLands##").getScores()).find((_ : ScoreboardScoreInfo)=>{return _.score === IdOrName})
-        // if (!xIsLand) return false
-        // const xIsLandObject : ScoreboardObjective = ScoreBase.AssObject(xIsLand.participant.displayName)
-        // if (!xIsLandObject) return false
-        //                     return xIsLandObject
-    }
+const AssIsLand = (UID) => {
+    // if (typeof IdOrName == "number" || /^[1-9]/.test(UID)){
+    //     // IdOrName = Number(IdOrName)
+    //     // // @ts-ignore
+    //     // const xIsLand : ScoreboardScoreInfo  = Array.from(ScoreBase.GetObject("##xSkyLands##").getScores()).find((_ : ScoreboardScoreInfo)=>{return _.score === IdOrName})
+    //     // if (!xIsLand) return false
+    //     // const xIsLandObject : ScoreboardObjective = ScoreBase.AssObject(xIsLand.participant.displayName)
+    //     // if (!xIsLandObject) return false
+    //     //                     return xIsLandObject
+    // }
     {
-        const xIsLandObject = ScoreBase.AssObject(IdOrName);
-        console.log(IdOrName, "=>", xIsLandObject);
+        const xIsLandObject = ScoreBase.AssObject(UID);
+        console.log(UID, "=>", xIsLandObject);
         if (!xIsLandObject)
             return false;
         return xIsLandObject;
     }
 };
 const NewIsLand = (name, owner) => {
-    console.log(GetIsPlayerScore((owner)));
+    //    console.log(GetIsPlayerScore((owner)));
     const UID = ScoreBase.GetPoints("##xSkyConfigs##", "##xSkyLands##currentUID");
     const landName = zStrParer(String(UID));
     if (AssIsLand(aStrParer(String(UID))))
@@ -82,5 +83,6 @@ const NewIsLand = (name, owner) => {
 const xIsLand = {
     NewIsLand: NewIsLand,
     GetIsPlayerInIsLandScore: GetIsPlayerInIsLandScore,
+    GetIsPlayerScore: GetIsPlayerScore,
 };
 export default xIsLand;

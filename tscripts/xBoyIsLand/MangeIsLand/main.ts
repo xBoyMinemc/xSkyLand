@@ -1,5 +1,4 @@
 import { Dimension, world } from "mojang-minecraft"
-import { ActionFormData } from "mojang-minecraft-ui"
 
 import   verif from "./verifyDataBase"
 import   ScoreBase      from "../../lib/xboyTools/scoreBase/rw.js";
