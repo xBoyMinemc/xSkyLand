@@ -4,6 +4,6 @@
 
 
 
-|Name|Method|Url|Cookie|Domain|
+|Name|Method|Example|TODO|Domain|
 |-|-|-|-|-|
-|创建空岛|CMD|`~island`|YES|`~island`
+|创建空岛|CMD|`~island`|YES|`岛屿基本管理`
