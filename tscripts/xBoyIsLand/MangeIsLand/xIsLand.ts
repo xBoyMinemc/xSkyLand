@@ -61,7 +61,7 @@ const AssIsLand = (UID : string) : boolean|ScoreboardObjective =>{
     // }
     {
         const xIsLandObject : ScoreboardObjective = ScoreBase.AssObject(UID)
-        console.log(UID,"=>",xIsLandObject)
+        // console.log(UID,"=>",xIsLandObject)
         if (!xIsLandObject) return false
                             return xIsLandObject
     }

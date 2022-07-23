@@ -58,7 +58,7 @@ const AssIsLand = (UID) => {
     // }
     {
         const xIsLandObject = ScoreBase.AssObject(UID);
-        console.log(UID, "=>", xIsLandObject);
+        // console.log(UID,"=>",xIsLandObject)
         if (!xIsLandObject)
             return false;
         return xIsLandObject;
