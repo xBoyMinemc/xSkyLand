@@ -11,9 +11,6 @@ let GetIndex = () => ScoreBase.GetPoints("##xSkyConfigs##", "##xSkyLands##curren
 // })
 // overworld.runCommand(`me me reload`)
 world.events.chat.subscribe((_) => {
-    // _.sender.runCommand("reload")
-    // overworld.runCommand(`me reload`)
-    // overworld.runCommand(`reload`)
     if (!_.message.startsWith("~island"))
         return;
     if (_.message == "~island") {
@@ -24,16 +21,11 @@ world.events.chat.subscribe((_) => {
     }
     if (!_.message.startsWith("~island "))
         return;
-<<<<<<< HEAD
     _.message = _.message.replace("~island ", "");
-=======
-    _.message = _.message.replace("~island ");
->>>>>>> 1eb8ca2a538240909e60d39d82de62975180380d
     if (xIsLand.GetIsPlayerScore(_.sender.name) > 0) {
         overworld.runCommand(`me 已经有自己的岛了`);
         return;
     }
-    // overworld.runCommand(`me s===${xIsLand.GetIsPlayerScore(_.sender.name)}`)
     const index = GetIndex();
     const [x, z] = kyj.index2pos(index);
     //第一个测试空岛
