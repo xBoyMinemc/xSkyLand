@@ -24,7 +24,11 @@ world.events.chat.subscribe((_) => {
     }
     if (!_.message.startsWith("~island "))
         return;
+<<<<<<< HEAD
     _.message = _.message.replace("~island ", "");
+=======
+    _.message = _.message.replace("~island ");
+>>>>>>> 1eb8ca2a538240909e60d39d82de62975180380d
     if (xIsLand.GetIsPlayerScore(_.sender.name) > 0) {
         overworld.runCommand(`me 已经有自己的岛了`);
         return;
