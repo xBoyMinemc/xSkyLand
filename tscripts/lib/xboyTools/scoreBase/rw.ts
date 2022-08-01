@@ -35,7 +35,7 @@ const NewScoreObjectAsync    = (...args: string[])=>{return overworld.runCommand
 const DelScoreObject    = (ObjName: string | ScoreObject)=>{overworld.runCommand(`scoreboard objectives remove ${(typeof ObjName === typeof "xBoyMinemc") ? ObjName : ObjName.id}`)};
 const NewScoreObject    = (...args: string[])=>{overworld.runCommand(`scoreboard objectives add ${args[0]} ${args[2]||"dummy"} ${args[1]}`)};
 ///scoreboard objectives setdisplay list ScoreName ascending
-const DisScoreObject    = (...args: string[])=>{overworld.runCommand(`scoreboard objectives setdisplay ${(typeof args[0] === typeof 520) ? ['list','sidebar','belowname'][args[0]] : args[0]} ${((typeof args[1] === typeof "云梦") ? args[1] : args[1].id)+(args[2]?(" "+args[2]):"")}`)};
+const DisScoreObject    = (...args: string[])=>{overworld.runCommand(`scoreboard objectives setdisplay ${(typeof args[0] === typeof 520) ? ['list','sidebar','belowname'][args[0]] : args[0]} ${((typeof args[1] === typeof "云梦") ? args[1] : args[1].id)+(args[2]?(" "+(typeof args[2] === string ? args[2] : ['ascending','descending'][args[2]])):"")}`)};
 
 
 
