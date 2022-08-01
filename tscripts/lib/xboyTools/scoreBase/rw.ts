@@ -27,14 +27,15 @@ const AssScoreObject    = (ObjName: string) : ScoreboardObjective=>{return  GetS
 const AssScorePartic    = (...args: any[])=>{return args.length === 2 ? args[1].getParticipants().find((participant: { displayName: string; })=>{if(participant.displayName === args[0])return true}) : GetScorePartic().find((participant: { displayName: string; })=>{if(participant.displayName === args[0])return true})};
 
 
-// /scoreboard objectives remove testObjectName
+///scoreboard objectives remove testObjectName
 ///scoreboard objectives add testObjectName dummy ss
-const DelScoreObjectAsync    = (ObjName: string)=>{return overworld.runCommandAsync(`scoreboard objectives remove ${ObjName}`)};
+const DelScoreObjectAsync    = (ObjName: string | ScoreObject)=>{return overworld.runCommandAsync(`scoreboard objectives remove ${(typeof ObjName === typeof "xBoyMinemc") ? ObjName : ObjName.id}`)};
 const NewScoreObjectAsync    = (...args: string[])=>{return overworld.runCommandAsync(`scoreboard objectives add ${args[0]} ${args[2]||"dummy"} ${args[1]}`)};
 
-const DelScoreObject    = (ObjName: string  )=>{overworld.runCommand(`scoreboard objectives remove ${ObjName}`)};
+const DelScoreObject    = (ObjName: string | ScoreObject)=>{overworld.runCommand(`scoreboard objectives remove ${(typeof ObjName === typeof "xBoyMinemc") ? ObjName : ObjName.id}`)};
 const NewScoreObject    = (...args: string[])=>{overworld.runCommand(`scoreboard objectives add ${args[0]} ${args[2]||"dummy"} ${args[1]}`)};
-const DisScoreObject    = (...args: string[])=>{overworld.runCommand(`scoreboard objectives setdisplay ${args[0]} ${args[1]+args[2]?(" "+args[2]):""}`)};
+///scoreboard objectives setdisplay list ScoreName ascending
+const DisScoreObject    = (...args: string[])=>{overworld.runCommand(`scoreboard objectives setdisplay ${args[0]} ${((typeof args[1] === typeof "云梦") ? args[1] : args[1].id)+(args[2]?(" "+args[2]):"")}`)};
 
 
 
