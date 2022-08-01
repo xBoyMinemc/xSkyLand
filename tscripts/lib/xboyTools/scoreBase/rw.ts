@@ -40,11 +40,11 @@ const DisScoreObject    = (...args: string[])=>{overworld.runCommand(`scoreboard
 
 
 ///scoreboard players add "Xboy minemc" testObjectName 3
-const AddScorePointsAsync    = (...args: string[])=>{overworld.runCommandAsync(`scoreboard players add ${args[0].includes('"') ? args[0] : ('"'+args[0]+'"')} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`)};
-const SetScorePointsAsync    = (...args: string[])=>{overworld.runCommandAsync(`scoreboard players set ${args[0].includes('"') ? args[0] : ('"'+args[0]+'"')} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`)};
+const AddScorePointsAsync    = (...args: string[])=>{overworld.runCommandAsync(`scoreboard players add ${args[0].name ? args[0].name : (args[0].includes('"') ? args[0] : ('"'+args[0]+'"'))} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`)};
+const SetScorePointsAsync    = (...args: string[])=>{overworld.runCommandAsync(`scoreboard players set ${args[0].name ? args[0].name : (args[0].includes('"') ? args[0] : ('"'+args[0]+'"'))} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`)};
 
-const AddScorePoints    = (...args: string[])=>{overworld.runCommand(`scoreboard players add ${args[0].includes('"') ? args[0] : ('"'+args[0]+'"')} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`)};
-const SetScorePoints    = (...args: string[])=>{overworld.runCommand(`scoreboard players set ${args[0].includes('"') ? args[0] : ('"'+args[0]+'"')} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`)};
+const AddScorePoints    = (...args: string[])=>{overworld.runCommand(`scoreboard players add ${args[0].name ? args[0].name : (args[0].includes('"') ? args[0] : ('"'+args[0]+'"'))} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`)};
+const SetScorePoints    = (...args: string[])=>{overworld.runCommand(`scoreboard players set ${args[0].name ? args[0].name : (args[0].includes('"') ? args[0] : ('"'+args[0]+'"'))} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`)};
 
 
 
