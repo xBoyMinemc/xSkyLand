@@ -20,8 +20,10 @@
 |删除一个计分板对象(非异步版本)|undefined|`DelObjectAsync( ScoreObject \| ScoreName)`|`删除一个指定的计分板对象，非异步版本，可传入计分板对象或计分板标识符无返回值`
 |创建一个计分板对象(非异步版本)|undefined|`NewObject( ScoreName, ScoreDisplayerName,?(可选,计分板类型，不填默认dummy) Default:"dummy")`|`创建一个指定标识符和显示名称的计`
 |展示或隐藏指定区域的展示内容|undefined|`DisObject( number \| ['list','sidebar','belowname'],?(可选，计分板标识符) ScoreName,?(可选,排列类型，不填默认ascending) Default:"ascending")`|`第一个参数为展示区域，可以传入指定区域的名称，或传入0~2的整数，代指['list','sidebar','belowname']。第二个参数传入计分板标识，可选，留空则隐藏此区域计分板，第三个参数可选，设置排列方式，传入['ascending','descending']其一，或0~1的整数`
-
-
+|增加指定玩家指定计分板的分数(异步版本)|Promise\<CommandResult\>|`AddScorePointsAsync( PlayerName \| Player, ScoreObject \| ScoreName, number)`|`第一个参数为被修改分数的 玩家名称 或 玩家对象，使用玩家名称时你应当注意名称带特殊字符时的处理。第二个参数为要操作的 计分板标识符 或 计分板对象。第三个参数为要增加的分数，如果希望减少请使用负数，例如AddScorePointsAsync("Xboy minemc", "myScoreBoard",-13).Async版本返回一个Promise，不懂得可以不理睬`
+|设置指定玩家指定计分板的分数(异步版本)|Promise\<CommandResult\>|`SetPointsAsync( PlayerName \| Player, ScoreObject \| ScoreName, number)`|`第一个参数为被修改分数的 玩家名称 或 玩家对象，使用玩家名称时你应当注意名称带特殊字符时的处理。第二个参数为要操作的 计分板标识符 或 计分板对象。第三个参数为要设置的分数，例如设置玩家Xboy minemc的myScoreBoard计分板的数值为-13则SetPointsAsync("Xboy minemc", "myScoreBoard",-13).Async版本返回一个Promise，不懂得可以不理睬`
+|增加指定玩家指定计分板的分数(非异步版本)|undefined|`AddScorePoints( PlayerName \| Player, ScoreObject \| ScoreName, number)`|`第一个参数为被修改分数的 玩家名称 或 玩家对象，使用玩家名称时你应当注意名称带特殊字符时的处理。第二个参数为要操作的 计分板标识符 或 计分板对象。第三个参数为要增加的分数，如果希望减少请使用负数，例如AddScorePointsAsync("Xboy minemc", "myScoreBoard",-13)`
+|设置指定玩家指定计分板的分数(非异步版本)|undefined|`SetPoints( PlayerName \| Player, ScoreObject \| ScoreName, number)`|`第一个参数为被修改分数的 玩家名称 或 玩家对象，使用玩家名称时你应当注意名称带特殊字符时的处理。第二个参数为要操作的 计分板标识符 或 计分板对象。第三个参数为要设置的分数，例如设置玩家Xboy minemc的myScoreBoard计分板的数值为-13则SetPoints("Xboy minemc", "myScoreBoard",-13)`
 
     GetObject: GetScoreObject,
     GetPartic: GetScorePartic,
