@@ -5,13 +5,13 @@
 ## ScoreName => 计分板对象标识符 : ScoreboardObjective.id : string
 ## ScoreDisplayerName => 计分板对象显示名称 : ScoreboardObjective.displayerName : string
 ## PlayerName => 玩家/虚拟玩家名称 ： Player.name : string
-## 
+## Entity => 实体或玩家对象 : Object : Entity
 
 
 |Name|return|Example|解释|
 |----|------|-------|----|
 |获取计分板对象|ScoreObject \| Array\<ScoreObject\>|`GetObject(ScoreName)`<br>`GetObject()`*※留空*|`返回指定名称（ObjectName，不是指displayName）的`*对象*`，留空则返回一个包含所有计分板对象的`*数组*
-|获取计分板对象全体成员列表|Array\<ScoreboardIdentity\>|`GetPartic(ScoreObject)`<br>`GetPartic()`*※留空*|`返回指定计分板对象的成员（ScoreboardIdentity），留空则返回一个包含所有计分板对象`*成员*`的数组`
+|获取计分板成员对象Participant(全体\|指定计分板\|指定实体)|Array\<ScoreboardIdentity\>\|ScoreboardIdentity|`GetPartic(Entity)`<br>`GetPartic(ScoreObject)`<br>`GetPartic()`*※留空*|`返回指定Entity实体对象对应的ScoreboardIdentity计分板成员对象;返回指定计分板对象的成员（ScoreboardIdentity），留空则返回一个包含所有计分板对象`*成员*`的数组`
 |获取指定计分板对象的指定玩家的分数|number|`GetPoints( ScoreObject \| ScoreName, PlayerName)`|`第一参数可为 计分板对象 或 计分板标识符,第二参数为 玩家名称。返回一个整数表示的分数`
 |判断一个指定名称的计分板对象是否存在,存在则返回这个计分板对象|undefined \| ScoreObject|`AssScoreObject(ScoreName)`|`传入计分板标识符，判断是否存在，不存在则返回undefined，存在则返回这个计分板对象`
 |判断一个指定名称的计分板成员是否存在,存在则返回这个计分板成员对象|undefined \| ScoreboardIdentity|`AssPartic(PlayerName)`|`传入计分板成员标识符，判断是否存在，不存在则返回undefined，存在则返回这个成员对象`
