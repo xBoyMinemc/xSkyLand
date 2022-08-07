@@ -5,7 +5,7 @@
 ## ScoreName => 计分板对象标识符 : ScoreboardObjective.id : string
 ## ScoreDisplayerName => 计分板对象显示名称 : ScoreboardObjective.displayerName : string
 ## PlayerName => 玩家/虚拟玩家名称 ： Player.name : string
-## Entity => 实体或玩家对象 : Object : Entity
+## Entity => 实体或玩家对象 : Entity : Object   
 
 
 |Name|return|Example|解释|
