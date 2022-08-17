@@ -35,33 +35,15 @@ class EventEmitter {
     static captureRejections = true;
     static defaultMaxListeners = -1;
     static thisArg = undefined;
-    /**
-     * @private
-     */
     events = {};
-    /**
-     * @private
-     */
     maxListeners = EventEmitter.defaultMaxListeners;
-    /**
-     * @param {number} size
-     */
     setMaxListeners(size) {
         this.maxListeners = size;
         return this;
     }
-    /**
-     *
-     * @returns
-     */
     getMaxListeners() {
         return this.maxListeners;
     }
-    /**
-     *
-     * @param {string|Symbol} type
-     * @param {(...args) => void} handler
-     */
     addListener(type, handler) {
         if (typeof handler !== 'function') {
             throw TypeError(`arg1 is not type of  "function", received: ${typeof handler}`);
@@ -78,12 +60,6 @@ class EventEmitter {
         }
         return this;
     }
-    /**
-     *
-     * @param {string} type
-     * @param {(...args) => void | undefined} handler
-     * @returns
-     */
     removeListener(type, handler) {
         if (typeof handler !== 'function')
             return this.removeAllListeners(type);
@@ -102,21 +78,11 @@ class EventEmitter {
             return this;
         }
     }
-    /**
-     *
-     * @param {string|Symbol} type
-     * @returns {number}
-     */
     removeAllListeners(type) {
         delete this.events[type];
         this.events[type] = null;
         return this;
     }
-    /**
-     *
-     * @param {string} type
-     * @param  {...any} args
-     */
     emit(type, ...args) {
         let arr = this.events[type], emitSucces = false;
         if (arr) {
@@ -136,28 +102,13 @@ class EventEmitter {
         }
         return false;
     }
-    /**
-     *
-     * @param {string} type
-     * @param {(...args)=>void} handler
-     */
     once(type, handler) {
         this.addListener(type, onceWrapper(type, handler, this));
         return this;
     }
-    /**
-     *
-     * @param {string} type
-     * @returns {Array<any>}
-     */
     listeners(type) {
         return [...this.events[type]];
     }
-    /**
-     *
-     * @param {string} type
-     * @returns {Array<any>}
-     */
     rawListeners(type) {
         let ls = this.events[type];
         if (ls)
@@ -166,19 +117,9 @@ class EventEmitter {
             }, []);
         return [];
     }
-    /**
-     *
-     * @param {string} type
-     * @returns
-     */
     listenerCount(type) {
         return this.events[type] ? this.events[type].length : 0;
     }
-    /**
-     *
-     * @param {string|Symbol} type
-     * @param {(...args)=>void} handler
-     */
     prependListener(type, handler) {
         if (typeof handler !== 'function') {
             throw TypeError(`arg1 is not type of  "function", received: ${typeof handler}`);
@@ -195,34 +136,15 @@ class EventEmitter {
         }
         return this;
     }
-    /**
-     *
-     * @param {string|Symbol} type
-     * @param {(...args)=>void} handler
-     */
     prependOnceListener(type, handler) {
         this.prependListener(onceWrapper(type, handler, this));
         return this;
     }
-    /**
-     * @private
-     */
     thisArg = EventEmitter.thisArg;
-    /**
-     * @private
-     */
     captureRejections = true;
-    /**
-     *
-     * @param {{thisArg?: any, captureRejections?: boolean}} opt
-     */
     constructor(opt) {
-        /**
-         * alias
-         */
         this.on = this.addListener;
         this.off = this.removeListener;
-        //addition
         this.offAll = this.removeAllListeners;
         if (opt) {
             this.thisArg = opt.thisArg || EventEmitter.thisArg;
@@ -231,11 +153,6 @@ class EventEmitter {
     }
 }
 let commandRegistry = {};
-/**
- * @param {string} command
- * @param {(em: EventEmitter)=>void} handler
- * @param {any} [opt]
- */
 function register(command, handler, opt = {}) {
     let em = new EventEmitter();
     commandRegistry[command] = [em, opt];
@@ -271,9 +188,6 @@ const states = {
     blank: 0,
     string: 1
 };
-/**
- * @param {string} str
- */
 function splitRegular(str) {
     str = str.trim();
     const len = str.length;
@@ -384,10 +298,6 @@ class MsgBlock extends Array {
 function mbf(...iterable) {
     return MsgBlock.from(iterable);
 }
-/**
- * @param {keyof Formatting} key
- * @returns
- */
 function style(key) {
     return Formatting[key];
 }
@@ -606,9 +516,6 @@ async function parseValPreview(obj, classPrefix) {
     classPrefix = classPrefix ? classPrefix + ' ' : '';
     return mbf('', objectProp.preview, `${classPrefix}{ ... }`);
 }
-/**
- * @type {Map<Function, Function>}
- */
 let specClassParsers = new Map();
 function getSpecParser(instanceClass) {
     if (specClassParsers.has(instanceClass)) {
@@ -670,15 +577,9 @@ function fakeNativeToString(name, ...args) {
 }
 class RawTeller {
     static sender = null;
-    /**
-     * @type {[string, string, any][]}
-     */
     msgQueue = [];
     pending = false;
     static header = '';
-    /**
-     * @type {RawTeller}
-     */
     static rawTeller;
     constructor(header) {
         this.header = header || RawTeller.header;
@@ -703,10 +604,6 @@ class RawTeller {
         RawTeller.sender = s;
     }
 }
-/**
- * @param {any} commander
- * @returns {Function}
- */
 function getRawTeller(commander) {
     let sender = new RawTeller();
     sender.setSender(commander);
@@ -726,9 +623,6 @@ function getRawTeller(commander) {
     return senderProxy;
 }
 class Format {
-    /**
-     * @type {Format[]}
-     */
     static formats = [];
     constructor(opt) {
         this.checker = opt.checker;
@@ -746,9 +640,6 @@ function check(str) {
     }
     return false;
 }
-/**
- * @param {{checker: RegExp, parse: (value: any) => any}} opt
- */
 function addFormat(opt) {
     return new Format(opt);
 }

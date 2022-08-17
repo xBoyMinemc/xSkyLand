@@ -1,7 +1,6 @@
 import { world } from "mojang-minecraft";
 import "../xBoyIsLand/MangeIsLand/main.js";
 import "../xBoyIsLand/DefendIsLand/main";
-// import "../test/test.js";
 const overworld = world.getDimension("overworld");
 world.events.beforeChat.subscribe((event) => {
     const { message } = event;
@@ -23,32 +22,14 @@ world.events.beforeChat.subscribe((event) => {
                 console.warn(err);
             }
         }
-        //tagManager( , , [], true)
     };
     tagManager("连锁关", "连锁已关", ["chainMining"], false);
     tagManager("连锁开", "连锁已开", ["chainMining"], true);
 });
 world.events.blockBreak.subscribe(e => {
     try {
-        // if (e.player.hasTag("chainMining")) {
-        //     //  e.player.runCommand(`title @s actionbar §e连锁成功`);
-        //     let c = chainMining(e.brokenBlockPermutation.type.id, e.block, e.dimension, e.player)
-        //     if (c > 0) { e.player.runCommand(`title @s actionbar §e连锁方块数量：${c + 1}`); }
-        // }
     }
     catch (err) {
         console.error(err);
     }
 });
-// 
-// ⬜⬜⬜🏿🏿🏿🏻🏻🏻🏻
-// ⬜⬜🏿🏿🏾🏾🏿🏻🏻🏻
-// ⬜⬜🏿🏼🏽🏽🏼🏻🏻🏻
-// ⬜⬜🏾🏽🏽🏽🏽🏻🏻🏻
-// ⬜⬜🏾🏼🏽🏽🏼🏻🏻🏻
-// ⬜⬜⬜🏾🏼🏼🏼🏻🏻🏻
-// ⬜⬜⬜🏽🏾🏾🏻🏻🏻🏻
-// ⬜⬜⬜🏼🏼🏽🏻🏻🏻🏻
-// ⬜🏿🏿🏿🏿🏼🏿🏿🏻🏻
-// 🏿🏿🏿🏿🏿🏿🏿🏿🏿🏿​
-//哼哼啊啊 with 小声的，匿名的，举报不要的

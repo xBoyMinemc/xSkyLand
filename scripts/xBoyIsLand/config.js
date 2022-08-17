@@ -1,4 +1,4 @@
 const config = {
-    HoldRadius: 3, //主城空置半径
+    HoldRadius: 3,
 };
 export default config;

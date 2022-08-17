@@ -1,16 +1,12 @@
 const xBoyDream = new Map();
 const toNegative = (i) => i < 0 ? i : -i;
 const toPositive = (i) => i < 0 ? -i : i;
-// let  x : number = 0,y : number = 0;
-// const xy = [-1,3]
 const pos2index = (xy) => {
     let x = xy[0], y = xy[1];
     if (x === -y && x <= 0)
         return (x * 2 - 1) ** 2 - 1;
     let inner = 1 + toNegative(toPositive(x) > toPositive(y) ? x : y);
-    // console.log("inner=>",inner)
     let inBas = (inner * 2 - 1) ** 2;
-    // console.log("inBas=>",inBas)
     if (x === inner - 1)
         return 1 + inBas + toPositive(-inner - y) - 1;
     if (y === inner - 1)
@@ -42,10 +38,3 @@ const kyj = {
     index2pos: index2pos
 };
 export default kyj;
-// let x = -9,y = -9
-// export default kyj;
-// for(let x = -9;x<=9;x++)
-// for(let y = -9;y<=9;y++)
-// console.log(x,y,pos2index([x,y]))
-// if (!([x,y].toString()==index2pos(kyj.pos2index([x,y])).toString()))
-// console.log(x,y,kyj.pos2index([x,y]),index2pos(kyj.pos2index([x,y])),[x,y].toString()==index2pos(kyj.pos2index([x,y])).toString())

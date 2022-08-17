@@ -1,4 +1,4 @@
-import { Dimension, world } from "mojang-minecraft"
+import { Dimension, world } from "mojang-minecraft";
 
 import   verif from "./verifyDataBase"
 import   ScoreBase      from "../../lib/xboyTools/scoreBase/rw.js";
@@ -19,8 +19,11 @@ world.events.tick.subscribe(() => {  /*我()了，这也是一种不（）*/  tC
 
 
 ;;;"依赖初始化完毕";;;
-
-
-// world.events.beforeChat.subscribe(()=>{
+let cont = 0;
+world.events.tick.subscribe(()=>{
+      if(cont<4){
       verif()
-// })
+      cont++;
+      }
+
+})
