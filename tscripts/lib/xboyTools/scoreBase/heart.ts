@@ -1,4 +1,4 @@
-import { ScoreboardObjective, TickEvent, world } from "mojang-minecraft";
+import { ScoreboardObjective, TickEvent, world } from "@minecraft/server";
 import ScoreBase from "./rw";
 
 

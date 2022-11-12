@@ -1,4 +1,4 @@
-import { world } from "mojang-minecraft";
+import { world } from "@minecraft/server";
 const overworld = world.getDimension("overworld");
 var tps = 0
 var lastTime = 0
@@ -15,7 +15,7 @@ var mspt = 0
 let msg4addTags = (msg, tags, want, send) => {
     if (msg.message.toLowerCase() == want) {
         tags.forEach(tag => {
-            msg.sender.runCommand(`tag @s add ${tag}`);
+            msg.sender.runCommandAsync(`tag @s add ${tag}`);
         });
 
         msg.message = send || tags.join(",") + " => true";
@@ -28,7 +28,7 @@ let msg4addTags = (msg, tags, want, send) => {
 let msg4removeTags = (msg, tags, want, send) => {
     if (msg.message.toLowerCase() == want) {
         tags.forEach(tag => {
-            msg.sender.runCommand(`tag @s remove ${tag}`);
+            msg.sender.runCommandAsync(`tag @s remove ${tag}`);
         });
 
         msg.message = send || tags.join(",") + " => true";
@@ -54,18 +54,18 @@ world.events.tick.subscribe(i2 => {
         lastTime = ("" + Date.now()).slice(-4, -3)
         try {
             
-            // overworld.runCommand(`execute @e[tag=central_console,tag=_tps_xboy] ~ ~ ~ me ${(20/tps).toFixed(0)}`);
-            overworld.runCommand(`execute @e[tag=central_console,type=sgs:console,tag=_tps_xboy] ~ ~ ~ gamerule randomtickspeed ${(40/tps).toFixed(0)}`);
+            // overworld.runCommandAsync(`execute @e[tag=central_console,tag=_tps_xboy] ~ ~ ~ me ${(20/tps).toFixed(0)}`);
+            overworld.runCommandAsync(`execute @e[tag=central_console,type=sgs:console,tag=_tps_xboy] ~ ~ ~ gamerule randomtickspeed ${(40/tps).toFixed(0)}`);
         } catch (error) {
             
         }
         try {
-            // overworld.runCommand(`me ${(20/tps).toFixed(0)}`);
-            overworld.runCommand(`title @a[tag=tps_] actionbar §e§lTPS:§3${tps}`);
-            // overworld.runCommand(`title @a[tag=mspt_] actionbar §e§lTPS:§3${tps}§0#§4MSPT:§e${mspta}-${msptb}§0#§4${msptArray.join(",").replaceAll(mspta,"§e"+mspta+"§4").replaceAll(msptb,"§e"+msptb+"§4")}`);
-            overworld.runCommand(`title @a[tag=mspt_] actionbar §e§lTPS:§3${tps}§0#§4MSPT:§e${mspta}-${msptb}§0#§4${msptArray.join(",")}`);
+            // overworld.runCommandAsync(`me ${(20/tps).toFixed(0)}`);
+            overworld.runCommandAsync(`title @a[tag=tps_] actionbar §e§lTPS:§3${tps}`);
+            // overworld.runCommandAsync(`title @a[tag=mspt_] actionbar §e§lTPS:§3${tps}§0#§4MSPT:§e${mspta}-${msptb}§0#§4${msptArray.join(",").replaceAll(mspta,"§e"+mspta+"§4").replaceAll(msptb,"§e"+msptb+"§4")}`);
+            overworld.runCommandAsync(`title @a[tag=mspt_] actionbar §e§lTPS:§3${tps}§0#§4MSPT:§e${mspta}-${msptb}§0#§4${msptArray.join(",")}`);
     ///gamerule randomtickspeed 1
-            overworld.runCommand(`scoreboard players set tps tps ${tps}`);
+            overworld.runCommandAsync(`scoreboard players set tps tps ${tps}`);
         } catch (err) {
             //眼不见心不烦
         }
@@ -84,12 +84,12 @@ world.events.tick.subscribe(i2 => {
 world.events.beforeChat.subscribe(msg => {
     {
         if(msg.message == "随机刻优化开"){
-            overworld.runCommand(`tag @e[tag=central_console,type=sgs:console] add _tps_xboy`)
+            overworld.runCommandAsync(`tag @e[tag=central_console,type=sgs:console] add _tps_xboy`)
             msg.cancel = true
         }
         if(msg.message == "随机刻优化关"){
-            overworld.runCommand(`tag @e[tag=central_console,type=sgs:console] remove _tps_xboy`)
-            overworld.runCommand(`gamerule randomtickspeed 1`)
+            overworld.runCommandAsync(`tag @e[tag=central_console,type=sgs:console] remove _tps_xboy`)
+            overworld.runCommandAsync(`gamerule randomtickspeed 1`)
             msg.cancel = true
         }
     }

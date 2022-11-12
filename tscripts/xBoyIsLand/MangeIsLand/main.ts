@@ -1,4 +1,4 @@
-import { Dimension, world } from "mojang-minecraft";
+import { Dimension, world } from "@minecraft/server";
 
 import   verif from "./verifyDataBase"
 import   ScoreBase      from "../../lib/xboyTools/scoreBase/rw.js";

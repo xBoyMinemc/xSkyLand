@@ -1,4 +1,4 @@
-import { world } from "mojang-minecraft";
+import { world } from "@minecraft/server";
 import ScoreBase from "./rw";
 const ScoreBaseTickCachePool = new Map();
 let ScoreBaseTickCacheControl = 0;

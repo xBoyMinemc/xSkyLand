@@ -1,4 +1,4 @@
-import { ScoreboardObjective,ScoreboardScoreInfo, world } from "mojang-minecraft";
+import { ScoreboardObjective,ScoreboardScoreInfo, world } from "@minecraft/server";
 import ScoreBase from "../../lib/xboyTools/scoreBase/rw";
 
 const StrParer  = (str : string) : string => '"'+str+'"';
@@ -78,7 +78,7 @@ const NewIsLand = (name : string, owner : string) : number =>{
 
     ScoreBase.AddPointsAsync(StrParer("##xSkyLands##currentUID"),StrParer("##xSkyConfigs##"),"1");
 
-    world.getDimension('overworld').runCommand(`me  ${landName}`)
+    world.getDimension('overworld').runCommandAsync(`me  ${landName}`)
 
     ScoreBase.NewObjectAsync(landName,landName,"dummy");//为每一个岛新建一个计分板
     ScoreBase.SetPointsAsync(StrParer(name),landName,"777"); //设置岛屿名称

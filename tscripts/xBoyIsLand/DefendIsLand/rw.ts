@@ -1,4 +1,4 @@
-import { ScoreboardObjective,ScoreboardScoreInfo, world } from "mojang-minecraft";
+import { ScoreboardObjective,ScoreboardScoreInfo, world } from "@minecraft/server";
 import ScoreBase from "../../lib/xboyTools/scoreBase/rw";
 
 const aStrParer = (str : string) : string => '##xSky##'+str+'';

@@ -1,4 +1,4 @@
-import { world } from "mojang-minecraft";
+import { world } from "@minecraft/server";
 import Chunk_Boundary_Point from "../../lib/xboyTools/math/chunk";
 import kyj from "../../lib/xboyTools/孔乙己/回字的左旋写法";
 import config from "../config";
@@ -25,15 +25,15 @@ world.events.tick.subscribe((_) => {
     Array.from(overworld.getPlayers()).forEach((player) => {
         let per = Permission(player.name, player.location);
         if (per === '000') {
-            player.runCommand("gamemode spectator @s[m=a]");
-            player.runCommand("gamemode spectator @s[m=s]");
-            player.runCommand("gamemode spectator @s[m=c]");
+            player.runCommandAsync("gamemode spectator @s[m=a]");
+            player.runCommandAsync("gamemode spectator @s[m=s]");
+            player.runCommandAsync("gamemode spectator @s[m=c]");
         }
         if (per.endsWith("1"))
-            player.runCommand("gamemode survival @s[m=!survival]");
+            player.runCommandAsync("gamemode survival @s[m=!survival]");
         if (per === '110')
-            player.runCommand("gamemode survival @s[m=!survival]");
+            player.runCommandAsync("gamemode survival @s[m=!survival]");
         if (per === '100')
-            player.runCommand("gamemode adventure @s[m=!adventure]");
+            player.runCommandAsync("gamemode adventure @s[m=!adventure]");
     });
 });

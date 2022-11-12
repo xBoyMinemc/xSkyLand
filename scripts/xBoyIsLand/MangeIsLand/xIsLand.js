@@ -1,4 +1,4 @@
-import { world } from "mojang-minecraft";
+import { world } from "@minecraft/server";
 import ScoreBase from "../../lib/xboyTools/scoreBase/rw";
 const StrParer = (str) => '"' + str + '"';
 const xStrParer = (str) => '"##xSkyLands##' + str + '"';
@@ -57,7 +57,7 @@ const NewIsLand = (name, owner) => {
     if (AssIsLand(aStrParer(String(UID))))
         return 0;
     ScoreBase.AddPointsAsync(StrParer("##xSkyLands##currentUID"), StrParer("##xSkyConfigs##"), "1");
-    world.getDimension('overworld').runCommand(`me  ${landName}`);
+    world.getDimension('overworld').runCommandAsync(`me  ${landName}`);
     ScoreBase.NewObjectAsync(landName, landName, "dummy");
     ScoreBase.SetPointsAsync(StrParer(name), landName, "777");
     ScoreBase.SetPointsAsync(StrParer("UID"), landName, String(UID));
