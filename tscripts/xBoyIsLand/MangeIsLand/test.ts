@@ -26,12 +26,12 @@ world.events.chat.subscribe(_=>{
 if(_.message=="~island"){
 
     if(xIsLand.GetIsPlayerScore(_.sender.name)<=0){
-        overworld.runCommandAsync(`me 还没有自己的岛\u000a输入 ~island空格+岛屿名\u000a以便于创建自己的岛屿"`)
+        _.sender.runCommandAsync(`me 还没有自己的岛\u000a输入 ~island空格+岛屿名\u000a以便于创建自己的岛屿"`)
         return;
     }
     // xIsLand.GetIsPlayerScore(_.sender.name)
     const [x,z] = kyj.index2pos(xIsLand.GetIsPlayerScore(_.sender.name));
-    overworld.runCommandAsync(`tp @a ${x*144+74} -490 ${z*144+74}`);
+    _.sender.runCommandAsync(`tp @s ${x*144+74} -490 ${z*144+74}`);
     return;
 
 }
