@@ -15,4 +15,5 @@
 |空岛创建|CMD|`~island create 云清梦小岛`<br>*※新的写法*|NO|`岛屿基本管理`  
 
 
-
+##git 推不上请尝试这个   （每次拯救我的都是不同的操作）  
+git config --global http.sslVerify false
