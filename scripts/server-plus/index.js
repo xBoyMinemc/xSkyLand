@@ -14,3 +14,13 @@ export default (world) => {
         world.events.tick = tick;
     world.events.beforePlayerSleep = beforePlayerSleep;
 };
+(world) => {
+    world.events.entityDeadByHurt = entityDeadByHurt;
+    world.events.fishingHookSpawned = fishingHookSpawned;
+    world.events.fishingHookDespawned = fishingHookDespawned;
+    world.events.playerJoined = playerJoined;
+    world.events.playerJoining = playerJoining;
+    if (!world.events.tick)
+        world.events.tick = tick;
+    world.events.beforePlayerSleep = beforePlayerSleep;
+};
