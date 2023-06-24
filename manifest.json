@@ -4,27 +4,27 @@
 		"name": "§l§exSkyLAnd",
 		"description": "§l§e welcome to sky",
 		"uuid": "9facfd38-501c-4d0a-9e9a-f2aaa1ae620e",
-		"version": [ 1, 19, 400],
-		"min_engine_version": [1, 19, 40]
+		"version": [ 1, 20, 0],
+		"min_engine_version": [1, 20, 0]
 		// "pack_scope": "world"
 	},
 	"modules": [
 		{
 			"description": "mmmm",
-			"uuid": "d3c6de1e-45c0-40c2-bb7e-1a3b5cbdd182",
-			"version": [ 1, 19, 400],
+			"uuid": "d3c6de1e-45c0-4a20-bb7e-1aab5cbdd100",
+			"version": [ 1, 20, 0],
 			"type": "script",
             "entry": "scripts/main/main.js"
 		}
 	],
     "dependencies": [
 		{
-			// Minecraft native module - needed to use the "@minecraft/server" module
-			// "description": "@minecraft/server",
+			// Minecraft native module - needed to use the "mojang-minecraft" module
+			// "description": "mojang-minecraft",
 			// "uuid": "b26a4d4c-afdf-4690-88f8-931846312678",
 
 			"module_name": "@minecraft/server",
-			"version": "1.0.0-beta"
+			"version": "1.3.0-beta"
 			
 		}
 		// {
@@ -34,9 +34,9 @@
 		// 	"version": [0, 1, 0]
 		// },
 		// {
-		// 	// Minecraft UI native module - needed to use the "@minecraft/server-ui" module
+		// 	// Minecraft UI native module - needed to use the "mojang-minecraft-ui" module
 		// 	// You must be using Minecraft versions above Beta 1.18.20.21 or Release 1.18.30
-		// 	// "description": "@minecraft/server-ui",
+		// 	// "description": "mojang-minecraft-ui",
 		// 	// "uuid": "2bd50a27-ab5f-4f40-a596-3641627c635e",
 		// 	"module_name" : "@minecraft/server-ui",
 		// 	"version": "1.0.0-beta"
@@ -54,7 +54,7 @@
 		// 	// Bedrock Dedicated Server's module for modifying configuration of 
 		// 	// variables and secrets in JSON files in the Bedrock Dedicated 
 		// 	// Server "config" folder. Cannot be used on Minecraft clients.
-		// 	// "description": "@minecraft/server-server-admin",
+		// 	// "description": "mojang-minecraft-server-admin",
 		// 	"uuid": "53d7f2bf-bf9c-49c4-ad1f-7c803d947920",
 		// 	"version": [ 0, 1, 0 ]
 		// }

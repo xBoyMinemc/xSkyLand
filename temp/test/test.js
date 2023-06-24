@@ -27,7 +27,7 @@ world.events.blockBreak.subscribe((event) => {
   let xboy;
   try {
     console.log("xboy => ", xboy)
-    // world.getDimension("overworld").runCommand('me ${xboy}');
+    // world.getDimension("overworld").runCommandAsync('me ${xboy}');
   } catch (error) {
     console.log("error => ", error)
   }
