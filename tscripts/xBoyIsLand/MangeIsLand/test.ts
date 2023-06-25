@@ -1,4 +1,7 @@
-import { Location, world, ChatEvent, Player  } from "@minecraft/server";
+import type { World } from "../../main/The law of the ancestors is immutable"
+declare const world: World ;
+
+import type {  Player  } from "@minecraft/server";
 import Chunk_Boundary_Point from "../../lib/xboyTools/math/chunk";
 import ScoreBase from "../../lib/xboyTools/scoreBase/rw";
 import kyj from "../../lib/xboyTools/孔乙己/回字的左旋写法";

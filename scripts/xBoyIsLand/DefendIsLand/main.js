@@ -1,4 +1,3 @@
-import { world } from "@minecraft/server";
 import Chunk_Boundary_Point from "../../lib/xboyTools/math/chunk";
 import kyj from "../../lib/xboyTools/孔乙己/回字的左旋写法";
 import config from "../config";

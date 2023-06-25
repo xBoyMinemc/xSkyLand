@@ -1,6 +1,4 @@
 class WillNull {
-    val;
-    static NullErr = Error('Null values that may cause errors.');
     constructor(val) {
         this.val = val;
     }
@@ -23,6 +21,7 @@ class WillNull {
         throw WillNull.NullErr;
     }
 }
+WillNull.NullErr = Error('Null values that may cause errors.');
 function Maybe(val) {
     return new WillNull(val);
 }
@@ -30,10 +29,12 @@ function Null() {
     return new WillNull(null);
 }
 class Linked {
-    prev = Null();
-    next = Null();
-    raw = Null();
-    handler = Null();
+    constructor() {
+        this.prev = Null();
+        this.next = Null();
+        this.raw = Null();
+        this.handler = Null();
+    }
     connect(linked) {
         linked.next.setValue(this.next.expect('Do not operate Linked alone'));
         this.next.expect('Do not operate Linked alone')
@@ -62,14 +63,13 @@ class Linked {
     }
 }
 class IndexedLinked {
-    thisArg;
-    rawRecord = new Map();
-    record = new Map();
-    Entry = new Linked();
-    End = new Linked();
-    _pointer = this.Entry;
     constructor(thisArg = () => ({})) {
         this.thisArg = thisArg;
+        this.rawRecord = new Map();
+        this.record = new Map();
+        this.Entry = new Linked();
+        this.End = new Linked();
+        this._pointer = this.Entry;
         this.Entry.next.setValue(this.End);
         this.End.prev.setValue(this.Entry);
     }
@@ -184,10 +184,6 @@ class IndexedLinked {
     }
 }
 export class EventEmitter {
-    maxListeners = -1;
-    thisArg = {};
-    _events = {};
-    captureRejections = false;
     setMaxListeners(size) {
         this.maxListeners = size;
         return this;
@@ -195,7 +191,6 @@ export class EventEmitter {
     getMaxListeners() {
         return this.maxListeners;
     }
-    _thisGetter = () => this.thisArg;
     _getEventLinked(type) {
         let linked;
         if (!(linked = this._events[type])) {
@@ -337,6 +332,11 @@ export class EventEmitter {
         return Reflect.ownKeys(this._events);
     }
     constructor(opt) {
+        this.maxListeners = -1;
+        this.thisArg = {};
+        this._events = {};
+        this.captureRejections = false;
+        this._thisGetter = () => this.thisArg;
         if (opt) {
             this.captureRejections = opt.captureRejections || false;
             this.thisArg = opt.thisArg || {};

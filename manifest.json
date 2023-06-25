@@ -1,7 +1,7 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "§l§exSkyLAnd",
+		"name": "§l§exSkyLand",
 		"description": "§l§e welcome to sky",
 		"uuid": "9facfd38-501c-4d0a-9e9a-f2aaa1ae620e",
 		"version": [ 1, 20, 0],
@@ -14,7 +14,7 @@
 			"uuid": "d3c6de1e-45c0-4a20-bb7e-1aab5cbdd100",
 			"version": [ 1, 20, 0],
 			"type": "script",
-            "entry": "scripts/main/main.js"
+            "entry": "scripts/main/preload.js"
 		}
 	],
     "dependencies": [

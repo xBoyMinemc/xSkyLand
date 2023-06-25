@@ -32,11 +32,6 @@ function onceWrapper(type, rawFunc, emitter) {
     return onceListener;
 }
 class EventEmitter {
-    static captureRejections = true;
-    static defaultMaxListeners = -1;
-    static thisArg = undefined;
-    events = {};
-    maxListeners = EventEmitter.defaultMaxListeners;
     setMaxListeners(size) {
         this.maxListeners = size;
         return this;
@@ -140,9 +135,11 @@ class EventEmitter {
         this.prependListener(onceWrapper(type, handler, this));
         return this;
     }
-    thisArg = EventEmitter.thisArg;
-    captureRejections = true;
     constructor(opt) {
+        this.events = {};
+        this.maxListeners = EventEmitter.defaultMaxListeners;
+        this.thisArg = EventEmitter.thisArg;
+        this.captureRejections = true;
         this.on = this.addListener;
         this.off = this.removeListener;
         this.offAll = this.removeAllListeners;
@@ -152,6 +149,9 @@ class EventEmitter {
         }
     }
 }
+EventEmitter.captureRejections = true;
+EventEmitter.defaultMaxListeners = -1;
+EventEmitter.thisArg = undefined;
 let commandRegistry = {};
 function register(command, handler, opt = {}) {
     let em = new EventEmitter();
@@ -231,11 +231,6 @@ function splitRegular(str) {
     return res;
 }
 class TConsole {
-    static tConsole = null;
-    static __emitter__ = new EventEmitter();
-    static console = null;
-    static showDetail = true;
-    static tabSize = 2;
     getInstance(opt) {
         return TConsole.tConsole ? TConsole.tConsole : TConsole.tConsole = new TConsole(opt);
     }
@@ -271,11 +266,14 @@ class TConsole {
         TConsole.__emitter__.on(type, handler);
     }
 }
+TConsole.tConsole = null;
+TConsole.__emitter__ = new EventEmitter();
+TConsole.console = null;
+TConsole.showDetail = true;
+TConsole.tabSize = 2;
 const tab = () => new Array(TConsole.tabSize).fill(' ').join('');
 const getTab = (count = 1) => new Array(count).fill(tab()).join('');
 class MsgBlock extends Array {
-    static defaultColor = Formatting.white;
-    static defaultStyle = Formatting.normal;
     toTellrawString(tabCount = 0) {
         let [style, color, ...msgs] = this;
         style = style || MsgBlock.defaultStyle;
@@ -295,6 +293,8 @@ class MsgBlock extends Array {
         return this.toTellrawString(tabCount);
     }
 }
+MsgBlock.defaultColor = Formatting.white;
+MsgBlock.defaultStyle = Formatting.normal;
 function mbf(...iterable) {
     return MsgBlock.from(iterable);
 }
@@ -576,12 +576,9 @@ function fakeNativeToString(name, ...args) {
     return toString;
 }
 class RawTeller {
-    static sender = null;
-    msgQueue = [];
-    pending = false;
-    static header = '';
-    static rawTeller;
     constructor(header) {
+        this.msgQueue = [];
+        this.pending = false;
         this.header = header || RawTeller.header;
         RawTeller.rawTeller = this;
     }
@@ -604,6 +601,8 @@ class RawTeller {
         RawTeller.sender = s;
     }
 }
+RawTeller.sender = null;
+RawTeller.header = '';
 function getRawTeller(commander) {
     let sender = new RawTeller();
     sender.setSender(commander);
@@ -623,13 +622,13 @@ function getRawTeller(commander) {
     return senderProxy;
 }
 class Format {
-    static formats = [];
     constructor(opt) {
         this.checker = opt.checker;
         this.parse = opt.parse;
         Format.formats.push(this);
     }
 }
+Format.formats = [];
 function check(str) {
     let i = 0;
     for (const format of Format.formats) {
@@ -713,18 +712,17 @@ async function _backLogic(terminal, msgBuilder) {
     send(msg);
 }
 class Context {
-    data = null;
-    previews = [];
     constructor(data, previews) {
+        this.data = null;
+        this.previews = [];
         this.data = data;
         this.previews = previews;
     }
 }
 class ConsoleTerminal {
-    static contexts = [];
-    context = null;
-    index = 0;
     constructor(msgBuilder) {
+        this.context = null;
+        this.index = 0;
         const openLogic = index => {
             _openLogic(this, index, msgBuilder);
         };
@@ -773,6 +771,7 @@ class ConsoleTerminal {
         return this.context.previews[index];
     }
 }
+ConsoleTerminal.contexts = [];
 function initConsole(commander, selector) {
     doRegisterSpecParsers();
     initfstring();

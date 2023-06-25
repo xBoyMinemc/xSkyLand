@@ -1,6 +1,10 @@
-import { ScoreboardObjective, TickEvent, world } from "@minecraft/server";
+import type { ScoreboardObjective } from "@minecraft/server";
+import { system } from "@minecraft/server";
 import ScoreBase from "./rw";
 
+import type { World } from "../../../main/The law of the ancestors is immutable"
+import type { TickEvent } from "../../../@types/globalThis";
+declare const world: World ;
 
 
 const ScoreBaseTickCachePool        : (Map<string,Object>|Map<string,number>) = new Map();

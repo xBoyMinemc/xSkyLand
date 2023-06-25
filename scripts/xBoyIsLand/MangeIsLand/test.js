@@ -1,4 +1,3 @@
-import { world } from "@minecraft/server";
 import ScoreBase from "../../lib/xboyTools/scoreBase/rw";
 import kyj from "../../lib/xboyTools/孔乙己/回字的左旋写法";
 import xIsLand from "./xIsLand";

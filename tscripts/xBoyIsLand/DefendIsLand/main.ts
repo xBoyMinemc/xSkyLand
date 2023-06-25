@@ -1,4 +1,8 @@
-import { Dimension,Location,Player,world } from "@minecraft/server";
+import type { Dimension,Player } from "@minecraft/server";
+import type { World,Location } from "../../main/The law of the ancestors is immutable"
+declare const world: World ;
+
+
 import Chunk_Boundary_Point from "../../lib/xboyTools/math/chunk";
 import kyj from "../../lib/xboyTools/孔乙己/回字的左旋写法";
 import config from "../config";

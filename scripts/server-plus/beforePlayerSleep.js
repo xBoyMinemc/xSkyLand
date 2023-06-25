@@ -3,8 +3,9 @@ import EventSignal from './EventSignal';
 class BeforePlayerSleepEventSignal extends EventSignal {
 }
 class BeforePlayerSleepEvent {
-    player;
-    cancel = false;
+    constructor() {
+        this.cancel = false;
+    }
 }
 const signal = new BeforePlayerSleepEventSignal();
 world.events.beforeItemUseOn.subscribe(beforeItemUseOnEvent => {
