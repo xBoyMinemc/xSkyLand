@@ -23,60 +23,93 @@ let GetIndex = ()=>  ScoreBase.GetPoints("##xSkyConfigs##", "##xSkyLands##curren
 world.events.chat.subscribe(_=>{
     
 // _.sender.getTags().forEach(__=>_.sender.removeTag(__))
+        
+if(_.message==="重开" && 0){
 
-    if(!_.message.startsWith("~island"))return;
+    // if(xIsLand.GetIsPlayerScore(_.sender.name)<=0){
+    //     // _.sender.runCommandAsync(`me 还没有自己的岛\u000a输入 ~island空格+岛屿名\u000a以便于创建自己的岛屿"`)
+    //     _.sender.sendMessage('[摆烂空岛] 还没有自己的岛\u000a输入 ~island空格+岛屿名\u000a以便于创建自己的岛屿');
     
-if(_.message=="~island"){
-
-    if(xIsLand.GetIsPlayerScore(_.sender.name)<=0){
-        _.sender.runCommandAsync(`me 还没有自己的岛\u000a输入 ~island空格+岛屿名\u000a以便于创建自己的岛屿"`)
-        return;
-    }
+    //     return;
+    // }
     // xIsLand.GetIsPlayerScore(_.sender.name)
     const [x,z] = kyj.index2pos(xIsLand.GetIsPlayerScore(_.sender.name));
-    _.sender.runCommandAsync(`tp @s ${x*144+74} -490 ${z*144+74}`);
+    _.sender.teleport({x:x * 144 + 74,y: -490 ,z:z * 144 + 74});
+    overworld.runCommandAsync(`structure load xsky_1 ${x * 144 + 72} -510 ${z * 144 + 72}`);
+
     return;
 
 }
+    if(!_.message.startsWith("~island"))return;
 
-const 新建岛屿 = (ower: { message?: string; sender?: { name: string; runCommandAsync: (arg0: string) => void; }; name?: any; runCommandAsync?: any; },name:string) =>{
+    if(_.message==="~island"){
+
+        if(xIsLand.GetIsPlayerScore(_.sender.name)<=0){
+            // _.sender.runCommandAsync(`me 还没有自己的岛\u000a输入 ~island空格+岛屿名\u000a以便于创建自己的岛屿"`)
+            _.sender.sendMessage('[摆烂空岛] 还没有自己的岛\u000a输入 ~island空格+岛屿名\u000a以便于创建自己的岛屿');
+        
+            return;
+        }
+        // xIsLand.GetIsPlayerScore(_.sender.name)
+        const [x,z] = kyj.index2pos(xIsLand.GetIsPlayerScore(_.sender.name));
+        _.sender.teleport({x:x * 144 + 74,y: -490 ,z:z * 144 + 74});
+
+
+        // _.sender.runCommandAsync(`tp @s ${x*144+74} -490 ${z*144+74}`);
+        return;
+
+    }
+
+    const 新建岛屿 = (ower:Player,name:string) =>{
 
     
-    if(xIsLand.GetIsPlayerScore(ower.name)>0){
-        overworld.runCommandAsync(`me 已经有自己的岛了`)
-        return;
-    }
-    const index = GetIndex()
-    const [x,z] = kyj.index2pos(index);
-    //第一个测试空岛
-        if(!xIsLand.NewIsLand(String(name),ower.name)){
-            overworld.runCommandAsync(`此UID=> 已经存在`)
+        if(xIsLand.GetIsPlayerScore(ower.name)>0){
+            // overworld.runCommandAsync(`me 已经有自己的岛了`)
+            ower.sendMessage('[摆烂空岛] 已经有自己的岛了')
+
+            return;
+        }
+        const index = GetIndex()
+        const [x,z] = kyj.index2pos(index);
+        //第一个测试空岛
+            if(!xIsLand.NewIsLand(String(name),ower.name)){
+                ower.sendMessage('[摆烂空岛] 此UID=> 已经存在')
             return 0;
         }
         
-    ower.runCommandAsync(`spawnpoint @s ${x*144+74} -490 ${z*144+74}`);//设置重生点
-    ower.runCommandAsync(`tp @s ${x*144+74} -490 ${z*144+74}`);//送到岛所处区域，并加载这片区域
-    
-
-    overworld.runCommandAsync(`me 第${index}号空岛新建成功`);
-    overworld.runCommandAsync(`structure load xsky_1 ${x*144+72} -510 ${z*144+72}`);//加载空岛结构模板
-    
-    // overworld.runCommandAsync(`setblock ${pos[0]} 501 ${pos[1]} stained_glass ${(Math.random()*16)>>>0}`)
+        ower.setSpawn({x:x * 144 + 74,y: -490 ,z:z * 144 + 74},ower.dimension);
+        ower.teleport({x:x * 144 + 74,y: -490 ,z:z * 144 + 74});
+        world.getPlayers().forEach(player=>player.sendMessage(`[摆烂空岛] 第${index}号空岛开始创建`))
         
-}
-if(_.message.startsWith("~island ") && _.message !== "~island ")新建岛屿(_.sender,_.message.replace("~island ",""));
-const 删除所在岛屿 = (player:Player)=>{
-    const per = Permission(player.name,player.location);
-    if(!per.endsWith("1")){
-        player.runCommandAsync('tellraw @s {"rawtext": [{"text": "无法删除，因为不是岛主"}]}');
-        return;
-    }else{
-        player.runCommandAsync('tellraw @s {"rawtext": [{"text": "可以删除，因为是岛主"}]}');
-        return;
+        // overworld.structure
+        // ower.runCommandAsync(`spawnpoint @s ${x * 144 + 74} -490 ${z * 144 + 74}`);
+        // ower.runCommandAsync(`tp @s ${x * 144 + 74} -490 ${z * 144 + 74}`);
+        // overworld.runCommandAsync(`me 第${index}号空岛新建开始`);
+        overworld.runCommandAsync(`structure load xsky_1 ${x * 144 + 72} -510 ${z * 144 + 72}`);
+
+        world.getPlayers().forEach(player=>player.sendMessage(`[摆烂空岛] 第${index}号空岛完成创建`))
+          
     }
+
+    if(_.message.startsWith("~island ") && _.message !== "~island ")新建岛屿(_.sender,_.message.replace("~island ",""));
+    const 删除所在岛屿 = (player:Player)=>{
+        const per = Permission(player.name,player.location);
+        if(!per.endsWith("1")){
+            // player.runCommandAsync('tellraw @s {"rawtext": [{"text": "无法删除，因为不是岛主"}]}');
+            player.sendMessage('[摆烂空岛] 无法删除，因为不是岛主');
+        
+            return;
+        }else{
+            // player.runCommandAsync('tellraw @s {"rawtext": [{"text": "可以删除，因为是岛主"}]}');
+            player.sendMessage('[摆烂空岛] 可以删除，因为是岛主');
+        
+            return;
+        }
     
-};
-if(_.message.startsWith("~island del"))删除所在岛屿(_.sender);
+    };
+
+    if(_.message.startsWith("~island del"))删除所在岛屿(_.sender);
+
 })
 // world.events.tick.subscribe((_)=>{
 //     const [x,z] = kyj.index2pos(index);

@@ -1,4 +1,5 @@
 import { system } from "@minecraft/server";
+import { world as _world } from "@minecraft/server";
 export class Location {
     constructor(x, y, z) {
         this.x = x;
@@ -33,8 +34,8 @@ export class EventSignal {
 }
 const tick = new EventSignal();
 system.runInterval(() => tick.trigger({ currentTick: system.currentTick }), 1);
-const bf = world.beforeEvents;
-const af = world.afterEvents;
+const bf = _world.beforeEvents;
+const af = _world.afterEvents;
 export const Events = {
     tick: tick,
     beforeChat: bf.chatSend,
@@ -72,7 +73,6 @@ export const Events = {
     weatherChange: af.weatherChange,
     worldInitialize: af.worldInitialize,
 };
-import { world as _world } from "@minecraft/server";
 globalThis.world = Object.assign(_world, { events: Events });
 globalThis.Location = Location;
 globalThis.BlockLocation = BlockLocation;

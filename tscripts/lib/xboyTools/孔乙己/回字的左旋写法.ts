@@ -67,3 +67,4 @@ export default kyj;
 // console.log(x,y,kyj.pos2index([x,y]),index2pos(kyj.pos2index([x,y])),[x,y].toString()==index2pos(kyj.pos2index([x,y])).toString())
 
 
+console.error("孔乙己智慧被调用一次")

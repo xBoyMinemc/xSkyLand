@@ -1,5 +1,8 @@
 
 import { system } from "@minecraft/server";
+
+import { world as _world,World as _World } from "@minecraft/server";
+
 export class Location {
     x;
     y;
@@ -40,8 +43,8 @@ system.runInterval(() => tick.trigger({currentTick:system.currentTick}), 1);
 
 
 
-const bf = world.beforeEvents;
-const af = world.afterEvents;
+const bf = _world.beforeEvents;
+const af = _world.afterEvents;
 export const Events = {
     tick: tick,
     
@@ -93,8 +96,6 @@ export const Events = {
 
 
 
-
-  import { world as _world,World as _World } from "@minecraft/server";
 
 //   import { register } from "@minecraft/server-gametest";
   

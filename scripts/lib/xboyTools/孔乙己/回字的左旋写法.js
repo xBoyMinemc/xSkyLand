@@ -38,3 +38,4 @@ const kyj = {
     index2pos: index2pos
 };
 export default kyj;
+console.error("孔乙己智慧被调用一次");
