@@ -1,4 +1,3 @@
-import { world } from "@minecraft/server";
 import verif from "./verifyDataBase";
 import { initConsole } from '../../lib/RGB39/tellraw-console.js';
 import "./test";

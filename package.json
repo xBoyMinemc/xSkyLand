@@ -1,9 +1,6 @@
 {
   "dependencies": {
-    "@minecraft/server": "^1.0.0-beta.11940b24",
-    "@minecraft/server-gametest": "^1.0.0-beta.11940b24",
-    "@minecraft/server-net": "^1.0.0-beta.11940b24",
-    "@minecraft/server-ui": "^1.0.0-beta.11940b24",
-    "@xboyminemc/server-plus": "^0.0.2"
+    "@minecraft/server": "^1.3.0-beta.1.20.0-stable",
+    "@minecraft/server-gametest": "^1.0.0-beta.1.19.80-preview.24"
   }
 }

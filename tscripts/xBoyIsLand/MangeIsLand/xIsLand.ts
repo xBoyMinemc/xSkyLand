@@ -13,7 +13,8 @@ const AssIsPlayer = (playerName : string) : boolean =>{
     const xIsLandObject : ScoreboardObjective = ScoreBase.AssObject("##xSkyPlayers##")
     if (!xIsLandObject) return false
     if (!Array.from(xIsLandObject.getScores()).find((_ : ScoreboardScoreInfo)=> _.participant.displayName == playerName)) return false
-                                                                                                    return true
+    
+    return true
     
 }
 

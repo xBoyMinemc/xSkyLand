@@ -1,4 +1,7 @@
-import { Dimension, world } from "@minecraft/server";
+import type { World } from "../../main/The law of the ancestors is immutable"
+declare const world: World ;
+
+import type { Dimension } from "@minecraft/server";
 
 import   verif from "./verifyDataBase"
 import   ScoreBase      from "../../lib/xboyTools/scoreBase/rw.js";

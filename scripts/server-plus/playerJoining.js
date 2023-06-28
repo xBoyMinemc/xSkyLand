@@ -8,7 +8,6 @@ const runCmd = (() => {
 class PlayerJoiningEventSignal extends EventSignal {
 }
 class PlayerJoiningEvent {
-    player;
     constructor(player) {
         Object.defineProperty(this, "player", {
             value: player,
