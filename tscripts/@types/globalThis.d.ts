@@ -61,7 +61,7 @@ import {
 import {
     Location,
     BlockLocation
-} from "../lib/xboyPackage/The law of the ancestors is immutable";
+} from "../main/The law of the ancestors is immutable";
 
 export type Events = _WorldBeforeEvents & _WorldAfterEvents & _Events
 

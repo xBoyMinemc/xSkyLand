@@ -66,6 +66,7 @@ world.events.tick.subscribe(i2 => {
             overworld.runCommandAsync(`title @a[tag=mspt_] actionbar §e§lTPS:§3${tps}§0#§4MSPT:§e${mspta}-${msptb}§0#§4${msptArray.join(",")}`);
     ///gamerule randomtickspeed 1
             overworld.runCommandAsync(`scoreboard players set tps tps ${tps}`);
+            // /scoreboard objectives add tps dummy tps
         } catch (err) {
             //眼不见心不烦
         }

@@ -5,6 +5,9 @@ declare const world: World ;
 
 import Chunk_Boundary_Point from '../../lib/xboyTools/math/chunk';
 import kyj from '../../lib/xboyTools/孔乙己/回字的左旋写法';
+import { MinecraftEffectTypes } from '@minecraft/server';
+
+import xIsLand from "../MangeIsLand/xIsLand";
 
 //挖掘吸附
 world.events.blockBreak.subscribe(({player:player,block:block,dimension:dimension})=>{
@@ -31,15 +34,30 @@ world.events.tick.subscribe(()=>{
     .getEntities({type:'minecraft:chest_boat'})
     .forEach(chestBoat=>{chestBoat.location.y<-509?chestBoat.teleport(getIslandLocationFromIndex(getIndexFromLocation(chestBoat.location))):false})
 
-    //杀人辣
+    //下地狱
     world.getDimension("overworld")
     // .getEntities({type:'minecraft:chest_boat'})
     .getPlayers()
     // .forEach(player=>{player.location.y<-528?player.kill():false})
-    .forEach(player=>{player.location.y<-528?player.teleport({x:player.location.x,y:200,z:player.location.z},{dimension:world.getDimension('nether')}):false})
+    //人不是非死不可的
+    .forEach((player,z)=>{
+        player.location.y<-528
+        ?(
+            player.getEffects().forEach(_=>{player.removeEffect(_.typeId)}),
+            player.addEffect(MinecraftEffectTypes.saturation,1,{showParticles:false,amplifier:64}),
+            player.addEffect(MinecraftEffectTypes.instantHealth,1,{showParticles:false,amplifier:64}),
+            player.addLevels(-10),
+            (
+                xIsLand.GetIsPlayerScore(player.name)<=0
+                ?player.sendMessage('[摆烂空岛] 还没有自己的岛\u000a输入 ~island空格+岛屿名\u000a以便于创建自己的岛屿')//TODO 主城
+                :player.teleport({x:(z=kyj.index2pos(xIsLand.GetIsPlayerScore(player.name)),z[0]) * 144 + 74,y: -490 ,z:z[1] * 144 + 74})
+            )
+        )
+        :false})
+    // .forEach(player=>{player.location.y<-528?player.teleport({x:player.location.x,y:200,z:player.location.z},{dimension:world.getDimension('nether')}):false})
 
     
-    //杀人辣
+    //上末地
     world.getDimension("overworld")
     // .getEntities({type:'minecraft:chest_boat'})
     .getPlayers()
