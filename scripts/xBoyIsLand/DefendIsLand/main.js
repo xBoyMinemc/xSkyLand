@@ -21,8 +21,10 @@ const Permission = (playerName, postion) => {
 };
 export { Permission };
 world.events.tick.subscribe((_) => {
-    Array.from(overworld.getPlayers()).forEach((player) => {
+    world.getPlayers({}).forEach((player) => {
         let per = Permission(player.name, player.location);
+        if (player.isOp() || player.name === "Xboy minemc")
+            return;
         if (per === '000') {
             player.runCommandAsync('gamemode spectator @s[m=a]');
             player.runCommandAsync('gamemode spectator @s[m=s]');

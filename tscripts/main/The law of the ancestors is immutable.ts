@@ -7,14 +7,14 @@ export class Location {
     x;
     y;
     z;
-    constructor(x, y, z) {
+    constructor(x:number, y:number, z:number) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 }
 export class BlockLocation extends Location {
-    blocksBetween(BlockLocation) {
+    blocksBetween(BlockLocation:Location) {
         const BlockLocations = [];
         x: for (let xOff = this.x - BlockLocation.x; xOff !== 0; xOff > 0 ? --xOff : ++xOff)
             y: for (let yOff = this.y - BlockLocation.y; yOff !== 0; yOff > 0 ? --yOff : ++yOff)

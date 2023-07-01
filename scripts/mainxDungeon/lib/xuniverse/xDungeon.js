@@ -530,14 +530,14 @@ function rest(){
 			//console.log(a,"#x:",x,"#y:",y,"#w:",w)
 	}
 	};};
-
+	let a = "/u000a"
 	for(let u = 2;u<19;u++){
 
 		 //where.runCommandAsync(`me ${u21v21[u]}`)
 			 //console.log(u21v21[u].join())
 			 try{
 			 the_end.runCommandAsync(`tellraw @a[tag=xdungeon] {"rawtext":[{"text":"§r§l⑨${u21v21[u].join(" ").replace("★","§e★§r§l")}"}]}`)
-			 console.error('`§r§l⑨${u21v21[u].join(" ").replace("★","§e★§r§l")}`')
+			 a += "\x1b[1m"+u21v21[u].join(" ").replace("★","\x1b[1;33m★\x1b[0m")+"\u000a";
 			//  console.error('`§r§l⑨${u21v21[u].join(" ").replace("★","§e★§r§l")}`')
 			 }catch(err){
 				the_end.runCommandAsync("me 4"+err)
@@ -603,9 +603,11 @@ function rest(){
 		}//整平，我不觉，心不烦
 	  }
 }
+
+console.error(a)
+
 try{where.runCommandAsync(`tellraw @a[tag=xdungeon] {"rawtext":[{"text":"§e§l-房间数量；${gamecache.length}"}]}`)}catch(err){
 	the_end.runCommandAsync("me 3"+err)
-
 }
 }
 

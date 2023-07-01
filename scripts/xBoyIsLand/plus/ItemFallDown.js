@@ -21,15 +21,16 @@ world.events.tick.subscribe(() => {
         .forEach(chestBoat => { chestBoat.location.y < -509 ? chestBoat.teleport(getIslandLocationFromIndex(getIndexFromLocation(chestBoat.location))) : false; });
     world.getDimension("overworld")
         .getPlayers()
-        .forEach((player, z) => {
+        .forEach((player, xz) => {
         player.location.y < -528
             ? (player.getEffects().forEach(_ => { player.removeEffect(_.typeId); }),
                 player.addEffect(MinecraftEffectTypes.saturation, 1, { showParticles: false, amplifier: 64 }),
                 player.addEffect(MinecraftEffectTypes.instantHealth, 1, { showParticles: false, amplifier: 64 }),
                 player.addLevels(-10),
-                (xIsLand.GetIsPlayerScore(player.name) <= 0
-                    ? player.sendMessage('[摆烂空岛] 还没有自己的岛\u000a输入 ~island空格+岛屿名\u000a以便于创建自己的岛屿')
-                    : player.teleport({ x: (z = kyj.index2pos(xIsLand.GetIsPlayerScore(player.name)), z[0]) * 144 + 74, y: -490, z: z[1] * 144 + 74 })))
+                (xz = kyj.index2pos(xIsLand.GetIsPlayerScore(player.name)),
+                    xIsLand.GetIsPlayerScore(player.name) <= 0
+                        ? player.sendMessage('[摆烂空岛] 还没有自己的岛\u000a输入 ~island空格+岛屿名\u000a以便于创建自己的岛屿')
+                        : player.teleport({ x: xz[0] * 144 + 74, y: -490, z: xz[1] * 144 + 74 })))
             : false;
     });
     world.getDimension("overworld")

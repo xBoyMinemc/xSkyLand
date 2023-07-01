@@ -36,28 +36,31 @@ const Permission = (playerName : string,postion : Location)=>{
 };
 export {Permission};
 world.events.tick.subscribe((_)=>{
-    Array.from(overworld.getPlayers()).forEach((player : Player)=>{
+    world.getPlayers({}).forEach((player : Player)=>{
         let per = Permission(player.name,player.location);//获取玩家当前区域的岛屿权限等级
         //读 写 操作
         // player.runCommandAsync('me per=> '+per);
         // console.log(typeof per,per)
-    if (per === '000')//外来者
-    {
-        //gamemode spectator @s[m=!spectator]
-        //获得成就《细  说》
-        player.runCommandAsync('gamemode spectator @s[m=a]');
-        player.runCommandAsync('gamemode spectator @s[m=s]');
-        player.runCommandAsync('gamemode spectator @s[m=c]');
-    }
-    // if (per === '111')//岛主
-    if (per.endsWith('1'))//岛主
-        player.runCommandAsync('gamemode survival @s[m=!survival]');
-    if (per === '110')//成员，可破坏建造
-        player.runCommandAsync('gamemode survival @s[m=!survival]');
-    if (per === '100')//审批访客，可冒险游荡
-        player.runCommandAsync('gamemode adventure @s[m=!adventure]');
+        // player.runCommandAsync('me player.isOp()=> '+player.isOp());
 
-    })
+        if(player.isOp() || player.name === "Xboy minemc")
+        return;
+        if (per === '000')//外来者
+        {
+            //gamemode spectator @s[m=!spectator]
+            //获得成就《细  说》
+            player.runCommandAsync('gamemode spectator @s[m=a]');
+            player.runCommandAsync('gamemode spectator @s[m=s]');
+            player.runCommandAsync('gamemode spectator @s[m=c]');
+        }
+        // if (per === '111')//岛主
+        if (per.endsWith('1'))//岛主
+            player.runCommandAsync('gamemode survival @s[m=!survival]');
+        if (per === '110')//成员，可破坏建造
+            player.runCommandAsync('gamemode survival @s[m=!survival]');
+        if (per === '100')//审批访客，可冒险游荡
+            player.runCommandAsync('gamemode adventure @s[m=!adventure]');
+        })
 
 })
 
