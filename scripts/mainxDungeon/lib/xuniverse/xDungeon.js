@@ -630,7 +630,7 @@ const helperList = [
 ];
 world.events.chat.subscribe(msg => {
 
-const {message} = msg
+const {message} = msg;
 /*
 if(message == "..xd clear" && msg.sender.hasTag("xboy")){msg.message = "清场中....";clear()}
 if(message == "..xd rest"  && msg.sender.hasTag("xboy")){msg.message = "生成中...."; rest()}
@@ -672,14 +672,21 @@ if((message == "探牢" || message == "探监") && msg.sender.hasTag("xdungeon")
 		[0, 4]
 	].forEach((xz)=>{
 		gamecache.every((room)=>{
+			// msg.sender.runCommandAsync(`me tp gamecache`+gamecache.length);
+
 			let uv = Chunk_Boundary_Point.x2D([x+xz[0],z+xz[1]])
+			// msg.sender.runCommandAsync(`me ${uv[0]} ${room.x}  ${uv[1] } ${room.z}`);
+
 			if(uv[0] == room.x && uv[1] == room.z){
+			// msg.sender.runCommandAsync(`me done`);
+
 				// msg.sender.runCommandAsync(`tp @s ${room.x+7} ${orxyz[1]+2} ${room.z+8}`);
 				msg.sender.teleport({x:room.x+7 ,y: orxyz[1]+2 , z:room.z+8});
 				// +7 又 +8,文明是√8
 			// 	throw new Error("为了让forEach中断减少性能开销，我加了个try，怎么想的");
 				return;
 			}
+			return true;
 		})
 	})
 

@@ -21,7 +21,7 @@ const Permission = (playerName, postion) => {
 };
 export { Permission };
 world.events.tick.subscribe((_) => {
-    world.getPlayers({}).forEach((player) => {
+    overworld.getPlayers({}).forEach((player) => {
         let per = Permission(player.name, player.location);
         if (player.isOp() || player.name === "Xboy minemc")
             return;

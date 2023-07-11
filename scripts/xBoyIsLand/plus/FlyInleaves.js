@@ -1,27 +1,50 @@
+import { MolangVariableMap } from '@minecraft/server';
 const shears = ['minecraft:leaves', 'minecraft:leaves2', 'minecraft:azalea_leaves', 'minecraft:mangrove_leaves', 'minecraft:cherry_leaves', 'minecraft:bamboo', 'minecraft:grass', 'minecraft:water'];
 const list = new Set();
+const overworld = world.getDimension('overworld');
 let count = 0;
 world.events.tick.subscribe(() => {
     if (++count < 2)
         return;
     count = 0;
     list.clear();
-    const players = world.getPlayers();
+    const players = overworld.getPlayers();
     players.forEach((player) => {
         player.removeTag('mayfly');
-        const { x, y, z } = player.location;
+        let { x: xa, y: ya, z: za } = player.location;
+        xa = Math.floor(xa);
+        ya = Math.floor(ya);
+        za = Math.floor(za);
         const r = 6;
         const d = player.dimension;
         const b = { 'x': 0, 'y': 0, 'z': 0 };
-        _x: for (let xOff = x - r; xOff !== x + r; ++xOff)
-            _y: for (let yOff = (y - r) >= -512 ? (y - r) : -512; yOff <= y + r; ++yOff)
-                _z: for (let zOff = z - r; zOff !== z + r; ++zOff)
-                    if (d.getBlock({ 'x': xOff, 'y': yOff, 'z': zOff }).typeId != 'minecraft:air')
-                        if (shears.includes(d.getBlock({ 'x': xOff, 'y': yOff, 'z': zOff }).typeId)) {
-                            player.addTag('mayfly');
-                            player.addTag('mayfly2');
-                            continue _x;
+        let f = true;
+        _x: for (b.x = xa - r + 0.5; b.x <= xa + r + 0.5; ++b.x)
+            _y: for (b.y = 0.5 + (ya - r) >= -512 ? (ya - r) <= 512 ? (ya - r) : 512 : -512; b.y <= ya + r; ++b.y)
+                _z: for (b.z = za - r + 0.5; b.z <= za + r + 0.5; ++b.z) {
+                    const bI = d.getBlock(b).typeId;
+                    if (bI !== 'minecraft:air')
+                        if (shears.includes(bI)) {
+                            if (f) {
+                                player.addTag('mayfly');
+                                player.addTag('mayfly2');
+                                f = false;
+                            }
+                            if (bI === 'minecraft:bamboo' || bI === 'minecraft:sweet_berry_bush') {
+                                let rm = Math.random();
+                                while ((rm -= 0.3) > 0) {
+                                    bI === 'minecraft:bamboo'
+                                        ?
+                                            d.spawnParticle('xboycraft:green_light_point', b, new MolangVariableMap())
+                                        : 0;
+                                    bI === 'minecraft:sweet_berry_bush'
+                                        ?
+                                            d.spawnParticle('xboycraft:red_light_point', b, new MolangVariableMap())
+                                        : 0;
+                                }
+                            }
                         }
+                }
     });
     world.getDimension('overworld').runCommandAsync('ability @a[tag=mayfly] mayfly true');
     world.getDimension('overworld').runCommandAsync('ability @a[tag=!mayfly] mayfly false');
@@ -29,4 +52,3 @@ world.events.tick.subscribe(() => {
     world.getDimension('overworld').runCommandAsync('gamemode s @a[tag=!mayfly,tag=mayfly2,m=a]');
     world.getDimension('overworld').runCommandAsync('tag @a[tag=!mayfly,tag=mayfly2] remove mayfly2');
 });
-export {};

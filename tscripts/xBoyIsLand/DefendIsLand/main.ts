@@ -36,7 +36,7 @@ const Permission = (playerName : string,postion : Location)=>{
 };
 export {Permission};
 world.events.tick.subscribe((_)=>{
-    world.getPlayers({}).forEach((player : Player)=>{
+    overworld.getPlayers({}).forEach((player : Player)=>{
         let per = Permission(player.name,player.location);//获取玩家当前区域的岛屿权限等级
         //读 写 操作
         // player.runCommandAsync('me per=> '+per);

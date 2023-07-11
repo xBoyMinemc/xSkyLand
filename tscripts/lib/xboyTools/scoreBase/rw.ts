@@ -29,7 +29,7 @@ const AssScorePartic    = (...args: any[])=>{return args.length === 2 ? args[1].
 ///scoreboard objectives remove testObjectName
 ///scoreboard objectives add testObjectName dummy ss
 // const DelScoreObjectAsync    = (ObjName: string | ScoreboardObjective)=>{return overworld.runCommandAsync(`scoreboard objectives remove ${(typeof ObjName === typeof "xBoyMinemc") ? ObjName : ObjName.id}`)};
-// const NewScoreObjectAsync    = (...args: string[])=>{return overworld.runCommandAsync(`scoreboard objectives add ${args[0]} ${args[2]||"dummy"} ${args[1]}`)};
+// const NewScoreObjectAsync    = (...args: string[])=>{return overworld.runCommandAsync(`scoreboard objectives addx'x'x'x'x'x'x'x'x'x'x'x'x'x'x'x'x'x'x ${args[0]} ${args[2]||"dummy"} ${args[1]}`)};
 
 // @ts-ignore
 const DelScoreObject    = (ObjName: string | ScoreboardObjective)=>{overworld.runCommandAsync(`scoreboard objectives remove ${(typeof ObjName === typeof "xBoyMinemc") ? ObjName : ObjName.id}`)};

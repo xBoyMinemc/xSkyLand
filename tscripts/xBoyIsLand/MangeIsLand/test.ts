@@ -24,7 +24,7 @@ world.events.chat.subscribe(_=>{
     
 // _.sender.getTags().forEach(__=>_.sender.removeTag(__))
         
-if(_.message==="重开" && 0){
+if(_.message==="重开" && _.sender.hasTag('remake')){
 
     // if(xIsLand.GetIsPlayerScore(_.sender.name)<=0){
     //     // _.sender.runCommandAsync(`me 还没有自己的岛\u000a输入 ~island空格+岛屿名\u000a以便于创建自己的岛屿"`)
@@ -34,10 +34,11 @@ if(_.message==="重开" && 0){
     // }
     // xIsLand.GetIsPlayerScore(_.sender.name)
     const [x,z] = kyj.index2pos(xIsLand.GetIsPlayerScore(_.sender.name));
-    _.sender.teleport({x:x * 144 + 74,y: -490 ,z:z * 144 + 74});
+    // _.sender.teleport({x:x * 144 + 74,y: -490 ,z:z * 144 + 74});
+    overworld.runCommandAsync(`tp ${x * 144 + 74} -490 ${z * 144 + 74}`);
     overworld.runCommandAsync(`structure load xsky_1 ${x * 144 + 72} -510 ${z * 144 + 72}`);
 
-    return;
+    return _.sender.removeTag('remake');
 
 }
     if(!_.message.startsWith("~island"))return;

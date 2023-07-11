@@ -5,11 +5,11 @@ import { Permission } from "../DefendIsLand/main";
 const overworld = world.getDimension("overworld");
 let GetIndex = () => ScoreBase.GetPoints("##xSkyConfigs##", "##xSkyLands##currentUID");
 world.events.chat.subscribe(_ => {
-    if (_.message === "重开" && 0) {
+    if (_.message === "重开" && _.sender.hasTag('remake')) {
         const [x, z] = kyj.index2pos(xIsLand.GetIsPlayerScore(_.sender.name));
-        _.sender.teleport({ x: x * 144 + 74, y: -490, z: z * 144 + 74 });
+        overworld.runCommandAsync(`tp ${x * 144 + 74} -490 ${z * 144 + 74}`);
         overworld.runCommandAsync(`structure load xsky_1 ${x * 144 + 72} -510 ${z * 144 + 72}`);
-        return;
+        return _.sender.removeTag('remake');
     }
     if (!_.message.startsWith("~island"))
         return;
