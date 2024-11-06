@@ -1,16 +1,12 @@
-import type { World } from '../../main/The law of the ancestors is immutable'
-declare const world: World ;
-
-// import { MinecraftItemTypes, type EntityInventoryComponent, type Player, ItemStack, MinecraftBlockTypes } from '@minecraft/server'
 
 import Chunk_Boundary_Point from '../../lib/xboyTools/math/chunk';
 import kyj from '../../lib/xboyTools/孔乙己/回字的左旋写法';
-import { EffectTypes } from '@minecraft/server';
+import {EffectTypes, system, world} from '@minecraft/server';
 
 import xIsLand from "../MangeIsLand/xIsLand";
 
 //挖掘吸附
-world.events.blockBreak.subscribe(({player:player,block:block,dimension:dimension})=>{
+world.afterEvents.playerBreakBlock.subscribe(({player:player,block:block,dimension:dimension})=>{
     // block.getComponent
     dimension.getEntitiesAtBlockLocation(block.location).forEach(_=>_.teleport(player.location))
 
@@ -28,7 +24,7 @@ const getIslandLocationFromIndex = (index:number)=>{
     return {x:x * 144 + 74,y: -490 ,z:z * 144 + 74};
 }
 //运输船虚空保护
-world.events.tick.subscribe(()=>{
+system.runInterval(()=>{
     
     world.getDimension("overworld")
     .getEntities({type:'minecraft:chest_boat'})

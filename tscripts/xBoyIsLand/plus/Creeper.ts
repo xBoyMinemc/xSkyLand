@@ -1,6 +1,5 @@
-import type { World } from '../../main/The law of the ancestors is immutable'
-declare const world: World ;
+import {world} from "@minecraft/server";
 
-world.events.beforeExplosion.subscribe(({setImpactedBlocks:setImpactedBlocks})=>{
+world.beforeEvents.explosion.subscribe(({setImpactedBlocks:setImpactedBlocks})=>{
     setImpactedBlocks([])
 })

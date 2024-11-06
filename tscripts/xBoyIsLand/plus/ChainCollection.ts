@@ -1,9 +1,4 @@
-// @ts-nocheck
-
-import type { World } from '../../main/The law of the ancestors is immutable'
-declare const world: World ;
-
-import { system, type Dimension, Block, Player } from "@minecraft/server";
+import {type Dimension, Block, Player, world, Vector3, system} from "@minecraft/server";
 // import EventSignal from "./EventSignal";
 
 // import chainMining from "../lib/xboyTools/chainMining.js";
@@ -28,7 +23,7 @@ export class Location {
   x:number;
   y:number;
   z:number;
-  constructor(x:number|v, y:number|void, z:number|void) {
+  constructor(x:number|Vector3, y:number|void, z:number|void) {
    // console.error(x,y,z)
     if (typeof x === "number") {
       this.x = x;
@@ -105,7 +100,7 @@ const List_B_Object = {
 
 let exe = [];
 
-world.events.tick.subscribe(()=>{
+system.runInterval(()=>{
    if(!exe.length)return;
    try {
    exe.pop()();
@@ -126,7 +121,7 @@ world.events.tick.subscribe(()=>{
 
 
 
-const neighborBlock = function(blockLocationO:BlockLocation, dimension:Dimension, blockid:string,done:Set<string>,magicLocation:Location){
+const neighborBlock = function(blockLocationO:Vector3, dimension:Dimension, blockid:string,done:Set<string>,magicLocation:Vector3){
 
                         const blockX = blockLocationO.x
                         const blockY = blockLocationO.y
@@ -202,8 +197,8 @@ let chainMining = function(breakBlockId:string, block:Block, dimension:Dimension
                            //坐标id获取   锚点      执行者
                      const done = new Set<string>();
                      const magicLocation = new Location(block.location);
-                           block = new Location(block);
-                     let itemObject = player.getComponent("inventory").container.getItem(player.selectedSlot)
+                     const blockLocation = new Location(block);
+                     let itemObject = player.getComponent("inventory").container.getItem(player.selectedSlotIndex)
                      let xboy;
                      // itemObject.getComponents().forEach(_=>dimension.runCommandAsync("me "+_.id))
                      
@@ -214,7 +209,7 @@ let chainMining = function(breakBlockId:string, block:Block, dimension:Dimension
                         //#IF#1
                            if (List_AA_Object[itemIdString].includes(breakBlockId)) {
                            //#IF#2
-                           neighborBlock(block, dimension, breakBlockId,done,magicLocation)
+                           neighborBlock(magicLocation, dimension, breakBlockId,done,magicLocation)
                            }
                            //EndIF#2
                         }
@@ -224,7 +219,7 @@ let chainMining = function(breakBlockId:string, block:Block, dimension:Dimension
                            //#IF#1
                            if (List_BB_Object[itemIdString].includes(breakBlockId)) {
                            //#IF#2
-                           neighborBlock(block, dimension, breakBlockId,done,magicLocation)
+                           neighborBlock(blockLocation, dimension, breakBlockId,done,magicLocation)
                            }
                            //EndIF#2
                         }
@@ -250,7 +245,7 @@ console.warn("#######++++++++++#######\u000aChainCollection加载成功\u000a###
 
 
 
-world.events.chat.subscribe((event) => {
+world.afterEvents.chatSend.subscribe((event) => {
 
 
     
@@ -262,8 +257,6 @@ const tagManager = function(messageAstring, messageZstring,tagsArray,tagsBoolean
     if(message == messageAstring){
     try{
         // event.targets = []
-        event.message = "好消息，我触发了一个报错[tagManager]"
-        event.sendToTargets = true
         event.sender.runCommandAsync(`tellraw @a[name="${event.sender.nameTag}"] {"rawtext":[{"text":"§e§l-${messageZstring}"}]}`)
         if(tagsBoolean){
         tagsArray.forEach( (tagString:string) => { event.sender.addTag(   tagString)} )
@@ -281,7 +274,7 @@ const tagManager = function(messageAstring, messageZstring,tagsArray,tagsBoolean
 })
 
 
-world.events.blockBreak.subscribe(e => {
+world.afterEvents.playerBreakBlock.subscribe(e => {
 
     try {
         const {brokenBlockPermutation,block,dimension,player} = e;

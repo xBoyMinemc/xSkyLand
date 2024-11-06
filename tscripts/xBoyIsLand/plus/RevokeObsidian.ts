@@ -1,8 +1,13 @@
-import type { World } from '../../main/The law of the ancestors is immutable'
-import { MinecraftItemTypes, type EntityInventoryComponent, type Player, ItemStack, MinecraftBlockTypes } from '@minecraft/server'
-declare const world: World ;
+import {
+    type EntityInventoryComponent,
+    type Player,
+    ItemStack,
+    world
+} from '@minecraft/server'
+
+
 //空桶回收黑曜石为岩浆
-world.events.itemUse.subscribe(({source:source,itemStack:item})=>{
+world.afterEvents.itemUse.subscribe(({source:source,itemStack:item})=>{
     const player = <Player>source;
     if(!player.isSneaking)return;
     // player.sendMessage("ssssssss"+item.typeId+item.amount)
@@ -11,9 +16,9 @@ world.events.itemUse.subscribe(({source:source,itemStack:item})=>{
         if(block&&block.typeId==='minecraft:obsidian'){
 
             const inv = <EntityInventoryComponent>player.getComponent('inventory');
-            inv.container.setItem(player.selectedSlot, new ItemStack(MinecraftItemTypes.lavaBucket))
+            inv.container.setItem(player.selectedSlotIndex, new ItemStack("minecraft:lavaBucket"))
 
-            block.setType(MinecraftBlockTypes.air)
+            block.setType("minecraft:air")
         }
     }
 })

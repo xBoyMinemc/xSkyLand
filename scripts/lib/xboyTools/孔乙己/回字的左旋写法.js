@@ -1,4 +1,4 @@
-const xBoyDream = new Map();
+﻿const xBoyDream = new Map();
 const toNegative = (i) => i < 0 ? i : -i;
 const toPositive = (i) => i < 0 ? -i : i;
 const pos2index = (xy) => {

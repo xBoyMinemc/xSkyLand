@@ -1,5 +1,7 @@
-export default class EventSignal {
-    listeners = new Set();
+﻿export default class EventSignal {
+    constructor() {
+        this.listeners = new Set();
+    }
     subscribe(listener) {
         this.listeners.add(listener);
         return listener;
@@ -7,7 +9,7 @@ export default class EventSignal {
     unsubscribe(listener) {
         this.listeners.delete(listener);
     }
-    trigger(ev) {
-        this.listeners.forEach((listener) => listener(ev));
+    trigger(event) {
+        this.listeners.forEach((listener) => listener(event));
     }
 }

@@ -1,4 +1,4 @@
-const Chunk_Boundary_Point = {
+﻿const Chunk_Boundary_Point = {
     x2D: function (xz) {
         return xz.map(i => {
             i = +i.toFixed(0);

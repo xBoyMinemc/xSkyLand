@@ -1,4 +1,4 @@
-const Formatting = {
+﻿const Formatting = {
     black: "§0",
     dark_blue: "§1",
     dark_green: "§2",

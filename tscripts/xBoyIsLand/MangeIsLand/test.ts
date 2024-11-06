@@ -1,7 +1,4 @@
-import type { World } from "../../main/The law of the ancestors is immutable"
-declare const world: World ;
-
-import type {  Player  } from "@minecraft/server";
+import {Player, world} from "@minecraft/server";
 import Chunk_Boundary_Point from "../../lib/xboyTools/math/chunk";
 import ScoreBase from "../../lib/xboyTools/scoreBase/rw";
 import kyj from "../../lib/xboyTools/孔乙己/回字的左旋写法";
@@ -20,7 +17,7 @@ let GetIndex = ()=>  ScoreBase.GetPoints("##xSkyConfigs##", "##xSkyLands##curren
 
 // overworld.runCommandAsync(`me me reload`)
 
-world.events.chat.subscribe(_=>{
+world.afterEvents.chatSend.subscribe(_=>{
     
 // _.sender.getTags().forEach(__=>_.sender.removeTag(__))
         

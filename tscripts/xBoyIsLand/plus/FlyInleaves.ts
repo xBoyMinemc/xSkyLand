@@ -1,8 +1,5 @@
-import type { Player, Dimension } from '@minecraft/server';
+import {Player, Dimension, world, system} from '@minecraft/server';
 import { MolangVariableMap } from '@minecraft/server';
-import type { World, Location } from '../../main/The law of the ancestors is immutable';
-
-declare const world: World ;
 
 const shears = ['minecraft:leaves', 'minecraft:leaves2','minecraft:azalea_leaves','minecraft:mangrove_leaves','minecraft:cherry_leaves','minecraft:bamboo','minecraft:grass','minecraft:water'];
 const list = new Set<Player['id']>();
@@ -10,7 +7,7 @@ const overworld : Dimension = world.getDimension('overworld');
 
 // #现在水-草方块-竹子-树叶附近可以飞行
 let count = 0;
-world.events.tick.subscribe(() => {
+system.runInterval(() => {
             if(++count<2)return;
             count=0;
             list.clear();
@@ -71,6 +68,3 @@ world.events.tick.subscribe(() => {
             overworld.runCommandAsync('tag @a[tag=!mayfly,tag=mayfly2] remove mayfly2')
 
 });
-// world.events.chat.subscribe(({message:message,sender:sender}) => {
-    
-// });

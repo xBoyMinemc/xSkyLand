@@ -1,13 +1,10 @@
-import type { World } from '../../main/The law of the ancestors is immutable'
-declare const world: World ;
-
-// import {Commands, World, Player} from 'Minecraft';
-
 //比较简陋，懒得写注释
 //2021没找到作者署名，可能是weifeng4141@gmail.com
 //xBoy minemc略改-2023-06-26
+import {system, world} from "@minecraft/server";
+
 let count = 0;
-world.events.tick.subscribe(() => {
+system.runInterval(() => {
 		try {
             if(++count<5)return;
             count=0;
@@ -39,7 +36,7 @@ world.events.tick.subscribe(() => {
 			// Commands.run(`say ${error}`);
 		}
 });
-world.events.chat.subscribe(({message:message,sender:sender}) => {
+world.afterEvents.chatSend.subscribe(({message:message,sender:sender}) => {
 	if (message === "~island slime" || message === "史莱姆区块" )
     sender.hasTag('slime') ? sender.removeTag('slime') : sender.addTag('slime')
 });

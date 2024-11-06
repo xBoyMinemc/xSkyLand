@@ -2,14 +2,11 @@ import type { ScoreboardObjective } from "@minecraft/server";
 import { system } from "@minecraft/server";
 import ScoreBase from "./rw";
 
-import type { World } from "../../../main/The law of the ancestors is immutable"
-import type { TickEvent } from "../../../@types/globalThis";
-declare const world: World ;
 
 
 const ScoreBaseTickCachePool        : (Map<string,Object>|Map<string,number>) = new Map();
 let   ScoreBaseTickCacheControl : number = 0;
-const ScoreBaseTickCacheControlSet  = (event : TickEvent)=>{ScoreBaseTickCacheControl=event.currentTick};
+const ScoreBaseTickCacheControlSet  = ()=>{ScoreBaseTickCacheControl=system.currentTick};
 
 
 // @ts-ignore
@@ -24,9 +21,9 @@ const ScoreBaseTickCacheGetAllObj = () : ScoreboardObjective[] => {return (Score
 const ScoreBaseTickCacheGetWithSign  = (ScoreObjectName : string) : (Object | number)[] =>  {return [(ScoreBaseTickCachePool.get(ScoreObjectName+"##Control##") === ScoreBaseTickCacheControl) ? ScoreBaseTickCachePool.get(ScoreObjectName) : (ScoreBaseTickCacheSetControl(ScoreObjectName),ScoreBaseTickCacheSetObject(ScoreObjectName)),ScoreBaseTickCacheControl]};
 
 
-world.events.tick.subscribe((event)=>{
+system.runInterval(()=>{
     // const {currentTick,deltaTime} = event;
-    ScoreBaseTickCacheControlSet(event);
+    ScoreBaseTickCacheControlSet();
 })
 
 interface ScoreBaseTickCache {
