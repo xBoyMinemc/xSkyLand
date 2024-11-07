@@ -41,26 +41,27 @@ system.runInterval(() => {
                                
                             let rm = Math.random();             
                             // if(rm < 0.25)continue;
-                            // d.runCommandAsync('me x=> '+b.x+' y=> '+b.y+' z=> '+b.z+' bI=> '+bI)             
-
+                            // d.runCommandAsync('me x=> '+b.x+' y=> '+b.y+' z=> '+b.z+' bI=> '+bI)
+                                if(!"我修好了资源包")
                             while((rm-=0.3) >0){
                                  bI === 'minecraft:bamboo'
                                 ?
-                                d.spawnParticle('xboycraft:green_light_point', b, new MolangVariableMap())
+                                     d.spawnParticle('minecraft:endrod', b, new MolangVariableMap())
+                                     // d.spawnParticle('xboycraft:green_light_point', b, new MolangVariableMap())
                                 : 0
 
                                  bI === 'minecraft:sweet_berry_bush'
                                 ?
-                                d.spawnParticle('xboycraft:red_light_point', b, new MolangVariableMap())
+                                     d.spawnParticle('minecraft:endrod', b, new MolangVariableMap())
+                                     // d.spawnParticle('xboycraft:red_light_point', b, new MolangVariableMap())
                                 : 0
-                            } 
+                            }
                             }
                             // continue _x;
                         }
                 }
                 
 			});
-            overworld.runCommandAsync('ability @a[tag=mayfly] mayfly true')
             overworld.runCommandAsync('ability @a[tag=mayfly] mayfly true')
             overworld.runCommandAsync('ability @a[m=c] mayfly true') //gamemode c
             overworld.runCommandAsync('gamemode a @a[tag=!mayfly,tag=mayfly2,m=s]')

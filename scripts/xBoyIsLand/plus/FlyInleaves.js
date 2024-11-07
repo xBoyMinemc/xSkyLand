@@ -34,21 +34,21 @@ system.runInterval(() => {
                             }
                             if (bI === 'minecraft:bamboo' || bI === 'minecraft:sweet_berry_bush') {
                                 let rm = Math.random();
-                                while ((rm -= 0.3) > 0) {
-                                    bI === 'minecraft:bamboo'
-                                        ?
-                                            d.spawnParticle('xboycraft:green_light_point', b, new MolangVariableMap())
-                                        : 0;
-                                    bI === 'minecraft:sweet_berry_bush'
-                                        ?
-                                            d.spawnParticle('xboycraft:red_light_point', b, new MolangVariableMap())
-                                        : 0;
-                                }
+                                if (!"我修好了资源包")
+                                    while ((rm -= 0.3) > 0) {
+                                        bI === 'minecraft:bamboo'
+                                            ?
+                                                d.spawnParticle('minecraft:endrod', b, new MolangVariableMap())
+                                            : 0;
+                                        bI === 'minecraft:sweet_berry_bush'
+                                            ?
+                                                d.spawnParticle('minecraft:endrod', b, new MolangVariableMap())
+                                            : 0;
+                                    }
                             }
                         }
                 }
     });
-    overworld.runCommandAsync('ability @a[tag=mayfly] mayfly true');
     overworld.runCommandAsync('ability @a[tag=mayfly] mayfly true');
     overworld.runCommandAsync('ability @a[m=c] mayfly true');
     overworld.runCommandAsync('gamemode a @a[tag=!mayfly,tag=mayfly2,m=s]');
