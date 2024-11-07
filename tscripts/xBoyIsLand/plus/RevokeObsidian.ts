@@ -2,23 +2,26 @@ import {
     type EntityInventoryComponent,
     type Player,
     ItemStack,
-    world
+    world, ItemTypes, system
 } from '@minecraft/server'
 
 
 //空桶回收黑曜石为岩浆
-world.afterEvents.itemUse.subscribe(({source:source,itemStack:item})=>{
-    const player = <Player>source;
-    if(!player.isSneaking)return;
-    // player.sendMessage("ssssssss"+item.typeId+item.amount)
+world.beforeEvents.itemUseOn.subscribe(event=>{
+    const {source:player, itemStack:item} = event
+    if(!player.isSneaking)return
+    // player.sendMessage("ssssssss"+item.typeId+" # data: "+item.amount)
     if(item.typeId==='minecraft:bucket'&&item.amount===1){
-        const block = player.getBlockFromViewDirection({maxDistance:8}).block;
-        if(block&&block.typeId==='minecraft:obsidian'){
+        const block = player.getBlockFromViewDirection({maxDistance:8}).block
+        if(block?.typeId!=='minecraft:obsidian')return
+        // 阻止这次事件，防止造成副作用
+        event.cancel = true
+        const inv = <EntityInventoryComponent>player.getComponent('inventory')
 
-            const inv = <EntityInventoryComponent>player.getComponent('inventory');
-            inv.container.setItem(player.selectedSlotIndex, new ItemStack("minecraft:lavaBucket"))
-
+        system.run(()=>{
+            inv.container.setItem(player.selectedSlotIndex, new ItemStack(ItemTypes.get('minecraft:lava_bucket')))
             block.setType("minecraft:air")
-        }
+        })
+
     }
 })

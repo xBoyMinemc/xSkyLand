@@ -1,14 +1,17 @@
-﻿import { ItemStack, world } from '@minecraft/server';
-world.afterEvents.itemUse.subscribe(({ source: source, itemStack: item }) => {
-    const player = source;
+﻿import { ItemStack, world, ItemTypes, system } from '@minecraft/server';
+world.beforeEvents.itemUseOn.subscribe(event => {
+    const { source: player, itemStack: item } = event;
     if (!player.isSneaking)
         return;
     if (item.typeId === 'minecraft:bucket' && item.amount === 1) {
         const block = player.getBlockFromViewDirection({ maxDistance: 8 }).block;
-        if (block && block.typeId === 'minecraft:obsidian') {
-            const inv = player.getComponent('inventory');
-            inv.container.setItem(player.selectedSlotIndex, new ItemStack("minecraft:lavaBucket"));
+        if (block?.typeId !== 'minecraft:obsidian')
+            return;
+        event.cancel = true;
+        const inv = player.getComponent('inventory');
+        system.run(() => {
+            inv.container.setItem(player.selectedSlotIndex, new ItemStack(ItemTypes.get('minecraft:lava_bucket')));
             block.setType("minecraft:air");
-        }
+        });
     }
 });
