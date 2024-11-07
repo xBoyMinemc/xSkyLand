@@ -51,13 +51,13 @@ const NewIsLand = (name, owner) => {
     const landName = "##xSky##" + (String(UID));
     if (AssIsLand("##xSky##" + (String(UID))))
         return 0;
-    ScoreBase.AddPointsAsync("##xSkyLands##currentUID", "##xSkyConfigs##", 1);
+    ScoreBase.AddPointsAsync("##xSkyConfigs##", "##xSkyLands##currentUID", 1);
     world.getDimension('overworld').runCommandAsync(`me  ${landName}`);
     ScoreBase.NewObjectAsync(landName, landName);
-    ScoreBase.SetPointsAsync(name, landName, 777);
-    ScoreBase.SetPointsAsync("UID", landName, UID);
-    ScoreBase.SetPointsAsync(owner, landName, 7);
-    ScoreBase.SetPointsAsync(owner, "##xSkyPlayers##", UID);
+    ScoreBase.SetPointsAsync(landName, name, 777);
+    ScoreBase.SetPointsAsync(landName, "UID", UID);
+    ScoreBase.SetPointsAsync(landName, owner, 7);
+    ScoreBase.SetPointsAsync("##xSkyPlayers##", owner, UID);
     return 1;
 };
 const xIsLand = {

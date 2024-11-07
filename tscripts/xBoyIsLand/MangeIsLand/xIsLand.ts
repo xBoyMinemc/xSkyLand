@@ -72,18 +72,18 @@ const NewIsLand = (name : string, owner : string) : number =>{
     if (AssIsLand("##xSky##"+(String(UID))))return 0;
     
 
-    ScoreBase.AddPointsAsync("##xSkyLands##currentUID","##xSkyConfigs##",1);
+    ScoreBase.AddPointsAsync("##xSkyConfigs##","##xSkyLands##currentUID",1);
 
     world.getDimension('overworld').runCommandAsync(`me  ${landName}`)
 
     ScoreBase.NewObjectAsync(landName,landName);//为每一个岛新建一个计分板
-    ScoreBase.SetPointsAsync(name,landName,777); //设置岛屿名称
-    ScoreBase.SetPointsAsync("UID",landName,UID);//设置岛屿UID
-    ScoreBase.SetPointsAsync(owner,landName,7);//设置岛屿中，玩家的岛屿最高管理权
+    ScoreBase.SetPointsAsync(landName,name,777); //设置岛屿名称
+    ScoreBase.SetPointsAsync(landName,"UID",UID);//设置岛屿UID
+    ScoreBase.SetPointsAsync(landName,owner,7);//设置岛屿中，玩家的岛屿最高管理权
     // ScoreBase.SetPointsAsync(xStrParer(owner),xStrParer(name),String(8));
 
 
-    ScoreBase.SetPointsAsync(owner,"##xSkyPlayers##",UID);//设置玩家清单中，玩家的岛屿归属
+    ScoreBase.SetPointsAsync("##xSkyPlayers##",owner,UID);//设置玩家清单中，玩家的岛屿归属
     return 1;
 }
 
