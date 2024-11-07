@@ -21,14 +21,14 @@ const verif = function(){
     //     ? console.error(_,  "数据存在==>",__.displayName)
     //     : console.error(_,"数据不存在==>",__.displayName);
     // }));
-    
+
     !!ScoreBase.AssPartic("##xSkyLands##currentUID",<ScoreboardObjective>ScoreBase.GetObject("##xSkyConfigs##"))
     ? console.error(  "数据存在==>","##xSkyLands##currentUID")
-    : (ScoreBase.AddPointsAsync("##xSkyLands##currentUID","##xSkyConfigs##",0),console.error("数据不存在但已创建==>","##xSkyLands##currentUID"));
+    : (ScoreBase.AddPointsAsync("##xSkyConfigs##","##xSkyLands##currentUID",0),console.error("数据不存在但已创建==>","##xSkyLands##currentUID"));
 
 
     (ScoreBase.GetPoints("##xSkyConfigs##","##xSkyLands##currentUID") < (config.HoldRadius*2+1)**2)
-    ? ScoreBase.SetPointsAsync("##xSkyLands##currentUID","##xSkyConfigs##",(config.HoldRadius*2+1)**2)
+    ? ScoreBase.SetPointsAsync("##xSkyConfigs##","##xSkyLands##currentUID",(config.HoldRadius*2+1)**2)
     : 0;
 }
 
