@@ -6,9 +6,7 @@ const AssIsPlayer = (playerName) => {
     const xIsLandObject = ScoreBase.AssObject("##xSkyPlayers##");
     if (!xIsLandObject)
         return false;
-    if (!Array.from(xIsLandObject.getScores()).find((_) => _.participant.displayName == playerName))
-        return false;
-    return true;
+    return xIsLandObject.hasParticipant(playerName);
 };
 const GetIsPlayerScore = (playerName) => {
     if (typeof playerName !== typeof "string")
@@ -16,10 +14,15 @@ const GetIsPlayerScore = (playerName) => {
     const xIsLandObject = ScoreBase.AssObject("##xSkyPlayers##");
     if (!xIsLandObject)
         return -4;
-    const player = Array.from(xIsLandObject.getScores()).find((_) => _.participant.displayName == playerName);
-    if (!player)
+    if (!xIsLandObject.hasParticipant(playerName)) {
+        xIsLandObject.getScores().forEach(p => {
+            if (p.participant.displayName === playerName)
+                xIsLandObject.setScore(playerName, p.score);
+        });
         return -5;
-    return player.score;
+    }
+    ;
+    return xIsLandObject.getScore(playerName);
 };
 const GetIsPlayerInIsLandScore = (playerName, UID) => {
     if (typeof playerName !== "string")
@@ -33,9 +36,7 @@ const GetIsPlayerInIsLandScore = (playerName, UID) => {
     return player.score;
 };
 const SetIsPlayerScore = (playerName, score) => {
-    if (typeof playerName !== "string" || typeof score !== "number")
-        return false;
-    ScoreBase.SetPointsAsync(playerName, "##xSkyPlayers##", score);
+    ScoreBase.SetPointsAsync("##xSkyPlayers##", playerName, score);
     return true;
 };
 const AssIsLand = (UID) => {
@@ -46,17 +47,17 @@ const AssIsLand = (UID) => {
         return xIsLandObject;
     }
 };
-const NewIsLand = (name, owner) => {
+const NewIsLand = (landName, owner) => {
     const UID = ScoreBase.GetPoints("##xSkyConfigs##", "##xSkyLands##currentUID");
-    const landName = "##xSky##" + (String(UID));
-    if (AssIsLand("##xSky##" + (String(UID))))
+    const landUIDName = "##xSky##" + String(UID);
+    if (AssIsLand("##xSky##" + String(UID)))
         return 0;
     ScoreBase.AddPointsAsync("##xSkyConfigs##", "##xSkyLands##currentUID", 1);
-    world.getDimension('overworld').runCommandAsync(`me  ${landName}`);
-    ScoreBase.NewObjectAsync(landName, landName);
-    ScoreBase.SetPointsAsync(landName, name, 777);
-    ScoreBase.SetPointsAsync(landName, "UID", UID);
-    ScoreBase.SetPointsAsync(landName, owner, 7);
+    world.getDimension('overworld').runCommandAsync(`me ${landUIDName} ${landName}`);
+    ScoreBase.NewObjectAsync(landUIDName, landUIDName);
+    ScoreBase.SetPointsAsync(landUIDName, landName, 777);
+    ScoreBase.SetPointsAsync(landUIDName, "UID", UID);
+    ScoreBase.SetPointsAsync(landUIDName, owner, 7);
     ScoreBase.SetPointsAsync("##xSkyPlayers##", owner, UID);
     return 1;
 };

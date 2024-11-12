@@ -1,15 +1,13 @@
 import { ScoreboardObjective,ScoreboardScoreInfo, world } from "@minecraft/server";
 import ScoreBase from "../../lib/xboyTools/scoreBase/rw";
 
-
+// 玩家是否存在计分板记录中
 const AssIsPlayer = (playerName : string) : boolean =>{
     if (typeof playerName !== "string")return false;
 
     const xIsLandObject : ScoreboardObjective = ScoreBase.AssObject("##xSkyPlayers##")
     if (!xIsLandObject) return false
-    if (!Array.from(xIsLandObject.getScores()).find((_ : ScoreboardScoreInfo)=> _.participant.displayName == playerName)) return false
-    
-    return true
+    return xIsLandObject.hasParticipant(playerName)
     
 }
 
@@ -20,9 +18,15 @@ const GetIsPlayerScore = (playerName : string) : number =>{
     const xIsLandObject : ScoreboardObjective = ScoreBase.AssObject("##xSkyPlayers##")
     // console.log(xIsLandObject)
     if (!xIsLandObject) return -4;
-    const player = Array.from(xIsLandObject.getScores()).find((_ : ScoreboardScoreInfo)=> _.participant.displayName == playerName);
-    if (!player) return -5;
-    return player.score;
+
+    if (!xIsLandObject.hasParticipant(playerName)) {
+        xIsLandObject.getScores().forEach(p=>{
+            if(p.participant.displayName===playerName)
+                xIsLandObject.setScore(playerName,p.score)
+        })
+        return -5
+    };
+    return xIsLandObject.getScore(playerName);
     
 }
 const GetIsPlayerInIsLandScore = (playerName : string,UID : number) : number =>{
@@ -37,9 +41,9 @@ const GetIsPlayerInIsLandScore = (playerName : string,UID : number) : number =>{
     
 }
 const SetIsPlayerScore = (playerName : string,score : number) : boolean =>{
-    if (typeof playerName !== "string" || typeof score !== "number")return false;
+    // if (typeof playerName !== "string" || typeof score !== "number")return false;
 
-        ScoreBase.SetPointsAsync(playerName,"##xSkyPlayers##",score)
+        ScoreBase.SetPointsAsync("##xSkyPlayers##",playerName,score)
         return true
     
 }
@@ -64,23 +68,22 @@ const AssIsLand = (UID : string) : boolean|ScoreboardObjective =>{
 }
 
 
-const NewIsLand = (name : string, owner : string) : number =>{
+const NewIsLand = (landName : string, owner : string) : number =>{
     //    console.log(GetIsPlayerScore((owner)));
     const UID : number = ScoreBase.GetPoints("##xSkyConfigs##","##xSkyLands##currentUID");
 
-    const landName = "##xSky##"+(String(UID));
-    if (AssIsLand("##xSky##"+(String(UID))))return 0;
+    const landUIDName = "##xSky##"+String(UID);
+    if (AssIsLand("##xSky##"+String(UID) ))return 0;
     
 
     ScoreBase.AddPointsAsync("##xSkyConfigs##","##xSkyLands##currentUID",1);
 
-    world.getDimension('overworld').runCommandAsync(`me  ${landName}`)
+    world.getDimension('overworld').runCommandAsync(`me ${landUIDName} ${landName}`)
 
-    ScoreBase.NewObjectAsync(landName,landName);//为每一个岛新建一个计分板
-    ScoreBase.SetPointsAsync(landName,name,777); //设置岛屿名称
-    ScoreBase.SetPointsAsync(landName,"UID",UID);//设置岛屿UID
-    ScoreBase.SetPointsAsync(landName,owner,7);//设置岛屿中，玩家的岛屿最高管理权
-    // ScoreBase.SetPointsAsync(xStrParer(owner),xStrParer(name),String(8));
+    ScoreBase.NewObjectAsync(landUIDName,landUIDName);//为每一个岛新建一个计分板
+    ScoreBase.SetPointsAsync(landUIDName,landName,777); //设置岛屿名称
+    ScoreBase.SetPointsAsync(landUIDName,"UID",UID);//设置岛屿UID
+    ScoreBase.SetPointsAsync(landUIDName,owner,7);//设置岛屿中，玩家的岛屿最高管理权
 
 
     ScoreBase.SetPointsAsync("##xSkyPlayers##",owner,UID);//设置玩家清单中，玩家的岛屿归属
