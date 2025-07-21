@@ -3,7 +3,6 @@ import Chunk_Boundary_Point from '../../lib/xboyTools/math/chunk';
 import kyj from '../../lib/xboyTools/孔乙己/回字的左旋写法';
 import config from '../config';
 import { GetIsPlayerInIsLandScore, GetIsPlayerScore } from './rw';
-const overworld = world.getDimension('overworld');
 const Permission = (playerName, postion) => {
     const UID = GetIsPlayerScore(playerName);
     if (UID < 0)
@@ -22,7 +21,7 @@ const Permission = (playerName, postion) => {
 };
 export { Permission };
 system.runInterval(() => {
-    overworld.getPlayers({}).forEach((player) => {
+    world.getDimension('overworld').getPlayers({}).forEach((player) => {
         const per = Permission(player.name, player.location);
         if (player.playerPermissionLevel === PlayerPermissionLevel.Operator)
             return;

@@ -1,7 +1,7 @@
 
 import Chunk_Boundary_Point from '../../lib/xboyTools/math/chunk';
 import kyj from '../../lib/xboyTools/孔乙己/回字的左旋写法';
-import {EffectTypes, system, world} from '@minecraft/server';
+import { system, world} from '@minecraft/server';
 
 import xIsLand from "../MangeIsLand/xIsLand";
 

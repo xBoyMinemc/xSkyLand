@@ -23,13 +23,12 @@ import {
 
 
 
-const GetScoreBoard    : Scoreboard = world.scoreboard;
 //@ts-ignore
-const GetScoreObject    = ( Objective:ScoreboardObjective | String=undefined) : ScoreboardObjective|ScoreboardObjective[] => typeof Objective === "undefined" ? GetScoreBoard.getObjectives() : typeof Objective === "string" ?  GetScoreBoard.getObjective(Objective) : Objective ;
+const GetScoreObject    = ( Objective:ScoreboardObjective | String=undefined) : ScoreboardObjective|ScoreboardObjective[] => typeof Objective === "undefined" ? world.scoreboard.getObjectives() : typeof Objective === "string" ?  world.scoreboard.getObjective(Objective) : Objective ;
 
 // 这是什么玩意
 // @ts-ignore
-const GetScorePartic    = (args: Entity | ScoreboardObjective ) : Entity|ScoreboardIdentity[]=>  args ? (args.dimension?Array.from(GetScoreBoard.getParticipants()).find(Participant=>Participant.getEntity()==args):args[0].getParticipants()) : GetScoreBoard.getParticipants();
+const GetScorePartic    = (args: Entity | ScoreboardObjective ) : Entity|ScoreboardIdentity[]=>  args ? (args.dimension?Array.from(world.scoreboard.getParticipants()).find(Participant=>Participant.getEntity()==args):args[0].getParticipants()) : world.scoreboard.getParticipants();
 // @ts-ignore
 const GetScorePoints    = (object : ScoreboardObjective|string,partic: Entity | ScoreboardIdentity | string) : number =>  (<ScoreboardObjective>GetScoreObject(object)).getScore(partic);
 
@@ -53,7 +52,7 @@ const DelScoreObject    = (objectiveId: ScoreboardObjective | string)=> world.sc
 
 // const NewScoreObject_    = (ObjName: string,DisplayName:string,dummy:string='dummy')=> overworld.runCommand(`scoreboard objectives add ${ObjName} ${dummy} ${DisplayName}`);
 
-const NewScoreObject    = (objectiveId: string, displayName: string=objectiveId)=> GetScoreBoard.addObjective(objectiveId, displayName);
+const NewScoreObject    = (objectiveId: string, displayName: string=objectiveId)=> world.scoreboard.addObjective(objectiveId, displayName);
 //scoreboard objectives setDisplay list ScoreName ascending
 //@ts-ignore
 const DisScoreObject    = (displaySlotId:DisplaySlotId, objective: ScoreboardObjective=undefined, sortOrder: ObjectiveSortOrder=('ascending'&&0))=> objective ? world.scoreboard.setObjectiveAtDisplaySlot(displaySlotId,  {objective,sortOrder}) : world.scoreboard.clearObjectiveAtDisplaySlot(displaySlotId);
