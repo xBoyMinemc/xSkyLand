@@ -17,16 +17,16 @@ let tickLineSetsortObject = {};
 let tickLineSet_sortArray = [];
 let tickLineSetblockArray = [];
 let tickLineSetblockFunct = function(x,y,z,block,data,who){
-   //who.runCommandAsync(`me DEBUG-tickLineSetblockFunct-${x} ${y} ${z} ${block} ${data}`)
-   who.runCommandAsync(`setblock ${x} ${y} ${z} ${block} ${data}`)
+   //who.runCommand(`me DEBUG-tickLineSetblockFunct-${x} ${y} ${z} ${block} ${data}`)
+   who.runCommand(`setblock ${x} ${y} ${z} ${block} ${data}`)
 }
 
 
 let tickLineReplaceArray = [];
 let tickLineReplaceFunct = function (x,y,z,u,v,w,blockA,dataA,blockB,dataB,who){
-      //who.runCommandAsync(`me DBUG-tickLineReplaceFunct-${x} ${y} ${z} ${u} ${v} ${w} ${blockA} ${dataA} replace ${blockB} ${dataB}`);
+      //who.runCommand(`me DBUG-tickLineReplaceFunct-${x} ${y} ${z} ${u} ${v} ${w} ${blockA} ${dataA} replace ${blockB} ${dataB}`);
 
-      who.runCommandAsync(`fill ${x} ${y} ${z} ${u} ${v} ${w} ${blockA} ${dataA} replace ${blockB} ${dataB}`);
+      who.runCommand(`fill ${x} ${y} ${z} ${u} ${v} ${w} ${blockA} ${dataA} replace ${blockB} ${dataB}`);
       //u know,xboy is an adjective.so,let us xboy blocks.
       block_xboy_tool_xyzuvwIDw(x,y,z,u,v,w,blockA,dataA,who)
 }
@@ -34,8 +34,8 @@ let tickLineReplaceFunct = function (x,y,z,u,v,w,blockA,dataA,blockB,dataB,who){
 
 let tickLineFillArray = []
 let tickLineFillFunct = function (x,y,z,u,v,w,block,data,who){
-   // who.runCommandAsync(`me ${x} ${y} ${z} ${u} ${v} ${w} ${block} ${data} replace`);
-   who.runCommandAsync(`fill ${x} ${y} ${z} ${u} ${v} ${w} ${block} ${data} replace`);
+   // who.runCommand(`me ${x} ${y} ${z} ${u} ${v} ${w} ${block} ${data} replace`);
+   who.runCommand(`fill ${x} ${y} ${z} ${u} ${v} ${w} ${block} ${data} replace`);
 
    block_xboy_tool_xyzuvwIDw(x,y,z,u,v,w,block,data,who)
 
@@ -97,7 +97,7 @@ const block_xboy_tool_xyzuvwIDw = function(x,y,z,u,v,w,block,data,who){
                         let xa = x - Math.floor(Math.random() * (x - u));
                         let xb = y - Math.floor(Math.random() * (y - v));
                         let xc = z - Math.floor(Math.random() * (z - w));
-                        //who.runCommandAsync(`setblock ${a} ${b} ${c} ${xbry} 0`)
+                        //who.runCommand(`setblock ${a} ${b} ${c} ${xbry} 0`)
                         //我选择外包.
                         if(!tickLineSetsortObject[[xa,xb,xc]]){
                            tickLineSetsortObject[[xa,xb,xc]] = []
@@ -108,7 +108,7 @@ const block_xboy_tool_xyzuvwIDw = function(x,y,z,u,v,w,block,data,who){
                      }
                   }
                }
-               // the_end.runCommandAsync("me data "+data)
+               // the_end.runCommand("me data "+data)
             if(block=="deepslate_tiles"  && data=="[]"){//floor
                xb0y(0.10, "deepslate_gold_ore","[]",    0)
                xb0y(0.08, "deepslate_redstone_ore","[]",0)
@@ -164,7 +164,7 @@ if(setCount.fix>5 && !tickLineFillArray.length && !tickLineReplaceArray.length){
       }
    } catch (err) {
       //有报错憋着
-   // the_end.runCommandAsync("me "+err)
+   // the_end.runCommand("me "+err)
 
    }
    try{
@@ -175,7 +175,7 @@ if(setCount.fix>5 && !tickLineFillArray.length && !tickLineReplaceArray.length){
       }
 
    }catch(err){
-      // the_end.runCommandAsync("me "+err)
+      // the_end.runCommand("me "+err)
 
    }
 
@@ -183,16 +183,16 @@ if(setCount.fix>5 && !tickLineFillArray.length && !tickLineReplaceArray.length){
    if (setCount.max < setCount.unmax ) { setCount.max = setCount.unmax };
    if (!tickLineFillArray.length && !tickLineReplaceArray.length && !!tickLineSetblockArray.length) {
 
-      // the_end.runCommandAsync("me "+tickLineFillArray.length)
-      // the_end.runCommandAsync("me "+tickLineReplaceArray.length)
-      // the_end.runCommandAsync("me "+tickLineSetblockArray.length)
+      // the_end.runCommand("me "+tickLineFillArray.length)
+      // the_end.runCommand("me "+tickLineReplaceArray.length)
+      // the_end.runCommand("me "+tickLineSetblockArray.length)
 
       for (let i = 64; i > 0; i--) {
          try {
             
          let l = tickLineSetblockArray.pop(); tickLineSetblockFunct(l[0], l[1], l[2], l[3], l[4], l[5]);
          } catch (err) {
-            // the_end.runCommandAsync("me "+err)
+            // the_end.runCommand("me "+err)
          }
          //由此得来的数据虽然模糊，但也够看
          setCount.a++
@@ -200,14 +200,14 @@ if(setCount.fix>5 && !tickLineFillArray.length && !tickLineReplaceArray.length){
    }
   
 
-   if(setCount.a!=setCount.z&&setCount.a){the_end.runCommandAsync(`title @a[tag=xdungeon,rm=1] actionbar §e§l生成进度:§3${setCount.a} # ${((setCount.a/(setCount.max))*100).toFixed(1)}%`);setCount.z=setCount.a}
-   //if(setCount.a!=setCount.z&&setCount.a){the_end.runCommandAsync(`title @a[tag=xdungeon,rm=1] actionbar §e§l生成进度:§3${setCount.a} # ${setCount.max} # ${((setCount.a/(setCount.max))*100).toFixed(1)}% # ${setCount.c} #fix ${setCount.fix}`);setCount.z=setCount.a}
+   if(setCount.a!=setCount.z&&setCount.a){the_end.runCommand(`title @a[tag=xdungeon,rm=1] actionbar §e§l生成进度:§3${setCount.a} # ${((setCount.a/(setCount.max))*100).toFixed(1)}%`);setCount.z=setCount.a}
+   //if(setCount.a!=setCount.z&&setCount.a){the_end.runCommand(`title @a[tag=xdungeon,rm=1] actionbar §e§l生成进度:§3${setCount.a} # ${setCount.max} # ${((setCount.a/(setCount.max))*100).toFixed(1)}% # ${setCount.c} #fix ${setCount.fix}`);setCount.z=setCount.a}
    if(!tickLineSetblockArray.length){setCount.a=0;setCount.unmax=0;setCount.max=setCount.unmax;}//复位
 
 })
 
 // }catch(err){
-//    the_end.runCommandAsync("me "+err)
+//    the_end.runCommand("me "+err)
 // };
 const chunk_fill_tool_xYzIDw  = function ( x, work_y, z, blockId, blockData, who){
    
@@ -247,7 +247,7 @@ const aisle_fill_tool_xyzIDwm = function( x, y, z, blockId, blockData, who, mode
       tickLineFillArray.push([ xz1[0] ,y+1 ,xz1[1] ,xz3[0] ,y+4 ,xz1[1] ,blockId ,blockData ,who ])
       tickLineFillArray.push([ xz1[0] ,y+1 ,xz3[1] ,xz3[0] ,y+4 ,xz3[1] ,blockId ,blockData ,who ])
    };
-   //who.runCommandAsync(`me ${xz1[0]} ${y} ${xz1[1]} ${xz3[0]} ${y} ${xz3[1]} `)
+   //who.runCommand(`me ${xz1[0]} ${y} ${xz1[1]} ${xz3[0]} ${y} ${xz3[1]} `)
    tickLineFillArray.push([ xz1[0] ,y ,xz1[1] ,xz3[0] ,y ,xz3[1] ,blockId ,blockData ,who ])
    
 }

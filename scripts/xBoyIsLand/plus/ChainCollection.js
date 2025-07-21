@@ -64,8 +64,8 @@ const List_A_Object = {
     "minecraft:netherite_pickaxe": ["minecraft:dirt", "minecraft:grass", "minecraft:stone"]
 };
 const List_B_Object = {
-    "minecraft:shears": ["minecraft:leaves", "minecraft:leaves2", "minecraft:azalea_leaves", "minecraft:mangrove_leaves", "minecraft:cherry_leaves"],
-    "minecraft:wooden_axe": ["minecraft:leaves", "minecraft:leaves2", "minecraft:azalea_leaves", "minecraft:mangrove_leaves", "minecraft:cherry_leaves"],
+    "minecraft:shears": ["minecraft:acacia_leaves", "minecraft:azalea_leaves", "minecraft:azalea_leaves_flowered", "minecraft:birch_leaves", "minecraft:cherry_leaves", "minecraft:dark_oak_leaves", "minecraft:jungle_leaves", "minecraft:mangrove_leaves", "minecraft:oak_leaves", "minecraft:pale_oak_leaves", "minecraft:spruce_leaves"],
+    "minecraft:wooden_axe": [],
     "minecraft:golden_axe": ["minecraft:log", "minecraft:log2", "minecraft:mangrove_log", "minecraft:crimson_stem", "minecraft:warped_stem", "minecraft:birch_log", "minecraft:acacia_log", "minecraft:dark_oak_log", "minecraft:jungle_log", "minecraft:mangrove_log", "minecraft:oak_log", "minecraft:spruce_log", "minecraft:cherry_log", "minecraft:cherry_wood"],
     "minecraft:stone_axe": [],
     "minecraft:iron_axe": [],
@@ -88,9 +88,9 @@ const neighborBlock = function (blockLocationO, dimension, blockid, done, magicL
     const blockY = blockLocationO.y;
     const blockZ = blockLocationO.z;
     const points = [];
-    for (let x = 1; x >= -1; --x)
-        for (let y = 1; y >= -1; --y)
-            for (let z = 1; z >= -1; --z) {
+    for (let x = 2; x >= -2; --x)
+        for (let y = 2; y >= -2; --y)
+            for (let z = 2; z >= -2; --z) {
                 let bl = new BlockLocation(blockX + x, blockY + y, blockZ + z);
                 if (done.has(bl.id()))
                     continue;
@@ -98,8 +98,8 @@ const neighborBlock = function (blockLocationO, dimension, blockid, done, magicL
                 if (!(dimension.getBlock(bl).typeId == blockid && mineCount < MAX_MINE_COUNT))
                     continue;
                 mineCount++;
-                dimension.runCommandAsync(`setblock ${bl.x} ${bl.y} ${bl.z} air destroy`);
-                dimension.runCommandAsync(`tp @e[r=1.25,type=item,x=${bl.x},y=${bl.y},z=${bl.z}] ${magicLocation.toString()}`);
+                dimension.runCommand(`setblock ${bl.x} ${bl.y} ${bl.z} air destroy`);
+                dimension.runCommand(`tp @e[r=1.25,type=item,x=${bl.x},y=${bl.y},z=${bl.z}] ${magicLocation.toString()}`);
                 exe.push(() => neighborBlock(bl, dimension, blockid, done, magicLocation));
             }
 };
@@ -148,7 +148,7 @@ world.afterEvents.chatSend.subscribe((event) => {
     const tagManager = function (messageAstring, messageZstring, tagsArray, tagsBoolean) {
         if (message == messageAstring) {
             try {
-                event.sender.runCommandAsync(`tellraw @a[name="${event.sender.nameTag}"] {"rawtext":[{"text":"§e§l-${messageZstring}"}]}`);
+                event.sender.runCommand(`tellraw @a[name="${event.sender.nameTag}"] {"rawtext":[{"text":"§e§l-${messageZstring}"}]}`);
                 if (tagsBoolean) {
                     tagsArray.forEach((tagString) => { event.sender.addTag(tagString); });
                 }
@@ -170,7 +170,7 @@ world.afterEvents.playerBreakBlock.subscribe(e => {
         if (player.hasTag("chainMining") && player.isSneaking) {
             let c = chainMining(brokenBlockPermutation.type.id, block, dimension, player);
             if (c > 0) {
-                player.runCommandAsync(`title @s actionbar §e连锁方块数量：${c + 1}`);
+                player.runCommand(`title @s actionbar §e连锁方块数量：${c + 1}`);
             }
         }
     }

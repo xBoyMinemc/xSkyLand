@@ -8,7 +8,7 @@ const overworld = world.getDimension("overworld");
 
 // system.events.beforeWatchdogTerminate.subscribe((_)=>{
     
-//     overworld.runCommandAsync("me "+_.terminateReason)
+//     overworld.runCommand("me "+_.terminateReason)
 //     _.cancel = true;
 // })
 //#=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=#//
@@ -89,8 +89,8 @@ const List_A_Object = {
           "minecraft:netherite_pickaxe"    : [ "minecraft:dirt", "minecraft:grass","minecraft:stone" ]
 }
 const List_B_Object = {
-          "minecraft:shears"           : ["minecraft:leaves", "minecraft:leaves2","minecraft:azalea_leaves","minecraft:mangrove_leaves","minecraft:cherry_leaves"],
-          "minecraft:wooden_axe"       : ["minecraft:leaves", "minecraft:leaves2","minecraft:azalea_leaves","minecraft:mangrove_leaves","minecraft:cherry_leaves"],
+          "minecraft:shears"           : ["minecraft:acacia_leaves", "minecraft:azalea_leaves","minecraft:azalea_leaves_flowered","minecraft:birch_leaves","minecraft:cherry_leaves","minecraft:dark_oak_leaves","minecraft:jungle_leaves","minecraft:mangrove_leaves","minecraft:oak_leaves","minecraft:pale_oak_leaves","minecraft:spruce_leaves"],
+          "minecraft:wooden_axe"       : [],
           "minecraft:golden_axe"       : ["minecraft:log", "minecraft:log2", "minecraft:mangrove_log", "minecraft:crimson_stem", "minecraft:warped_stem","minecraft:birch_log","minecraft:acacia_log","minecraft:dark_oak_log","minecraft:jungle_log","minecraft:mangrove_log","minecraft:oak_log","minecraft:spruce_log","minecraft:cherry_log","minecraft:cherry_wood"],//, "minecraft:", "minecraft:"
           "minecraft:stone_axe"        : [],
           "minecraft:iron_axe"         : [],
@@ -136,9 +136,9 @@ const neighborBlock = function(blockLocationO:Vector3, dimension:Dimension, bloc
                         //      }
                         // const point  = ["U","D","N","E","W","S"]//被挖掘方块六面接触的方块
                         const points  = []//被挖掘方块六面接触的方块
-                        for(let x = 1;x>=-1;--x)
-                        for(let y = 1;y>=-1;--y)
-                        for(let z = 1;z>=-1;--z)
+                        for(let x = 2;x>=-2;--x)
+                        for(let y = 2;y>=-2;--y)
+                        for(let z = 2;z>=-2;--z)
 
                         // for(const p of point)
                         {
@@ -147,21 +147,21 @@ const neighborBlock = function(blockLocationO:Vector3, dimension:Dimension, bloc
                            if(done.has(bl.id()))continue;
                               done.add(bl.id())
                            if(!(dimension.getBlock(bl).typeId == blockid && mineCount < MAX_MINE_COUNT))continue;
-                           // dimension.runCommandAsync(`me 连锁破坏了一个方块`+p);
+                           // dimension.runCommand(`me 连锁破坏了一个方块`+p);
                               //#IF#1
                               
                               mineCount++;
                               // console.error(mineCount)
-                              dimension.runCommandAsync(`setblock ${bl.x} ${bl.y} ${bl.z} air destroy`);
-                              dimension.runCommandAsync(`tp @e[r=1.25,type=item,x=${bl.x},y=${bl.y},z=${bl.z}] ${magicLocation.toString()}`);
+                              dimension.runCommand(`setblock ${bl.x} ${bl.y} ${bl.z} air destroy`);
+                              dimension.runCommand(`tp @e[r=1.25,type=item,x=${bl.x},y=${bl.y},z=${bl.z}] ${magicLocation.toString()}`);
 
 
-                              // dimension.runCommandAsync(`execute positioned ${bl.x} ${bl.y} ${bl.z} run tp @e[r=0.5,type=item] ${magicLocation.x} ${magicLocation.y} ${magicLocation.z}`);
+                              // dimension.runCommand(`execute positioned ${bl.x} ${bl.y} ${bl.z} run tp @e[r=0.5,type=item] ${magicLocation.x} ${magicLocation.y} ${magicLocation.z}`);
 
-                              // dimension.runCommandAsync(`me setblock ${bl.x} ${bl.y} ${bl.z} air destroy`);
+                              // dimension.runCommand(`me setblock ${bl.x} ${bl.y} ${bl.z} air destroy`);
                               // dep_pos.push([dimension,bl.x,bl.y,bl.z])
-                              //dimension.runCommandAsync(`fill ${bl.x} ${bl.y} ${bl.z} ${bl.x} ${bl.y} ${bl.z} air 1 destroy`);
-                              //dimension.runCommandAsync(`me 连锁破坏了一个方块`);
+                              //dimension.runCommand(`fill ${bl.x} ${bl.y} ${bl.z} ${bl.x} ${bl.y} ${bl.z} air 1 destroy`);
+                              //dimension.runCommand(`me 连锁破坏了一个方块`);
                               exe.push(()=>neighborBlock(bl, dimension, blockid,done,magicLocation))
                            
                            
@@ -200,9 +200,9 @@ let chainMining = function(breakBlockId:string, block:Block, dimension:Dimension
                      const blockLocation = new Location(block);
                      let itemObject = player.getComponent("inventory").container.getItem(player.selectedSlotIndex)
                      let xboy;
-                     // itemObject.getComponents().forEach(_=>dimension.runCommandAsync("me "+_.id))
+                     // itemObject.getComponents().forEach(_=>dimension.runCommand("me "+_.id))
                      
-                     // dimension.runCommandAsync("me "+itemObject.getComponent("durability").damage)
+                     // dimension.runCommand("me "+itemObject.getComponent("durability").damage)
                      if(itemObject){
                         let itemIdString = itemObject.typeId
                         if (List_Array_A.includes(itemIdString)) {
@@ -257,7 +257,7 @@ const tagManager = function(messageAstring, messageZstring,tagsArray,tagsBoolean
     if(message == messageAstring){
     try{
         // event.targets = []
-        event.sender.runCommandAsync(`tellraw @a[name="${event.sender.nameTag}"] {"rawtext":[{"text":"§e§l-${messageZstring}"}]}`)
+        event.sender.runCommand(`tellraw @a[name="${event.sender.nameTag}"] {"rawtext":[{"text":"§e§l-${messageZstring}"}]}`)
         if(tagsBoolean){
         tagsArray.forEach( (tagString:string) => { event.sender.addTag(   tagString)} )
         }else{
@@ -284,7 +284,7 @@ world.afterEvents.playerBreakBlock.subscribe(e => {
             
         
             let c = chainMining(brokenBlockPermutation.type.id, block, dimension, player)
-            if (c > 0) { player.runCommandAsync(`title @s actionbar §e连锁方块数量：${c + 1}`); }
+            if (c > 0) { player.runCommand(`title @s actionbar §e连锁方块数量：${c + 1}`); }
         }
     } catch (err) { console.error(err) }
 

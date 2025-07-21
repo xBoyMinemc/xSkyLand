@@ -17,18 +17,18 @@ world.afterEvents.itemUse.subscribe((event: ItemUseAfterEvent) =>
   
     event.itemStack.typeId === 'minecraft:fishing_rod' && queue.playerFishingArray.push(event.source)
     // (
-    //   // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] queue.playerFishingArray.push(event.source)=>"+queue.playerFishingArray.push(event.source)),
-    //   // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] queue.fishingHookDespawned_HookArray=>"+queue.fishingHookDespawned_HookArray.size)
+    //   // world.getDimension("overworld").runCommand("tell @a[tag=xboy] queue.playerFishingArray.push(event.source)=>"+queue.playerFishingArray.push(event.source)),
+    //   // world.getDimension("overworld").runCommand("tell @a[tag=xboy] queue.fishingHookDespawned_HookArray=>"+queue.fishingHookDespawned_HookArray.size)
     //   // queue.playerFishingArray.push(event.source)
     // )
 )
 
 const around = (v:number, r:number) => v > -r && v < r;
 world.afterEvents.entitySpawn.subscribe(({entity: entity}) => {
-  // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] size fishingHookDespawned_HookArray=>"+queue.fishingHookDespawned_HookArray.size)
+  // world.getDimension("overworld").runCommand("tell @a[tag=xboy] size fishingHookDespawned_HookArray=>"+queue.fishingHookDespawned_HookArray.size)
 
-  // entity.runCommandAsync("me "+entity.typeId)
-  // entity.runCommandAsync("tell @a[tag=xboy] length playerFishingArray "+queue.playerFishingArray.length)
+  // entity.runCommand("me "+entity.typeId)
+  // entity.runCommand("tell @a[tag=xboy] length playerFishingArray "+queue.playerFishingArray.length)
   let Fisher: Entity
   // try {
       
@@ -40,10 +40,10 @@ world.afterEvents.entitySpawn.subscribe(({entity: entity}) => {
           playerFishing =>
               // debug msg
   //         (
-  // entity.runCommandAsync("tell @a[tag=xboy] length x "+(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x)),
-  // entity.runCommandAsync("tell @a[tag=xboy] length y "+(entity.location.y - playerFishing.location.y - playerFishing.getVelocity().y)),
-  // entity.runCommandAsync("tell @a[tag=xboy] length z "+(entity.location.z - playerFishing.location.z - playerFishing.getVelocity().z)),
-  // entity.runCommandAsync("tell @a[tag=xboy] ==========================================")
+  // entity.runCommand("tell @a[tag=xboy] length x "+(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x)),
+  // entity.runCommand("tell @a[tag=xboy] length y "+(entity.location.y - playerFishing.location.y - playerFishing.getVelocity().y)),
+  // entity.runCommand("tell @a[tag=xboy] length z "+(entity.location.z - playerFishing.location.z - playerFishing.getVelocity().z)),
+  // entity.runCommand("tell @a[tag=xboy] ==========================================")
   //       ) &&
           
                around(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x, 6)// @ts-ignore
@@ -58,9 +58,9 @@ world.afterEvents.entitySpawn.subscribe(({entity: entity}) => {
         )
     )
   // } catch (error) {
-  // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] error"+error)
-  // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] lifetimeState"+entity.location)
-  // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] error"+entity.dimension.id)
+  // world.getDimension("overworld").runCommand("tell @a[tag=xboy] error"+error)
+  // world.getDimension("overworld").runCommand("tell @a[tag=xboy] lifetimeState"+entity.location)
+  // world.getDimension("overworld").runCommand("tell @a[tag=xboy] error"+entity.dimension.id)
   // }
 })
 
@@ -81,13 +81,13 @@ system.runInterval(() => {
 // console.error(("######### fishingHookSpawned"))
 // fishingHookSpawned.subscribe(event=>{
 //     console.error("fishingHookSpawned")
-//     world.getDimension("overworld").runCommandAsync("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+//     world.getDimension("overworld").runCommand("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
 // })
 //
 // console.error(("#########"))
 // fishingHookDespawned.subscribe(event=>{
 //   console.error("fishingHookDespawned")
-//   world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+//   world.getDimension("overworld").runCommand("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
 //   // 工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
 // })
 export { fishingHookSpawned, fishingHookDespawned }

@@ -1,4 +1,4 @@
-﻿import { GameMode, system, world } from '@minecraft/server';
+﻿import { GameMode, PlayerPermissionLevel, system, world } from '@minecraft/server';
 import Chunk_Boundary_Point from '../../lib/xboyTools/math/chunk';
 import kyj from '../../lib/xboyTools/孔乙己/回字的左旋写法';
 import config from '../config';
@@ -23,17 +23,17 @@ const Permission = (playerName, postion) => {
 export { Permission };
 system.runInterval(() => {
     overworld.getPlayers({}).forEach((player) => {
-        let per = Permission(player.name, player.location);
-        if (player.isOp() || player.name === "Xboy minemc")
+        const per = Permission(player.name, player.location);
+        if (player.playerPermissionLevel === PlayerPermissionLevel.Operator)
             return;
         if (per === '000') {
-            player.setGameMode(GameMode.spectator);
+            player.setGameMode(GameMode.Spectator);
         }
-        if (per[2] === ('1') && player.getGameMode() !== GameMode.survival)
-            player.setGameMode(GameMode.survival);
-        if (per === '110' && player.getGameMode() !== GameMode.survival)
-            player.setGameMode(GameMode.survival);
-        if (per === '100' && player.getGameMode() !== GameMode.spectator)
-            player.setGameMode(GameMode.spectator);
+        if (per[2] === ('1') && player.getGameMode() !== GameMode.Survival)
+            player.setGameMode(GameMode.Survival);
+        if (per === '110' && player.getGameMode() !== GameMode.Survival)
+            player.setGameMode(GameMode.Survival);
+        if (per === '100' && player.getGameMode() !== GameMode.Spectator)
+            player.setGameMode(GameMode.Spectator);
     });
 });

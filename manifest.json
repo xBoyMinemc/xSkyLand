@@ -4,14 +4,14 @@
 		"name": "§l§exSkyLand",
 		"description": "§l§e welcome to sky",
 		"uuid": "9facfd38-501c-4d0a-9e9a-f2aaa1ae620e",
-		"version": [ 1, 21, 44],
-		"min_engine_version": [ 1, 21, 40]
+		"version": [ 1, 21, 94],
+		"min_engine_version": [ 1, 21, 90]
 	},
 	"modules": [
 		{
 			"description": "§l§exSkyLand",
 			"uuid": "d3c6de1e-45c0-4a20-bb7e-1aab5cbdd100",
-			"version": [ 1, 21, 44],
+			"version": [ 1, 21, 94],
 			"type": "script",
             "entry": "scripts/main/preload.js"
 		}
@@ -19,8 +19,11 @@
     "dependencies": [
 		{
 			"module_name": "@minecraft/server",
-			"version": "2.0.0-alpha"
-
+			"version": "3.0.0-alpha"
+		},
+		{
+			"module_name": "@minecraft/server-ui",
+			"version": "3.0.0-alpha"
 		}
     ],
     "metadata": {

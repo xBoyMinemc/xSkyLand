@@ -6,9 +6,9 @@ import ScoreBase from "../xboyTools/scoreBase/rw.js";
 // const overworld = world.getDimension("overworld");
 const nether = world.getDimension("nether");
 const the_end = world.getDimension("the end");
-// const getScorePlayerStr = function (playerName,obj){return overworld.runCommandAsync(`scoreboard players test "${playerName}" ${obj} * *`).statusMessage.split("在")[0].replaceAll("分数","").replaceAll(" ","");};
-// const setScorePlayerStr = function (name,obj,num){overworld.runCommandAsync(`scoreboard players set "${name}" ${obj} ${num}`)};
-// const addScorePlayerStr = function (name,obj,num){overworld.runCommandAsync(`scoreboard players add "${name}" ${obj} ${num}`)};//仨旧时代的产物
+// const getScorePlayerStr = function (playerName,obj){return overworld.runCommand(`scoreboard players test "${playerName}" ${obj} * *`).statusMessage.split("在")[0].replaceAll("分数","").replaceAll(" ","");};
+// const setScorePlayerStr = function (name,obj,num){overworld.runCommand(`scoreboard players set "${name}" ${obj} ${num}`)};
+// const addScorePlayerStr = function (name,obj,num){overworld.runCommand(`scoreboard players add "${name}" ${obj} ${num}`)};//仨旧时代的产物
 
 const FIX = Math.random() + 0.2
 const goodsListObject = {
@@ -255,7 +255,7 @@ world.events.chat.subscribe(msg => {
                 let price = goods.price
                 if(+ScoreBase.GetPoints("xdungon_dis",msg.sender.nameTag)>=price*(+Arr[2])){
                     ScoreBase.AddPoints(msg.sender.nameTag,"xdungon_dis",-1*price*(+Arr[2]))
-                   msg.sender.runCommandAsync(`give @s ${goods.itemName} ${+Arr[2]*goods.itemCount} ${goods.itemData}`)
+                   msg.sender.runCommand(`give @s ${goods.itemName} ${+Arr[2]*goods.itemCount} ${goods.itemData}`)
                  }else{
                      msg.sender.sendMessage(`§r§l§${color}#穷鬼爬，无功无禄`)
                 }

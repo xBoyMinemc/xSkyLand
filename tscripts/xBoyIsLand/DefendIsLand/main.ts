@@ -1,4 +1,4 @@
-import {type Dimension, GameMode, Player, system, Vector3, world} from '@minecraft/server';
+import {type Dimension, GameMode, Player, PlayerPermissionLevel, system, Vector3, world} from '@minecraft/server';
 
 
 import Chunk_Boundary_Point from '../../lib/xboyTools/math/chunk';
@@ -10,18 +10,18 @@ import {GetIsPlayerInIsLandScore, GetIsPlayerScore} from './rw';
 const overworld : Dimension = world.getDimension('overworld');
 
 
-
+// r=4，w=2，x=1
 const Permission = (playerName : string,postion : Vector3)=>{
 
     const UID = GetIsPlayerScore(playerName);//获取玩家从属岛屿UID
-    // overworld.runCommandAsync(`me 'UID=>',${UID}`)
+    // overworld.runCommand(`me 'UID=>',${UID}`)
     if (UID < 0)
         return '000';
     let [x, z] = Chunk_Boundary_Point.x92D([postion.x, postion.z]);
         [x, z] = [x / 144, z / 144];
-    // overworld.runCommandAsync(`me 'xz=>',${[x,z]}`)
+    // overworld.runCommand(`me 'xz=>',${[x,z]}`)
     const index = kyj.pos2index([x, z]); //获取玩家所在区域的编号
-    // overworld.runCommandAsync(`me 'index=>',${index}`)
+    // overworld.runCommand(`me 'index=>',${index}`)
     if (index < (config.HoldRadius * 2 + 1) ** 2) //保护区
         return '000';
     if (UID == index)
@@ -35,27 +35,26 @@ const Permission = (playerName : string,postion : Vector3)=>{
 export {Permission};
 system.runInterval(()=>{
     overworld.getPlayers({}).forEach((player : Player)=>{
-        let per = Permission(player.name,player.location);//获取玩家当前区域的岛屿权限等级
+        const per = Permission(player.name,player.location);//获取玩家当前区域的岛屿权限等级
         //读 写 操作
-        // player.runCommandAsync('me per=> '+per);
+        // player.runCommand('me per=> '+per);
         // console.log(typeof per,per)
-        // player.runCommandAsync('me player.isOp()=> '+player.isOp());
+        // player.runCommand('me player.isOp()=> '+player.isOp());
 
-        if(player.isOp() || player.name === "Xboy minemc")
-        return;
+        if(player.playerPermissionLevel === PlayerPermissionLevel.Operator)return;
         if (per === '000')//外来者
         {
             //gamemode spectator @s[m=!spectator]
             //获得成就《细  说》
-            player.setGameMode(GameMode.spectator)
+            player.setGameMode(GameMode.Spectator)
         }
         // if (per === '111')//岛主
-        if (per[2] === ('1') && player.getGameMode() !== GameMode.survival)//岛主
-            player.setGameMode(GameMode.survival)
-        if (per === '110'  && player.getGameMode() !== GameMode.survival)//成员，可破坏建造
-            player.setGameMode(GameMode.survival)
-        if (per === '100'  && player.getGameMode() !== GameMode.spectator)//审批访客，可冒险游荡
-            player.setGameMode(GameMode.spectator)
+        if (per[2] === ('1') && player.getGameMode() !== GameMode.Survival)//岛主
+            player.setGameMode(GameMode.Survival)
+        if (per === '110'  && player.getGameMode() !== GameMode.Survival)//成员，可破坏建造
+            player.setGameMode(GameMode.Survival)
+        if (per === '100'  && player.getGameMode() !== GameMode.Spectator)//审批访客，可冒险游荡
+            player.setGameMode(GameMode.Spectator)
         })
 
 })

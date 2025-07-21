@@ -3,7 +3,7 @@ import { world, system } from "@minecraft/server";
 const debug = !false;
 const runCmd = (() => {
     const overworld = world.getDimension("minecraft:overworld");
-    return (cmd) => { overworld.runCommandAsync(cmd); };
+    return (cmd) => { overworld.runCommand(cmd); };
 })();
 class PlayerJoinedEventSignal extends EventSignal {
 }
@@ -16,7 +16,7 @@ class PlayerJoinedEvent {
         });
     }
     kickPlayer() {
-        this.player.dimension.runCommandAsync(`kick "${this.player.name}"`);
+        this.player.dimension.runCommand(`kick "${this.player.name}"`);
     }
 }
 const signal = new PlayerJoinedEventSignal();
@@ -44,6 +44,6 @@ export { PlayerJoinedEvent, PlayerJoinedEventSignal, signal as PlayerJoined };
 export default signal;
 if (debug) {
     signal.subscribe((event) => {
-        event.player.runCommandAsync(`me 加入了游戏`);
+        event.player.runCommand(`me 加入了游戏`);
     });
 }

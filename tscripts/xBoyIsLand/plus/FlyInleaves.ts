@@ -1,21 +1,19 @@
-import {Player, Dimension, world, system} from '@minecraft/server';
-import { MolangVariableMap } from '@minecraft/server';
+import {Player, world, system} from '@minecraft/server'
+import { MolangVariableMap } from '@minecraft/server'
 
-const shears = ['minecraft:leaves', 'minecraft:leaves2','minecraft:azalea_leaves','minecraft:mangrove_leaves','minecraft:cherry_leaves','minecraft:bamboo','minecraft:grass','minecraft:water'];
-const list = new Set<Player['id']>();
-const overworld : Dimension = world.getDimension('overworld');
+const overworld = world.getDimension('overworld')
+const nether = world.getDimension('nether')
 
+const shears = ['minecraft:acacia_leaves', 'minecraft:azalea_leaves','minecraft:azalea_leaves_flowered','minecraft:birch_leaves','minecraft:cherry_leaves','minecraft:dark_oak_leaves','minecraft:jungle_leaves','minecraft:mangrove_leaves','minecraft:oak_leaves','minecraft:pale_oak_leaves','minecraft:spruce_leaves','minecraft:bamboo','minecraft:grass','minecraft:grass_block','minecraft:moss_block','minecraft:sweet_berry_bush','minecraft:water']
+const list = new Map<Player['id'],number>()
+world.afterEvents.playerLeave.subscribe(({playerId})=>{
+    list.delete(playerId)
+})
 // #现在水-草方块-竹子-树叶附近可以飞行
-let count = 0;
 system.runInterval(() => {
-            if(++count<2)return;
-            count=0;
-            list.clear();
 			const players = overworld.getPlayers();
 			players.forEach((player) => {
-                const overworld : Dimension = player.dimension;
 
-                player.removeTag('mayfly')
                 let {x:xa,y:ya,z:za} = player.location;
                 xa = Math.floor(xa);
                 ya = Math.floor(ya);
@@ -23,49 +21,136 @@ system.runInterval(() => {
                 const r = 6;
                 const d = player.dimension;
                 const b = { 'x': 0, 'y': 0, 'z':0 };
-                let   f = true;
+                let   mayfly = false;
                 _x: for (b.x = xa-r + 0.5; b.x <= xa+r+ 0.5;++b.x)
                 _y: for (b.y = 0.5 + (ya-r)>=-512?(ya-r)<=512?(ya-r):512:-512; b.y <= ya+r;++b.y)
                 _z: for (b.z = za-r + 0.5; b.z <= za+r+ 0.5;++b.z)
                 {
-
-                    const bI = d.getBlock(b)?.typeId;
-                    if (bI !== 'minecraft:air')
-                        if (shears.includes(bI)) {
-                            if(f){
-                                player.addTag('mayfly');
-                                player.addTag('mayfly2');  
-                                f = false;
-                            }
-                            if(bI === 'minecraft:bamboo' || bI === 'minecraft:sweet_berry_bush'){
-                               
+                    const block = d.getBlock(b) 
+                    const bI = block?.typeId;
+                    if (bI === 'minecraft:air')continue
+                    // 破坏传送门
+                    if (bI === 'minecraft:portal'){
+                        player.sendMessage('地狱暂时没想好怎么处理地狱门')
+                         block.setType('minecraft:air')
+                         continue
+                        }
+                        if(mayfly)continue
+                        if (!shears.includes(bI)) continue
+                        if( !list.has(player.id))
+                            player.runCommand('ability @s mayfly true')
+                        list.set(player.id,30)
+                        mayfly = true;
+                        continue
+                        if(bI === 'minecraft:bamboo' || bI === 'minecraft:sweet_berry_bush'){
+                           
                             let rm = Math.random();             
                             // if(rm < 0.25)continue;
-                            // d.runCommandAsync('me x=> '+b.x+' y=> '+b.y+' z=> '+b.z+' bI=> '+bI)
-                                if(!"我修好了资源包")
+                            // d.runCommand('me x=> '+b.x+' y=> '+b.y+' z=> '+b.z+' bI=> '+bI)
+                            break _x
                             while((rm-=0.3) >0){
                                  bI === 'minecraft:bamboo'
                                 ?
                                      d.spawnParticle('minecraft:endrod', b, new MolangVariableMap())
                                      // d.spawnParticle('xboycraft:green_light_point', b, new MolangVariableMap())
                                 : 0
-
+    
                                  bI === 'minecraft:sweet_berry_bush'
                                 ?
                                      d.spawnParticle('minecraft:endrod', b, new MolangVariableMap())
                                      // d.spawnParticle('xboycraft:red_light_point', b, new MolangVariableMap())
                                 : 0
                             }
-                            }
-                            // continue _x;
                         }
+                    
                 }
+                    
+                if(list.has(player.id)){
+                    const time = list.get(player.id)
+                    if(time<=0){
+                        list.delete(player.id)
+                        player.runCommand('ability @s[m=!c] mayfly false')
+                        player.runCommand('gamemode a @s[m=s]')
+                        player.runCommand('gamemode s @s[m=a]')
+                    }else {
+                        if(time<30)
+                            player.onScreenDisplay.setActionBar('--'+time+'--')
+                        list.set(player.id,time-1)
+                    }
+                } 
                 
 			});
-            overworld.runCommandAsync('ability @a[tag=mayfly] mayfly true')
-            overworld.runCommandAsync('ability @a[m=c] mayfly true') //gamemode c
-            overworld.runCommandAsync('gamemode a @a[tag=!mayfly,tag=mayfly2,m=s]')
-            overworld.runCommandAsync('gamemode s @a[tag=!mayfly,tag=mayfly2,m=a]')
-            overworld.runCommandAsync('tag @a[tag=!mayfly,tag=mayfly2] remove mayfly2')
+{
+    
+			const players = nether.getPlayers();
+			players.forEach((player) => {
 
-});
+                let {x:xa,y:ya,z:za} = player.location;
+                xa = Math.floor(xa);
+                ya = Math.floor(ya);
+                za = Math.floor(za);
+                const r = 6;
+                const d = player.dimension;
+                const b = { 'x': 0, 'y': 0, 'z':0 };
+                let   mayfly = false;
+                _x: for (b.x = xa-r + 0.5; b.x <= xa+r+ 0.5;++b.x)
+                _y: for (b.y = 0.5 + (ya-r)>=0?(ya-r)<=127?(ya-r):127:0; b.y <= ya+r;++b.y)
+                _z: for (b.z = za-r + 0.5; b.z <= za+r+ 0.5;++b.z)
+                {
+                    const block = d.getBlock(b) 
+                    const bI = block?.typeId;
+                    if (bI === 'minecraft:air')continue
+                    // 破坏传送门
+                    if (bI === 'minecraft:portal'){
+                        player.sendMessage('地狱暂时没想好怎么处理地狱门')
+                         block.setType('minecraft:air')
+                         continue
+                        }
+                        if(mayfly)continue
+                        if (!shears.includes(bI)) continue
+                        if( !list.has(player.id))
+                            player.runCommand('ability @s mayfly true')
+                        list.set(player.id,30)
+                        mayfly = true;
+                        continue
+                        if(bI === 'minecraft:bamboo' || bI === 'minecraft:sweet_berry_bush'){
+                           
+                            let rm = Math.random();             
+                            // if(rm < 0.25)continue;
+                            // d.runCommand('me x=> '+b.x+' y=> '+b.y+' z=> '+b.z+' bI=> '+bI)
+                            break _x
+                            while((rm-=0.3) >0){
+                                 bI === 'minecraft:bamboo'
+                                ?
+                                     d.spawnParticle('minecraft:endrod', b, new MolangVariableMap())
+                                     // d.spawnParticle('xboycraft:green_light_point', b, new MolangVariableMap())
+                                : 0
+    
+                                 bI === 'minecraft:sweet_berry_bush'
+                                ?
+                                     d.spawnParticle('minecraft:endrod', b, new MolangVariableMap())
+                                     // d.spawnParticle('xboycraft:red_light_point', b, new MolangVariableMap())
+                                : 0
+                            }
+                        }
+                    
+                }
+                    
+                if(list.has(player.id)){
+                    const time = list.get(player.id)
+                    if(time<=0){
+                        list.delete(player.id)
+                        player.runCommand('ability @s[m=!c] mayfly false')
+                        player.runCommand('gamemode a @s[m=s]')
+                        player.runCommand('gamemode s @s[m=a]')
+                    }else {
+                        if(time<30)
+                            player.onScreenDisplay.setActionBar('--'+time+'--')
+                        list.set(player.id,time-1)
+                    }
+                } 
+                
+			});
+
+}
+},2);

@@ -3,7 +3,7 @@ import { world } from "@minecraft/server";
 const debug = false;
 const runCmd = (() => {
     const overworld = world.getDimension("minecraft:overworld");
-    return (cmd) => { overworld.runCommandAsync(cmd); };
+    return (cmd) => { overworld.runCommand(cmd); };
 })();
 class PlayerJoiningEventSignal extends EventSignal {
 }

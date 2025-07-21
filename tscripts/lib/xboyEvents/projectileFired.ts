@@ -22,8 +22,8 @@ world.afterEvents.itemUse.subscribe((event: ItemUseAfterEvent) => {
 
     event.itemStack.typeId === "minecraft:bow"
         ?(
-            // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] queue.playerFishingArray.push(event.source)=>"+queue.playerFishingArray.push(event.source)),
-            // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] queue.fishingHookDespawned_HookArray=>"+queue.fishingHookDespawned_HookArray.size)
+            // world.getDimension("overworld").runCommand("tell @a[tag=xboy] queue.playerFishingArray.push(event.source)=>"+queue.playerFishingArray.push(event.source)),
+            // world.getDimension("overworld").runCommand("tell @a[tag=xboy] queue.fishingHookDespawned_HookArray=>"+queue.fishingHookDespawned_HookArray.size)
             queue.playerFishingArray.push(event.source)
         ):0
 })
@@ -42,10 +42,10 @@ const me = ({x,y,z},{x:a,y:b,z:c},m:number)=>({x:x-a*m,y:y-b*m,z:z-c*m})
 const yume = ({x,y,z},{x:a,y:b,z:c})=>Math.sqrt((x-a)**2+(y-b)**2+(z-c)**2)
 const r3 = (o:Vector3,_o:Vector3,v:number):boolean=>o.x-_o.x<-v ||o.x-_o.x>v||  o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v;
 world.afterEvents.entitySpawn.subscribe(({entity: entity}) => {
-    // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] size fishingHookDespawned_HookArray=>"+queue.fishingHookDespawned_HookArray.size)
+    // world.getDimension("overworld").runCommand("tell @a[tag=xboy] size fishingHookDespawned_HookArray=>"+queue.fishingHookDespawned_HookArray.size)
 
-    // entity.runCommandAsync("me "+entity.typeId)
-    // entity.runCommandAsync("tell @a[tag=xboy] length playerFishingArray "+queue.playerFishingArray.length)
+    // entity.runCommand("me "+entity.typeId)
+    // entity.runCommand("tell @a[tag=xboy] length playerFishingArray "+queue.playerFishingArray.length)
     let Fisher: Entity;
     try {
 
@@ -56,10 +56,10 @@ world.afterEvents.entitySpawn.subscribe(({entity: entity}) => {
                     Fisher = queue.playerFishingArray.find(
                         playerFishing =>
                                     (
-                            entity.runCommandAsync("tell @a[tag=xboy] length x "+(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x)),
-                            entity.runCommandAsync("tell @a[tag=xboy] length y "+(entity.location.y - playerFishing.location.y - playerFishing.getVelocity().y)),
-                            entity.runCommandAsync("tell @a[tag=xboy] length z "+(entity.location.z - playerFishing.location.z - playerFishing.getVelocity().z)),
-                            entity.runCommandAsync("tell @a[tag=xboy] ==========================================")
+                            entity.runCommand("tell @a[tag=xboy] length x "+(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x)),
+                            entity.runCommand("tell @a[tag=xboy] length y "+(entity.location.y - playerFishing.location.y - playerFishing.getVelocity().y)),
+                            entity.runCommand("tell @a[tag=xboy] length z "+(entity.location.z - playerFishing.location.z - playerFishing.getVelocity().z)),
+                            entity.runCommand("tell @a[tag=xboy] ==========================================")
                                   ) &&
 
                             around(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x, 5)// @ts-ignore
@@ -79,9 +79,9 @@ world.afterEvents.entitySpawn.subscribe(({entity: entity}) => {
             :
             0
     } catch (error) {
-        // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] error"+error)
-        // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] lifetimeState"+entity.location)
-        // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] error"+entity.dimension.id)
+        // world.getDimension("overworld").runCommand("tell @a[tag=xboy] error"+error)
+        // world.getDimension("overworld").runCommand("tell @a[tag=xboy] lifetimeState"+entity.location)
+        // world.getDimension("overworld").runCommand("tell @a[tag=xboy] error"+entity.dimension.id)
     }
 })
 
@@ -106,13 +106,13 @@ console.error(("#########"))
 
 projectileFired.subscribe(event=>{
     console.error("projectileFired")
-    world.getDimension("overworld").runCommandAsync("me ##arrow发射\u000aarrow id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+    world.getDimension("overworld").runCommand("me ##arrow发射\u000aarrow id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
 })
 
 console.error("#########")
 fishingHookDespawned.subscribe(event=>{
     console.error("projectileFiredDespawned")
-    world.getDimension("overworld").runCommandAsync("me ##arrow销毁\u000aarrow id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+    world.getDimension("overworld").runCommand("me ##arrow销毁\u000aarrow id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
     // 工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?
     event.fishingHookDespawned_TickArray.push(()=> {
         console.error('fishingHookDespawned_TickArray',JSON.stringify(pos[event.HookId]))

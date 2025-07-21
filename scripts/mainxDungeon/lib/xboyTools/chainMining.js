@@ -41,9 +41,9 @@ var neighborBlock = function(blockLocationO, dimension, blockid){
                         
                         mineCount++;
                         
-                        dimension.runCommandAsync(`setblock ${bl.x} ${bl.y} ${bl.z} air 0 destroy`);
-                       // dimension.runCommandAsync(`fill ${bl.x} ${bl.y} ${bl.z} ${bl.x} ${bl.y} ${bl.z} air 1 destroy`);
-                        //dimension.runCommandAsync(`me 连锁破坏了一个方块`);
+                        dimension.runCommand(`setblock ${bl.x} ${bl.y} ${bl.z} air 0 destroy`);
+                       // dimension.runCommand(`fill ${bl.x} ${bl.y} ${bl.z} ${bl.x} ${bl.y} ${bl.z} air 1 destroy`);
+                        //dimension.runCommand(`me 连锁破坏了一个方块`);
                         neighborBlock(bl, dimension, blockid)
                         
                            }

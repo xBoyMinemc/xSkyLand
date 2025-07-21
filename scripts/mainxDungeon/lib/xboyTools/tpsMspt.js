@@ -32,9 +32,9 @@ if(bbb != time){
     s5Time++
     time = (""+Date.now()).slice(-4,-3)
     try{
-    //  overworld.runCommandAsync(`title @a[tag=tps] actionbar §e§lTPS:§3${tps}§0#§4MSPT:§e${mspta}-${msptb}§0#§4${msptArray.join(",")}`);
-     overworld.runCommandAsync(`title @a[tag=tps] actionbar §e§lTPS:§3${tps}§0#`);
-     overworld.runCommandAsync(`scoreboard players set tps tps ${tps}`);
+    //  overworld.runCommand(`title @a[tag=tps] actionbar §e§lTPS:§3${tps}§0#§4MSPT:§e${mspta}-${msptb}§0#§4${msptArray.join(",")}`);
+     overworld.runCommand(`title @a[tag=tps] actionbar §e§lTPS:§3${tps}§0#`);
+     overworld.runCommand(`scoreboard players set tps tps ${tps}`);
    // console.warn("####TPS",tps)
     }catch(err){
      //眼不见心不烦
@@ -50,14 +50,14 @@ timea = Date.now()
 if(s5Time > 4){
 s5Time = 0
  try{
-     overworld.runCommandAsync(`scoreboard players operation tps entity = tps0 entity`);
-     overworld.runCommandAsync(`scoreboard players set tps0 entity 0`);
-     overworld.runCommandAsync(`execute as @e[type=!item] run scoreboard players add tps0 entity 1`);
+     overworld.runCommand(`scoreboard players operation tps entity = tps0 entity`);
+     overworld.runCommand(`scoreboard players set tps0 entity 0`);
+     overworld.runCommand(`execute as @e[type=!item] run scoreboard players add tps0 entity 1`);
     
-     overworld.runCommandAsync(`scoreboard players operation tps item = tps0 item`);
-     overworld.runCommandAsync(`scoreboard players set tps0 item 0`);
+     overworld.runCommand(`scoreboard players operation tps item = tps0 item`);
+     overworld.runCommand(`scoreboard players set tps0 item 0`);
     
-     overworld.runCommandAsync(`execute as @e[type=item] run scoreboard players add tps0 item 1`);
+     overworld.runCommand(`execute as @e[type=item] run scoreboard players add tps0 item 1`);
      }catch(err){}
     }
 }

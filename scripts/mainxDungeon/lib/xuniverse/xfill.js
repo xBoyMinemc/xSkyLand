@@ -6,6 +6,6 @@ import Chunk_Boundary_Point from '../xpackage/chunkMath.js';
 
 var tickLineFillArray = []
 var tickLineFillFunct = function (x,y,z,u,v,w,block,data,who){
-//who.runCommandAsync(`me ${x} ${y} ${z} ${u} ${v} ${w} ${block} ${data} replace`);
-who.runCommandAsync(`fill ${x} ${y} ${z} ${u} ${v} ${w} ${block} ${data} replace`);
+//who.runCommand(`me ${x} ${y} ${z} ${u} ${v} ${w} ${block} ${data} replace`);
+who.runCommand(`fill ${x} ${y} ${z} ${u} ${v} ${w} ${block} ${data} replace`);
 }

@@ -1,6 +1,8 @@
 ﻿import { ItemStack, world, ItemTypes, system } from '@minecraft/server';
-world.beforeEvents.itemUseOn.subscribe(event => {
-    const { source: player, itemStack: item } = event;
+world.beforeEvents.playerInteractWithBlock.subscribe(event => {
+    const { player, itemStack: item } = event;
+    if (item === undefined || item.typeId === undefined)
+        return;
     if (!player.isSneaking)
         return;
     if (item.typeId === 'minecraft:bucket' && item.amount === 1) {

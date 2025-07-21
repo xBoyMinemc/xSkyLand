@@ -13,7 +13,7 @@ var tagManager = function(messageAstring, messageZstring,tagsArray,tagsBoolean){
         msg.targets = []
         msg.message = "好消息，我触发了一个报错[tagManager]"
         msg.sendToTargets = true
-        msg.sender.runCommandAsync(`tellraw @a[name="${msg.sender.nameTag}"] {"rawtext":[{"text":"§e§l-${messageZstring}"}]}`)
+        msg.sender.runCommand(`tellraw @a[name="${msg.sender.nameTag}"] {"rawtext":[{"text":"§e§l-${messageZstring}"}]}`)
         if(tagsBoolean){
         tagsArray.forEach( (tagString) => { msg.sender.addTag(   tagString)} )
         }else{
@@ -29,9 +29,9 @@ var cmdIfA = function(messageAstring, messageZstring,cmdArray){
         msg.targets = []
         msg.message = "好消息，我触发了一个报错[cmdIfA]"
         msg.sendToTargets = true
-        msg.sender.runCommandAsync(`tellraw @a[name="${msg.sender.nameTag}"] {"rawtext":[{"text":"§e§l-${messageZstring}"}]}`)
+        msg.sender.runCommand(`tellraw @a[name="${msg.sender.nameTag}"] {"rawtext":[{"text":"§e§l-${messageZstring}"}]}`)
         cmdArray.forEach((cmd)=>{
-                msg.sender.runCommandAsync(cmd)
+                msg.sender.runCommand(cmd)
            })
         }catch(err){console.error(err)}
     }
@@ -58,32 +58,32 @@ msg.message = "回家咯";
 msg.sender.kill()
 }
 if(M == "我说天气"){
-msg.message = msg.sender.runCommandAsync(`weather query`).statusMessage;
+msg.message = msg.sender.runCommand(`weather query`).statusMessage;
 }
     if(M == "我说天晴"){
-    msg.sender.runCommandAsync(`weather clear`);
-    msg.sender.runCommandAsync(`xp -1L`)
+    msg.sender.runCommand(`weather clear`);
+    msg.sender.runCommand(`xp -1L`)
     }
         if(M == "我说天阴"){
-        msg.sender.runCommandAsync(`weather rain`);
-        msg.sender.runCommandAsync(`xp -1L`)
+        msg.sender.runCommand(`weather rain`);
+        msg.sender.runCommand(`xp -1L`)
         }
 
 //#Manager
 if(msg.sender.hasTag("xboy")){
     if(M.indexOf("xo.") != -1){
         msg.targets = [];msg.message = ""; msg.sendToTargets = true;
-        msg.sender.runCommandAsync(M.replace("xo.", "").replace("@s", '@a[name="' + msg.sender.nameTag + '"]'));
+        msg.sender.runCommand(M.replace("xo.", "").replace("@s", '@a[name="' + msg.sender.nameTag + '"]'));
     }
 
     if(M.indexOf("xn.") != -1){
         msg.targets = [];msg.message = ""; msg.sendToTargets = true;
-        nether.runCommandAsync(M.replace("xn.", "").replace("@s", '@a[name="' + msg.sender.nameTag + '"]'), nether)
+        nether.runCommand(M.replace("xn.", "").replace("@s", '@a[name="' + msg.sender.nameTag + '"]'), nether)
     }
 
     if(M.indexOf("xe.") != -1){
         msg.targets = [];msg.message = ""; msg.sendToTargets = true;
-        the_end.runCommandAsync(M.replace("xe.", "").replace("@s", '@a[name="' + msg.sender.nameTag + '"]'), the_end);
+        the_end.runCommand(M.replace("xe.", "").replace("@s", '@a[name="' + msg.sender.nameTag + '"]'), the_end);
     }
 
 if(M.indexOf("..check a ") != -1){

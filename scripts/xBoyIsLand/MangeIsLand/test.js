@@ -8,17 +8,15 @@ let GetIndex = () => ScoreBase.GetPoints("##xSkyConfigs##", "##xSkyLands##curren
 world.afterEvents.chatSend.subscribe(_ => {
     if (_.message === "重开" && _.sender.hasTag('remake')) {
         const [x, z] = kyj.index2pos(xIsLand.GetIsPlayerScore(_.sender.name));
-        overworld.runCommandAsync(`tp ${x * 144 + 74} -490 ${z * 144 + 74}`);
-        overworld.runCommandAsync(`structure load xsky_1 ${x * 144 + 72} -510 ${z * 144 + 72}`);
+        overworld.runCommand(`tp ${x * 144 + 74} -490 ${z * 144 + 74}`);
+        overworld.runCommand(`structure load xsky_1 ${x * 144 + 72} -510 ${z * 144 + 72}`);
         return _.sender.removeTag('remake');
     }
     if (!_.message.startsWith("~island"))
         return;
     if (_.message === "~island") {
-        if (xIsLand.GetIsPlayerScore(_.sender.name) <= 0) {
-            _.sender.sendMessage('[摆烂空岛] 还没有自己的岛\u000a输入 ~island空格+岛屿名\u000a以便于创建自己的岛屿');
-            return;
-        }
+        if (xIsLand.GetIsPlayerScore(_.sender.name) <= 0)
+            return _.sender.sendMessage('[摆烂空岛] 还没有自己的岛\u000a输入 ~island空格+岛屿名\u000a以便于创建自己的岛屿');
         const [x, z] = kyj.index2pos(xIsLand.GetIsPlayerScore(_.sender.name));
         _.sender.teleport({ x: x * 144 + 74, y: -490, z: z * 144 + 74 });
         return;
@@ -36,9 +34,9 @@ world.afterEvents.chatSend.subscribe(_ => {
         }
         ower.setSpawnPoint({ x: x * 144 + 74, y: -490, z: z * 144 + 74, dimension: ower.dimension });
         ower.teleport({ x: x * 144 + 74, y: -490, z: z * 144 + 74 });
-        world.getPlayers().forEach(player => player.sendMessage(`[摆烂空岛] 第${index}号空岛开始创建`));
-        overworld.runCommandAsync(`structure load xsky_1 ${x * 144 + 72} -510 ${z * 144 + 72}`);
-        world.getPlayers().forEach(player => player.sendMessage(`[摆烂空岛] 第${index}号空岛完成创建`));
+        world.sendMessage(`[摆烂空岛] 第${index}号-${name}-空岛开始创建`);
+        overworld.runCommand(`structure load xsky_1 ${x * 144 + 72} -510 ${z * 144 + 72}`);
+        world.sendMessage(`[摆烂空岛] 第${index}号空岛-${name}-完成创建`);
     };
     if (_.message.startsWith("~island ") && _.message !== "~island ")
         新建岛屿(_.sender, _.message.replace("~island ", ""));

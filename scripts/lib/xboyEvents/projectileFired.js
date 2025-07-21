@@ -25,10 +25,10 @@ world.afterEvents.entitySpawn.subscribe(({ entity: entity }) => {
     try {
         entity?.typeId === "minecraft:arrow"
             ?
-                ((Fisher = queue.playerFishingArray.find(playerFishing => (entity.runCommandAsync("tell @a[tag=xboy] length x " + (entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x)),
-                    entity.runCommandAsync("tell @a[tag=xboy] length y " + (entity.location.y - playerFishing.location.y - playerFishing.getVelocity().y)),
-                    entity.runCommandAsync("tell @a[tag=xboy] length z " + (entity.location.z - playerFishing.location.z - playerFishing.getVelocity().z)),
-                    entity.runCommandAsync("tell @a[tag=xboy] ==========================================")) &&
+                ((Fisher = queue.playerFishingArray.find(playerFishing => (entity.runCommand("tell @a[tag=xboy] length x " + (entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x)),
+                    entity.runCommand("tell @a[tag=xboy] length y " + (entity.location.y - playerFishing.location.y - playerFishing.getVelocity().y)),
+                    entity.runCommand("tell @a[tag=xboy] length z " + (entity.location.z - playerFishing.location.z - playerFishing.getVelocity().z)),
+                    entity.runCommand("tell @a[tag=xboy] ==========================================")) &&
                     around(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x, 5)
                     && around(entity.location.y - playerFishing.location.y - playerFishing.getVelocity().y, ("你问我0.08哪里来的我就杀了你", "你问我为什么在这里code shit我还是会杀了你，7是垂直向上的", 7))
                     && around(entity.location.z - playerFishing.location.z - playerFishing.getVelocity().z, 5)))
@@ -53,12 +53,12 @@ system.runInterval(() => {
 console.error(("#########"));
 projectileFired.subscribe(event => {
     console.error("projectileFired");
-    world.getDimension("overworld").runCommandAsync("me ##arrow发射\u000aarrow id=>" + event.HookId + "\u000a发起者id=>" + event.Fisher.id);
+    world.getDimension("overworld").runCommand("me ##arrow发射\u000aarrow id=>" + event.HookId + "\u000a发起者id=>" + event.Fisher.id);
 });
 console.error("#########");
 fishingHookDespawned.subscribe(event => {
     console.error("projectileFiredDespawned");
-    world.getDimension("overworld").runCommandAsync("me ##arrow销毁\u000aarrow id=>" + event.HookId + "\u000a发起者id=>" + event.Fisher.id);
+    world.getDimension("overworld").runCommand("me ##arrow销毁\u000aarrow id=>" + event.HookId + "\u000a发起者id=>" + event.Fisher.id);
     event.fishingHookDespawned_TickArray.push(() => {
         console.error('fishingHookDespawned_TickArray', JSON.stringify(pos[event.HookId]));
         let time = 0;

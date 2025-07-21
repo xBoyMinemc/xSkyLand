@@ -15,9 +15,9 @@ const AssScorePartic = (PlayerDisplayName, ScoreBoardObject) => typeof ScoreBoar
 const AssScoreParticCurry = (PlayerDisplayName) => (ScoreBoardObject) => typeof ScoreBoardObject === "object" ? ScoreBoardObject.getParticipants().find((participant) => (participant.displayName === PlayerDisplayName)) : GetScorePartic().find((participant) => (participant.displayName === PlayerDisplayName));
 const DelScoreObject = (NameOrObj) => { world.scoreboard.removeObjective(NameOrObj); };
 const NewScoreObject = (objectiveId, displayName) => world.scoreboard.addObjective(objectiveId, displayName);
-const DisScoreObject = (...args) => overworld.runCommandAsync(`scoreboard objectives setdisplay ${(typeof args[0] === typeof 520) ? ['list', 'sidebar', 'belowname'][args[0]] : args[0]} ${((typeof args[1] === typeof "云梦") ? args[1] : args[1].id) + (args[2] ? (" " + (typeof args[2] === "string" ? args[2] : ['ascending', 'descending'][args[2]])) : "")}`);
-const AddScorePoints = (playerName, scoreObject, count) => overworld.runCommandAsync(`scoreboard players add ${dress(playerName)} ${(typeof scoreObject === typeof "xBoy minemc") ? scoreObject : dress(scoreObject.id)} ${count}`);
-const SetScorePoints = (playerName, scoreObject, count) => overworld.runCommandAsync(`scoreboard players set ${dress(playerName)} ${(typeof scoreObject === typeof "xBoy minemc") ? scoreObject : dress(scoreObject.id)} ${count}`);
+const DisScoreObject = (...args) => overworld.runCommand(`scoreboard objectives setdisplay ${(typeof args[0] === typeof 520) ? ['list', 'sidebar', 'belowname'][args[0]] : args[0]} ${((typeof args[1] === typeof "云梦") ? args[1] : args[1].id) + (args[2] ? (" " + (typeof args[2] === "string" ? args[2] : ['ascending', 'descending'][args[2]])) : "")}`);
+const AddScorePoints = (playerName, scoreObject, count) => overworld.runCommand(`scoreboard players add ${dress(playerName)} ${(typeof scoreObject === typeof "xBoy minemc") ? scoreObject : dress(scoreObject.id)} ${count}`);
+const SetScorePoints = (playerName, scoreObject, count) => overworld.runCommand(`scoreboard players set ${dress(playerName)} ${(typeof scoreObject === typeof "xBoy minemc") ? scoreObject : dress(scoreObject.id)} ${count}`);
 const ScoreBase = {
     GetObject: GetScoreObject,
     GetPartic: GetScorePartic,

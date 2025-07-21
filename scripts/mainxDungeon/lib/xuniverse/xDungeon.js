@@ -19,7 +19,6 @@ import {
 	testDead,
 	// getPlayers
   } from '../xpackage/playerMath.js'                            //无情的fill机器-cmd&tick实现
-// import { initConsole }       from '../RGB39/tellraw-console.js';//RGB牌控制台输出-Powered by RGB39
 import { orxyz, where }      from '../xuniverse/xconfig.js';    //配置变量
 import Chunk_Boundary_Point  from '../xpackage/chunkMath.js';   //计算并返回区块边界点#1
 import xboy                  from '../xuniverse/xx.js';         //生成房间位置
@@ -34,9 +33,9 @@ const the_end = world.getDimension("the end");
 const wholeWorld = ["overworld", "nether", "the end"];// zawaluduo
 const backTag    = "###xback###";
 const xz2_17_5 = Chunk_Boundary_Point.x2D([2**17.5,2**17.5])[0] +300                    //忘记干嘛的了
-// const getScorePlayerStr = function (playerName,obj){return overworld.runCommandAsync(`scoreboard players test "${playerName}" ${obj} * *`).statusMessage.split("在")[0].replaceAll("分数","").replaceAll(" ","");};
-// const setScorePlayerStr = function (name,obj,num){overworld.runCommandAsync(`scoreboard players set ${name} ${obj} ${num}`)};
-// const addScorePlayerStr = function (name,obj,num){overworld.runCommandAsync(`scoreboard players add ${name} ${obj} ${num}`)};//仨旧时代的产物
+// const getScorePlayerStr = function (playerName,obj){return overworld.runCommand(`scoreboard players test "${playerName}" ${obj} * *`).statusMessage.split("在")[0].replaceAll("分数","").replaceAll(" ","");};
+// const setScorePlayerStr = function (name,obj,num){overworld.runCommand(`scoreboard players set ${name} ${obj} ${num}`)};
+// const addScorePlayerStr = function (name,obj,num){overworld.runCommand(`scoreboard players add ${name} ${obj} ${num}`)};//仨旧时代的产物
 const az = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","★"];//az not is AZ
 // const orxyz = [-704,0,-160];//核心参数，地牢起始坐标
 // const where = the_end;      //核心参数，地牢所在维度     //丢到config里
@@ -108,8 +107,8 @@ let gamecache = [];//字(mi)面意思
 let FIX = 1.0;
 let tickingmain = function(){
 	// FIX = Math.floor(Math.random() * 5)
-	// try{where.runCommandAsync(`execute @a[tag=!xdungeon,m=s] ~ ~ ~ gamemode a`)}catch(err){}
-	// try{where.runCommandAsync(`execute @a[tag=xdungeon,m=a] ~ ~ ~ gamemode s`)}catch(err){}
+	// try{where.runCommand(`execute @a[tag=!xdungeon,m=s] ~ ~ ~ gamemode a`)}catch(err){}
+	// try{where.runCommand(`execute @a[tag=xdungeon,m=a] ~ ~ ~ gamemode s`)}catch(err){}
 //满满的无奈
 	let dungeonTickPlayersArray = [];
 	{
@@ -125,8 +124,8 @@ let tickingmain = function(){
 				//在场景附近，且在房间内，正常
 				//mode->冒险
 				
-				try{__ta.runCommandAsync("gamemode adventure @s[m=survival]")}catch(err){
-					the_end.runCommandAsync("me 8"+err)
+				try{__ta.runCommand("gamemode adventure @s[m=survival]")}catch(err){
+					the_end.runCommand("me 8"+err)
 
 				}
 				
@@ -156,8 +155,8 @@ let tickingmain = function(){
 				for(let xb0y of where.getEntities(xbayInRoom)){xbay.push(xb0y);};
 					xbay.forEach((player)=>{
 						if(!xboy.includes(player)){
-							try{player.runCommandAsync(`gamemode survival @s[m=adventure]`)}catch(err){
-								the_end.runCommandAsync("me 7"+err)
+							try{player.runCommand(`gamemode survival @s[m=adventure]`)}catch(err){
+								the_end.runCommand("me 7"+err)
 
 							}
 							
@@ -191,8 +190,8 @@ let tickingmain = function(){
 				let xboyInRoomTurest = !xboyInRoom("minecraft:zombie").length && !xboyInRoom("minecraft:skeleton").length;
 					xboyInRoom("minecraft:item").forEach((item)=>{
 						item.addTag("xdungeon");
-						item.runCommandAsync(`scoreboard players add @p[x=${room.x-1},y=${orxyz[1]},z=${room.z-1},dx=17,dy=17,dz=17] xdungon 1`);
-						item.runCommandAsync(`scoreboard players add @p[x=${room.x-1},y=${orxyz[1]},z=${room.z-1},dx=17,dy=17,dz=17] xdungon_dis 1`);
+						item.runCommand(`scoreboard players add @p[x=${room.x-1},y=${orxyz[1]},z=${room.z-1},dx=17,dy=17,dz=17] xdungon 1`);
+						item.runCommand(`scoreboard players add @p[x=${room.x-1},y=${orxyz[1]},z=${room.z-1},dx=17,dy=17,dz=17] xdungon_dis 1`);
 					});//掉落物标记，图省事直接丢main里了
 			///console.log(room.detail)
 
@@ -217,11 +216,11 @@ let tickingmain = function(){
 			if(room.status == 1 && xboyInRoomTurest){
 				try{
 					xboyInRoom("minecraft:player").forEach((player)=>{
-						player.runCommandAsync(`scoreboard players add @s xdungon_rooms 1`);
+						player.runCommand(`scoreboard players add @s xdungon_rooms 1`);
 					})
 					
 				}catch(err){
-					the_end.runCommandAsync("me 6"+err)
+					the_end.runCommand("me 6"+err)
 
 				}
 
@@ -230,10 +229,10 @@ let tickingmain = function(){
 				where.spawnParticle("xboy:ttk_end",new Location(room.x+7.5,orxyz[1]+2,room.z-1),new MolangVariableMap())
 				where.spawnParticle("xboy:ttk_end",new Location(room.x+16,orxyz[1]+2,room.z+7.5),new MolangVariableMap())
 				where.spawnParticle("xboy:ttk_end",new Location(room.x+7.5,orxyz[1]+2,room.z+16),new MolangVariableMap())
-				// where.runCommandAsync(`particle xboy:ttk_end ${room.x-1  } ${orxyz[1]+2} ${room.z+7.5}`)
-				// where.runCommandAsync(`particle xboy:ttk_end ${room.x+7.5} ${orxyz[1]+2} ${room.z-1  }`)
-				// where.runCommandAsync(`particle xboy:ttk_end ${room.x+16 } ${orxyz[1]+2} ${room.z+7.5}`)
-				// where.runCommandAsync(`particle xboy:ttk_end ${room.x+7.5} ${orxyz[1]+2} ${room.z+16 }`)
+				// where.runCommand(`particle xboy:ttk_end ${room.x-1  } ${orxyz[1]+2} ${room.z+7.5}`)
+				// where.runCommand(`particle xboy:ttk_end ${room.x+7.5} ${orxyz[1]+2} ${room.z-1  }`)
+				// where.runCommand(`particle xboy:ttk_end ${room.x+16 } ${orxyz[1]+2} ${room.z+7.5}`)
+				// where.runCommand(`particle xboy:ttk_end ${room.x+7.5} ${orxyz[1]+2} ${room.z+16 }`)
 				room.status = 0;
 				dungeonTickRoomsArray[__tex] = room;
 			}
@@ -241,15 +240,15 @@ let tickingmain = function(){
 				{
 						gate_fill_tool_xyzIDIDw.a(room.x, orxyz[1], room.z, "nether_brick_fence", "[]", "air", "[]", where)
 						where.spawnParticle("xboy:ttk",new Location(room.x+8,orxyz[1]+6.1,room.z+8),new MolangVariableMap())
-						// where.runCommandAsync(`particle xboy:ttk ${room.x+8} ${orxyz[1]+6.1} ${room.z+8}`)
+						// where.runCommand(`particle xboy:ttk ${room.x+8} ${orxyz[1]+6.1} ${room.z+8}`)
 					for(let i = 3*FIX;i>0;){
 						let x = Math.floor(Math.random() * 15);
 						let z = Math.floor(Math.random() * 15);
 						    i = Math.floor(Math.random() * 15)>8 ? i : i-1;
 						where.spawnParticle("xboy:s",new Location(room.x+x,orxyz[1]+1,room.z+z),new MolangVariableMap())
 						where.spawnEntity("minecraft:zombie",new Location(room.x+x,orxyz[1]+3,room.z+z))
-						// where.runCommandAsync(`particle xboy:s ${room.x+x} ${orxyz[1]+1} ${room.z+z}`)
-						// where.runCommandAsync(`summon minecraft:zombie ${room.x+x} ${orxyz[1]+3} ${room.z+z}`)
+						// where.runCommand(`particle xboy:s ${room.x+x} ${orxyz[1]+1} ${room.z+z}`)
+						// where.runCommand(`summon minecraft:zombie ${room.x+x} ${orxyz[1]+3} ${room.z+z}`)
 					}
 					for(let i = 1*FIX*0.8;i>0;){
 						let x = Math.floor(Math.random() * 15);
@@ -257,8 +256,8 @@ let tickingmain = function(){
 							i = x>8 ? i : i-1;
 						where.spawnParticle("xboy:s",new Location(room.x+x,orxyz[1]+1,room.z+z),new MolangVariableMap())
 						where.spawnEntity("minecraft:skeleton",new Location(room.x+x,orxyz[1]+3,room.z+z))
-						// where.runCommandAsync(`particle xboy:s ${room.x+x} ${orxyz[1]+1} ${room.z+z}`)
-						// where.runCommandAsync(`summon minecraft:skeleton ${room.x+x} ${orxyz[1]+3} ${room.z+z}`)
+						// where.runCommand(`particle xboy:s ${room.x+x} ${orxyz[1]+1} ${room.z+z}`)
+						// where.runCommand(`summon minecraft:skeleton ${room.x+x} ${orxyz[1]+3} ${room.z+z}`)
 					}
 				let xroom = room;
 					xroom.status = Math.floor(Math.random() * 15)>4 ? 1 : 2;
@@ -267,15 +266,15 @@ let tickingmain = function(){
 			}
 			if(room.status == 3 && xboyInRoomTurest){
 				where.spawnParticle("xboy:ttk",new Location(room.x+8,orxyz[1]+6.1,room.z+8),new MolangVariableMap())
-				// where.runCommandAsync(`particle xboy:ttk ${room.x+8} ${orxyz[1]+6.1} ${room.z+8}`)
+				// where.runCommand(`particle xboy:ttk ${room.x+8} ${orxyz[1]+6.1} ${room.z+8}`)
 				for(let i = 2*FIX*0.8;i>0;){
 					let x = Math.floor(Math.random() * 15);
 					let z = Math.floor(Math.random() * 15);
 						i = x>8 ? i : i-1;
 					where.spawnParticle("xboy:s",new Location(room.x+x,orxyz[1]+1,room.z+z),new MolangVariableMap())
 					where.spawnEntity("minecraft:zombie",new Location(room.x+x,orxyz[1]+3,room.z+z))
-					// where.runCommandAsync(`particle xboy:s ${room.x+x} ${orxyz[1]+1} ${room.z+z}`)
-					// where.runCommandAsync(`summon minecraft:zombie ${room.x+x} ${orxyz[1]+3} ${room.z+z}`)
+					// where.runCommand(`particle xboy:s ${room.x+x} ${orxyz[1]+1} ${room.z+z}`)
+					// where.runCommand(`summon minecraft:zombie ${room.x+x} ${orxyz[1]+3} ${room.z+z}`)
 				}
 				for(let i = 1*FIX*0.8;i>0;){
 					let x = Math.floor(Math.random() * 15);
@@ -285,9 +284,9 @@ let tickingmain = function(){
 					where.spawnParticle("xboy:s",new Location(room.x+x,orxyz[1]+1,room.z+z),new MolangVariableMap())
 					where.spawnEntity("minecraft:skeleton",new Location(room.x+x,orxyz[1]+3,room.z+z))
 					where.spawnEntity("minecraft:slime",new Location(room.x+x,orxyz[1]+3,room.z+z))
-					// where.runCommandAsync(`particle xboy:s ${room.x+x} ${orxyz[1]+1} ${room.z+z}`)
-					// where.runCommandAsync(`summon minecraft:skeleton ${room.x+x} ${orxyz[1]+3} ${room.z+z}`)
-					// where.runCommandAsync(`summon minecraft:slime ${room.x+x} ${orxyz[1]+3} ${room.z+z}`)
+					// where.runCommand(`particle xboy:s ${room.x+x} ${orxyz[1]+1} ${room.z+z}`)
+					// where.runCommand(`summon minecraft:skeleton ${room.x+x} ${orxyz[1]+3} ${room.z+z}`)
+					// where.runCommand(`summon minecraft:slime ${room.x+x} ${orxyz[1]+3} ${room.z+z}`)
 				}
 				gate_fill_tool_xyzIDIDw.a(room.x, orxyz[1], room.z, "nether_brick_fence", "[]", "air", "[]", where)
 				
@@ -398,7 +397,7 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
 				for(let i = 6;i<48;){
 					i=i+Math.floor(Math.random() * 4)
 					w.spawnParticle("xboy:xendrod",new Location(x,+y.toFixed(0)+i,z),new MolangVariableMap())
-					// player.runCommandAsync(`particle xboy:xendrod ${x} ${+y.toFixed(0)+i} ${z}`)
+					// player.runCommand(`particle xboy:xendrod ${x} ${+y.toFixed(0)+i} ${z}`)
 				}
 				
 			}
@@ -416,30 +415,30 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
 			let z  = player.location.z //>= 0 ? player.location.z-0.5 : player.location.z+0.5;
 			let xz =  Chunk_Boundary_Point.x2D([x,z]);
 
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)-1} ${xz[1]}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)} ${xz[1]}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+1} ${xz[1]}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)-1} ${xz[1]+15}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)} ${xz[1]+15}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+1} ${xz[1]+15}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)-1} ${xz[1]}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)} ${xz[1]}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+1} ${xz[1]}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)-1} ${xz[1]+15}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)} ${xz[1]+15}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+1} ${xz[1]+15}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+2} ${xz[1]}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+3} ${xz[1]}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+4} ${xz[1]}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+2} ${xz[1]+15}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+3} ${xz[1]+15}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+4} ${xz[1]+15}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+2} ${xz[1]}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+3} ${xz[1]}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+4} ${xz[1]}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+2} ${xz[1]+15}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+3} ${xz[1]+15}`)
-			// player.runCommandAsync(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+4} ${xz[1]+15}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)-1} ${xz[1]}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)} ${xz[1]}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+1} ${xz[1]}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)-1} ${xz[1]+15}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)} ${xz[1]+15}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+1} ${xz[1]+15}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)-1} ${xz[1]}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)} ${xz[1]}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+1} ${xz[1]}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)-1} ${xz[1]+15}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)} ${xz[1]+15}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+1} ${xz[1]+15}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+2} ${xz[1]}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+3} ${xz[1]}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+4} ${xz[1]}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+2} ${xz[1]+15}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+3} ${xz[1]+15}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]} ${y.toFixed(0)+4} ${xz[1]+15}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+2} ${xz[1]}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+3} ${xz[1]}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+4} ${xz[1]}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+2} ${xz[1]+15}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+3} ${xz[1]+15}`)
+			// player.runCommand(`particle minecraft:endrod ${xz[0]+15} ${y.toFixed(0)+4} ${xz[1]+15}`)
 			// 为什么套y.toFixed(0)呢？
 			//因为0溢事件
 		}
@@ -460,27 +459,27 @@ function next(){
 	let y = orxyz[1]+8;
 	let z = orxyz[2]+16*10+8;
 	// //particle /
-	// where.runCommandAsync(`tellraw @a[tag=xdungeon] {"rawtext":[{"text":"§r§l⑨${0}"}]}`)
-	where.runCommandAsync(`title @a[tag=xdungeon] title 恭喜，进入下一关`)
-	where.runCommandAsync(`effect @a[tag=xdungeon] slow_falling 5 30 true`)
-	where.runCommandAsync(`effect @a[tag=xdungeon] slowness 2 2 true`)
+	// where.runCommand(`tellraw @a[tag=xdungeon] {"rawtext":[{"text":"§r§l⑨${0}"}]}`)
+	where.runCommand(`title @a[tag=xdungeon] title 恭喜，进入下一关`)
+	where.runCommand(`effect @a[tag=xdungeon] slow_falling 5 30 true`)
+	where.runCommand(`effect @a[tag=xdungeon] slowness 2 2 true`)
 	where.spawnParticle("xboy:ttk_win_gold",new Location(x,y,z),new MolangVariableMap())
 	where.spawnParticle("xboy:ttk_win_diamond",new Location(x,y,z),new MolangVariableMap())
-	// where.runCommandAsync(`particle xboy:ttk_win_gold ${x} ${y} ${z}`)
-	// where.runCommandAsync(`particle xboy:ttk_win_diamond ${x} ${y} ${z}`)
+	// where.runCommand(`particle xboy:ttk_win_gold ${x} ${y} ${z}`)
+	// where.runCommand(`particle xboy:ttk_win_diamond ${x} ${y} ${z}`)
 
 	where.spawnEntity("minecraft:fireworks_rocket",new Location(x+1.5,y,z+0.5))
 	[1.5,0.5,-0.5].forEach(xp=>
 		[1.5,0.5,-0.5,-1.5].forEach(zp=>where.spawnParticle("xboy:minecraft:endrod",new Location(x+xp,y.toFixed(0),z+zp),new MolangVariableMap()))
 		)
-	where.runCommandAsync(`summon minecraft:fireworks_rocket ${x+1.5} ${y} ${z+0.5}`)
-	where.runCommandAsync(`summon minecraft:fireworks_rocket ${x+1.5} ${y} ${z-0.5}`)
-	where.runCommandAsync(`summon minecraft:fireworks_rocket ${x-1.5} ${y} ${z+0.5}`)
-	where.runCommandAsync(`summon minecraft:fireworks_rocket ${x-1.5} ${y} ${z-0.5}`)
-	where.runCommandAsync(`summon minecraft:fireworks_rocket ${x+0.5} ${y} ${z+1.5}`)
-	where.runCommandAsync(`summon minecraft:fireworks_rocket ${x-0.5} ${y} ${z+1.5}`)
-	where.runCommandAsync(`summon minecraft:fireworks_rocket ${x+0.5} ${y} ${z-1.5}`)
-	where.runCommandAsync(`summon minecraft:fireworks_rocket ${x-0.5} ${y} ${z-1.5}`)
+	where.runCommand(`summon minecraft:fireworks_rocket ${x+1.5} ${y} ${z+0.5}`)
+	where.runCommand(`summon minecraft:fireworks_rocket ${x+1.5} ${y} ${z-0.5}`)
+	where.runCommand(`summon minecraft:fireworks_rocket ${x-1.5} ${y} ${z+0.5}`)
+	where.runCommand(`summon minecraft:fireworks_rocket ${x-1.5} ${y} ${z-0.5}`)
+	where.runCommand(`summon minecraft:fireworks_rocket ${x+0.5} ${y} ${z+1.5}`)
+	where.runCommand(`summon minecraft:fireworks_rocket ${x-0.5} ${y} ${z+1.5}`)
+	where.runCommand(`summon minecraft:fireworks_rocket ${x+0.5} ${y} ${z-1.5}`)
+	where.runCommand(`summon minecraft:fireworks_rocket ${x-0.5} ${y} ${z-1.5}`)
 }
 function clear(){
 	gamecache = [];
@@ -500,7 +499,7 @@ for(let u = 2;u<19;u++){
 		   }
 
 	} catch (err) {
-		the_end.runCommandAsync("me 5"+err)
+		the_end.runCommand("me 5"+err)
 
 	}
 
@@ -533,14 +532,14 @@ function rest(){
 	let a = "/u000a"
 	for(let u = 2;u<19;u++){
 
-		 //where.runCommandAsync(`me ${u21v21[u]}`)
+		 //where.runCommand(`me ${u21v21[u]}`)
 			 //console.log(u21v21[u].join())
 			 try{
-			 the_end.runCommandAsync(`tellraw @a[tag=xdungeon] {"rawtext":[{"text":"§r§l⑨${u21v21[u].join(" ").replace("★","§e★§r§l")}"}]}`)
+			 the_end.runCommand(`tellraw @a[tag=xdungeon] {"rawtext":[{"text":"§r§l⑨${u21v21[u].join(" ").replace("★","§e★§r§l")}"}]}`)
 			 a += "\x1b[1m"+u21v21[u].join(" ").replace("★","\x1b[1;33m★\x1b[0m")+"\u000a";
 			//  console.error('`§r§l⑨${u21v21[u].join(" ").replace("★","§e★§r§l")}`')
 			 }catch(err){
-				the_end.runCommandAsync("me 4"+err)
+				the_end.runCommand("me 4"+err)
 			 }
 			
 			//  console.info(`§r§l⑨${u21v21[u].join(" ").replace("★","§e★§r§l")}`)
@@ -566,7 +565,7 @@ function rest(){
 			if(roomDetail == az[level]){
 
 			chunk_fill_tool_xYzIDw(orxyz[0]+16*v, [orxyz[1],orxyz[1]], orxyz[2]+16*u, "deepslate_tiles", "[]", where)
-			// where.runCommandAsync(`me  ${v} 8 ${u}`)
+			// where.runCommand(`me  ${v} 8 ${u}`)
 			try{
 				{
 					let __tess = {};//new EntityQueryOptions();
@@ -579,14 +578,14 @@ function rest(){
 						if(__ta.dimension === where){
 						__ta.teleport(new Location(orxyz[0]+16*v+8-1,8,orxyz[2]+16*u+8-1),{dimension:where})
 						//__ta.addEffect()//真拉跨
-						__ta.runCommandAsync(`effect @s slow_falling 5 0 true`)
-						__ta.runCommandAsync(`effect @s slowness 2 2 true`)
+						__ta.runCommand(`effect @s slow_falling 5 0 true`)
+						__ta.runCommand(`effect @s slowness 2 2 true`)
 						}
 
 					}
 					//猜猜这块哪复制来的
 				}
-			//where.runCommandAsync(`tp @a[tag=xdungeon] ${orxyz[0]+16*v+8} 8 ${orxyz[2]+16*u+8}`)
+			//where.runCommand(`tp @a[tag=xdungeon] ${orxyz[0]+16*v+8} 8 ${orxyz[2]+16*u+8}`)
 
 			}catch(err){}
 			}else{//垃圾游戏，又崩了
@@ -606,8 +605,8 @@ function rest(){
 
 console.error(a)
 
-try{where.runCommandAsync(`tellraw @a[tag=xdungeon] {"rawtext":[{"text":"§e§l-房间数量；${gamecache.length}"}]}`)}catch(err){
-	the_end.runCommandAsync("me 3"+err)
+try{where.runCommand(`tellraw @a[tag=xdungeon] {"rawtext":[{"text":"§e§l-房间数量；${gamecache.length}"}]}`)}catch(err){
+	the_end.runCommand("me 3"+err)
 }
 }
 
@@ -654,7 +653,7 @@ if(message == "地牢帮助"){
 	})
 }
 if(message.startsWith("难度调整")){FIX = +message.replace("难度调整","");msg.message = "难度调整为；"+FIX}
-if(message == "坐牢" && msg.sender.hasTag("xdungeon") ){msg.message = "爷又回来辣！！！！";backTool.get("###xback###",["the end","overworld"],[msg.sender]);msg.sender.runCommandAsync(`xp -1L`)}
+if(message == "坐牢" && msg.sender.hasTag("xdungeon") ){msg.message = "爷又回来辣！！！！";backTool.get("###xback###",["the end","overworld"],[msg.sender]);msg.sender.runCommand(`xp -1L`)}
 if(message == "清牢" && msg.sender.hasTag("xdungeon") && msg.sender.dimension === where){msg.message = "清场中....";clear()   }
 if(message == "开牢" && msg.sender.hasTag("xdungeon") && msg.sender.dimension === where){msg.message = "清场中....请等待生成";clear();setCountRest() ; rest()   }
 if(message == "出牢" && msg.sender.dimension === where){msg.sender.kill()}
@@ -672,15 +671,15 @@ if((message == "探牢" || message == "探监") && msg.sender.hasTag("xdungeon")
 		[0, 4]
 	].forEach((xz)=>{
 		gamecache.every((room)=>{
-			// msg.sender.runCommandAsync(`me tp gamecache`+gamecache.length);
+			// msg.sender.runCommand(`me tp gamecache`+gamecache.length);
 
 			let uv = Chunk_Boundary_Point.x2D([x+xz[0],z+xz[1]])
-			// msg.sender.runCommandAsync(`me ${uv[0]} ${room.x}  ${uv[1] } ${room.z}`);
+			// msg.sender.runCommand(`me ${uv[0]} ${room.x}  ${uv[1] } ${room.z}`);
 
 			if(uv[0] == room.x && uv[1] == room.z){
-			// msg.sender.runCommandAsync(`me done`);
+			// msg.sender.runCommand(`me done`);
 
-				// msg.sender.runCommandAsync(`tp @s ${room.x+7} ${orxyz[1]+2} ${room.z+8}`);
+				// msg.sender.runCommand(`tp @s ${room.x+7} ${orxyz[1]+2} ${room.z+8}`);
 				msg.sender.teleport({x:room.x+7 ,y: orxyz[1]+2 , z:room.z+8});
 				// +7 又 +8,文明是√8
 			// 	throw new Error("为了让forEach中断减少性能开销，我加了个try，怎么想的");
@@ -691,7 +690,7 @@ if((message == "探牢" || message == "探监") && msg.sender.hasTag("xdungeon")
 	})
 
 	// }catch(err){
-	// 	the_end.runCommandAsync("me 2"+err)
+	// 	the_end.runCommand("me 2"+err)
 
 	// }
 }
@@ -732,7 +731,7 @@ if(message == "牢底" || message == "案底"){
 // try {
 
 // } catch (error) {
-// 	overworld.runCommandAsync("me 1"+error)
+// 	overworld.runCommand("me 1"+error)
 // }
 
 
@@ -742,5 +741,5 @@ console.error("生成器加载完毕")
 
 
 
-// overworld.runCommandAsync("me errorerror")
+// overworld.runCommand("me errorerror")
 //forEach是坏文明吗

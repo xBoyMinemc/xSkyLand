@@ -7,8 +7,10 @@ import {
 
 
 //空桶回收黑曜石为岩浆
-world.beforeEvents.itemUseOn.subscribe(event=>{
-    const {source:player, itemStack:item} = event
+world.beforeEvents.playerInteractWithBlock.subscribe(event=>{
+    const {player, itemStack:item} = event
+    if(item === undefined || item.typeId === undefined)return
+
     if(!player.isSneaking)return
     // player.sendMessage("ssssssss"+item.typeId+" # data: "+item.amount)
     if(item.typeId==='minecraft:bucket'&&item.amount===1){
