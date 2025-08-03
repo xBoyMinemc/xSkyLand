@@ -14,8 +14,8 @@
                     "adjust_for_weather": false
                 },
                 "minecraft:height_filter": {
-                    "min": 60,
-                    "max": 67
+                    "min": -511,
+                    "max": 511
                 },
                 "minecraft:weight": {
                     "default": 8
