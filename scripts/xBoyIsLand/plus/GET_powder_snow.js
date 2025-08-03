@@ -14,14 +14,14 @@ world.beforeEvents.playerInteractWithBlock.subscribe(event => {
         return;
     const container = player.getComponent('minecraft:inventory').container;
     const nownow = container.getItem(player.selectedSlotIndex);
-    if (nownow.typeId !== 'minecraft:bucket')
+    if (nownow === undefined || nownow.typeId !== 'minecraft:bucket')
         return "我判断了两次物品，一次判断是否是桶，一次也判断是否是桶";
     if (nownow.amount <= 0)
         return;
     system.run(() => {
         const container = player.getComponent('minecraft:inventory').container;
         const nownow = container.getItem(player.selectedSlotIndex);
-        if (nownow.typeId !== 'minecraft:bucket')
+        if (nownow === undefined || nownow.typeId !== 'minecraft:bucket')
             return "我判断了两次物品，一次判断是否是桶，一次也判断是否是桶";
         if (nownow.amount <= 0)
             return;

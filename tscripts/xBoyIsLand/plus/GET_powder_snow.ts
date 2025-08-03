@@ -13,7 +13,7 @@ world.beforeEvents.playerInteractWithBlock.subscribe(event => {
     // 假设使用主手
     const container = player.getComponent('minecraft:inventory').container
     const nownow = container.getItem(player.selectedSlotIndex);
-    if (nownow.typeId !== 'minecraft:bucket') return "我判断了两次物品，一次判断是否是桶，一次也判断是否是桶"
+    if (nownow === undefined || nownow.typeId !== 'minecraft:bucket') return "我判断了两次物品，一次判断是否是桶，一次也判断是否是桶"
     if (nownow.amount <= 0) return
 
     system.run(() => {
@@ -21,7 +21,7 @@ world.beforeEvents.playerInteractWithBlock.subscribe(event => {
         const container = player.getComponent('minecraft:inventory').container
         const nownow = container.getItem(player.selectedSlotIndex);
 
-        if (nownow.typeId !== 'minecraft:bucket') return "我判断了两次物品，一次判断是否是桶，一次也判断是否是桶"
+        if (nownow === undefined || nownow.typeId !== 'minecraft:bucket') return "我判断了两次物品，一次判断是否是桶，一次也判断是否是桶"
         if (nownow.amount <= 0) return
         block.setType('minecraft:air')
 
