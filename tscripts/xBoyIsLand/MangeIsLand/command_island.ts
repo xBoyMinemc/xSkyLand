@@ -287,6 +287,8 @@ mc.system.beforeEvents.startup.subscribe((event) => {
         const player = entity as mc.Player;
 
         mc.system.run(() => {
+            if(player?.location === undefined) return
+            if(player?.name === undefined) return
 
             switch (action) {
                 case "menu":
@@ -344,6 +346,8 @@ mc.system.beforeEvents.startup.subscribe((event) => {
                 case "delete":
                     // 删除岛屿
                     // 检查权限
+                    if(player?.location === undefined) return
+                    if(player?.name === undefined) return
                     const per = Permission(player.name, player.location);
                     if (!per.endsWith("1")) {
                         player.sendMessage("§c[摆烂空岛] 无法删除，因为不是岛主");
@@ -427,6 +431,7 @@ mc.system.beforeEvents.startup.subscribe((event) => {
 // 监听玩家掉落事件，提示创建岛屿
 mc.world.afterEvents.playerSpawn.subscribe((event) => {
     const player = event.player;
+    if(player?.location === undefined) return
     
     // 检查是否是新玩家或没有岛屿的玩家
     mc.system.runTimeout(() => {
@@ -447,6 +452,9 @@ mc.system.runInterval(() => {
     const the_end = mc.world.getDimension("the_end");
     
     overworld.getPlayers().forEach((player) => {
+        if(player?.location === undefined) return
+        if(player?.name === undefined) return
+
         if(player.location.y < -528) {
             const xz = kyj.index2pos(xIsLand.GetIsPlayerScore(player.name));
             if(xIsLand.GetIsPlayerScore(player.name) <= 0) {

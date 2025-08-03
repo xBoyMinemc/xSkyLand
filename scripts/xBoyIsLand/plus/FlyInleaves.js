@@ -10,6 +10,8 @@ world.afterEvents.playerLeave.subscribe(({ playerId }) => {
 system.runInterval(() => {
     const players = overworld.getPlayers();
     players.forEach((player) => {
+        if (player?.location === undefined)
+            return;
         let { x: xa, y: ya, z: za } = player.location;
         xa = Math.floor(xa);
         ya = Math.floor(ya);
@@ -72,6 +74,8 @@ system.runInterval(() => {
     {
         const players = nether.getPlayers();
         players.forEach((player) => {
+            if (player?.location === undefined)
+                return;
             let { x: xa, y: ya, z: za } = player.location;
             xa = Math.floor(xa);
             ya = Math.floor(ya);

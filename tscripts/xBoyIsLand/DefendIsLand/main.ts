@@ -34,6 +34,7 @@ const Permission = (playerName : string,postion : Vector3)=>{
 export {Permission};
 system.runInterval(()=>{
     world.getDimension('overworld').getPlayers({}).forEach((player : Player)=>{
+        if(player?.location === undefined) return
         const per = Permission(player.name,player.location);//获取玩家当前区域的岛屿权限等级
         //读 写 操作
         // player.runCommand('me per=> '+per);

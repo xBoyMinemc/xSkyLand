@@ -6,6 +6,8 @@ const the_end = world.getDimension("the end");
 const nether = world.getDimension("nether");
 const overworld = world.getDimension("overworld");
 world.afterEvents.playerBreakBlock.subscribe(({ player: player, block: block, dimension: dimension }) => {
+    if (player?.location === undefined)
+        return;
     const { x, y, z } = player.location;
     dimension.getEntitiesAtBlockLocation(block.location).forEach(_ => _.typeId === "minecraft:player" || _.teleport({ x, y: y + 1.75, z }));
 });
@@ -29,6 +31,8 @@ system.runInterval(() => {
     overworld
         .getPlayers()
         .forEach((player) => {
+        if (player?.location === undefined)
+            return;
         if (player.location.y < -528) {
             const xz = kyj.index2pos(xIsLand.GetIsPlayerScore(player.name));
             if (xIsLand.GetIsPlayerScore(player.name) <= 0)
@@ -51,6 +55,8 @@ system.runInterval(() => {
     nether
         .getPlayers()
         .forEach((player) => {
+        if (player?.location === undefined)
+            return;
         if (player.location.y > -5)
             return;
         const xz = kyj.index2pos(xIsLand.GetIsPlayerScore(player.name));

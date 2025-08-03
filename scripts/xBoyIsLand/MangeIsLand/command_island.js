@@ -217,6 +217,10 @@ mc.system.beforeEvents.startup.subscribe((event) => {
         }
         const player = entity;
         mc.system.run(() => {
+            if (player?.location === undefined)
+                return;
+            if (player?.name === undefined)
+                return;
             switch (action) {
                 case "menu":
                     showIslandMenu(player);
@@ -259,6 +263,10 @@ mc.system.beforeEvents.startup.subscribe((event) => {
                         message: ""
                     };
                 case "delete":
+                    if (player?.location === undefined)
+                        return;
+                    if (player?.name === undefined)
+                        return;
                     const per = Permission(player.name, player.location);
                     if (!per.endsWith("1")) {
                         player.sendMessage("§c[摆烂空岛] 无法删除，因为不是岛主");
@@ -319,6 +327,8 @@ mc.system.beforeEvents.startup.subscribe((event) => {
 });
 mc.world.afterEvents.playerSpawn.subscribe((event) => {
     const player = event.player;
+    if (player?.location === undefined)
+        return;
     mc.system.runTimeout(() => {
         if (xIsLand.GetIsPlayerScore(player.name) <= 0) {
             player.sendMessage("§e[摆烂空岛] 欢迎来到摆烂空岛！");
@@ -334,6 +344,10 @@ mc.system.runInterval(() => {
     const nether = mc.world.getDimension("nether");
     const the_end = mc.world.getDimension("the_end");
     overworld.getPlayers().forEach((player) => {
+        if (player?.location === undefined)
+            return;
+        if (player?.name === undefined)
+            return;
         if (player.location.y < -528) {
             const xz = kyj.index2pos(xIsLand.GetIsPlayerScore(player.name));
             if (xIsLand.GetIsPlayerScore(player.name) <= 0) {

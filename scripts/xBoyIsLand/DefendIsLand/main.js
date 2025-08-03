@@ -22,6 +22,8 @@ const Permission = (playerName, postion) => {
 export { Permission };
 system.runInterval(() => {
     world.getDimension('overworld').getPlayers({}).forEach((player) => {
+        if (player?.location === undefined)
+            return;
         const per = Permission(player.name, player.location);
         if (player.playerPermissionLevel === PlayerPermissionLevel.Operator)
             return;
