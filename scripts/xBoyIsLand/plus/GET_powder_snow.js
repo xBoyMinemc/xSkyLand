@@ -23,7 +23,7 @@ world.beforeEvents.playerInteractWithBlock.subscribe(event => {
         if (nownow.amount === 1) {
             container.setItem(player.selectedSlotIndex, new ItemStack('minecraft:air', 33));
         }
-        if (nownow.amount > 1) {
+        else if (nownow.amount > 1) {
             nownow.amount -= 1;
             container.setItem(player.selectedSlotIndex, nownow);
         }
