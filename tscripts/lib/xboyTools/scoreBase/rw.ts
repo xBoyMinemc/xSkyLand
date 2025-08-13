@@ -3,24 +3,10 @@ import {
         DisplaySlotId,
         Entity,
         ObjectiveSortOrder,
-        Scoreboard,
         ScoreboardIdentity,
         ScoreboardObjective,
         world
 } from "@minecraft/server";
-
-// const overworld : Dimension = world.getDimension("overworld");
-// let xboy;
-
-// xboy = world.scoreboard.getObjective("testObjectName")
-// console.log(xboy)
-
-// xboy = world.scoreboard.getObjectives()
-// console.log(xboy)
-
-// xboy = world.scoreboard.getParticipants()
-// console.log(xboy[1].displayName)
-
 
 
 //@ts-ignore
